@@ -21,7 +21,7 @@ import useSiteContent from '@/hooks/useSiteContent';
 // import faqImage from '@/assets/images/faq/faq.jpg';
 
 /* Placeholder null â€” used until real image is added */
-const faqImage = null;
+const faqImage = '/images/teacher-training/faq.jpg';
 
 /* ===== Animation variants ===== */
 const fadeUp = {

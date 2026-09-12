@@ -43,7 +43,7 @@ export default function GalleryPage() {
   useEffect(() => {
     api
       .getGalleryImages()
-      .then((data) => setDbImages(data || []))
+      .then((data) => setDbImages(Array.isArray(data) ? data : []))
       .catch(() => setDbImages([]));
   }, []);
 
@@ -55,7 +55,7 @@ export default function GalleryPage() {
       category: item.category || 'Yoga Classes',
     }));
 
-    const standaloneUploads = dbImages.map((img) => ({
+    const standaloneUploads = (Array.isArray(dbImages) ? dbImages : []).map((img) => ({
       id: img._id,
       imageUrl: img.imageUrl,
       title: img.title,

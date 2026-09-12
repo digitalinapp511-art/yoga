@@ -35,13 +35,13 @@ import {
   IoChevronDown,
 } from 'react-icons/io5';
 
-/* ===== Animation variants (matches AboutPage.jsx) ===== */
+/* ===== Animation variants ===== */
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -61,93 +61,153 @@ const heroBadges = [
   { label: 'Safe, Hygienic & Professional Care', icon: IoShieldCheckmarkOutline },
 ];
 
-/* ===== Therapies offered ===== */
-const therapies = [
+/* ===== Wellness Support Categories (8 Categories) ===== */
+const wellnessCategories = [
+  {
+    title: 'Spine, Back & Neck Wellness',
+    items: [
+      'Lower Back Pain',
+      'Neck Pain',
+      'Cervical Spondylosis',
+      'Sciatica',
+      'Slipped Disc / Herniated Disc',
+      'Lumbar Spondylosis',
+      'Posture-related discomfort',
+      'Muscle stiffness & tension',
+    ],
+  },
+  {
+    title: 'Joint & Mobility Wellness',
+    items: [
+      'Knee Pain',
+      'Shoulder Pain',
+      'Frozen Shoulder',
+      'Arthritis & Osteoarthritis',
+      'Joint Stiffness',
+      'Muscle Tension',
+      'Reduced Mobility',
+      'Musculoskeletal Discomfort',
+    ],
+  },
+  {
+    title: 'Stress, Mind & Sleep Wellness',
+    items: [
+      'Stress & Anxiety',
+      'Overthinking',
+      'Mental Fatigue',
+      'Poor Sleep & Insomnia',
+      'Burnout',
+      'Stress-related Headache',
+    ],
+  },
+  {
+    title: "Women's Wellness",
+    items: [
+      'PCOS & PCOD',
+      'Menstrual Irregularities',
+      'Menopause-related Concerns',
+      'Hormonal Wellness',
+    ],
+  },
+  {
+    title: 'Weight & Metabolic Wellness',
+    items: [
+      'Overweight & Obesity',
+      'Weight-management Concerns',
+      'Type 2 Diabetes (Supportive)',
+      'High Blood Pressure (Supportive)',
+      'High Cholesterol',
+      'Metabolic Syndrome',
+    ],
+  },
+  {
+    title: 'Digestive Wellness',
+    items: [
+      'Acidity & Bloating',
+      'Constipation',
+      'Indigestion & Gas',
+      'Irregular Bowel Habits',
+      'Digestive Discomfort',
+    ],
+  },
+  {
+    title: 'Respiratory Wellness',
+    items: [
+      'Asthma (Supportive Wellness)',
+      'Allergic Rhinitis',
+      'Breathing-related Concerns',
+      'Reduced Respiratory Fitness',
+    ],
+  },
+  {
+    title: 'General Lifestyle Wellness',
+    items: [
+      'Low Energy & Fatigue',
+      'Poor Flexibility & Posture',
+      'Reduced Strength',
+      'Physical Inactivity',
+      'Irregular Daily Routine',
+      'Lack of Relaxation',
+    ],
+  },
+];
+
+/* ===== 4 Main Therapies ===== */
+const mainTherapies = [
+  {
+    title: 'Yoga & Therapeutic Yoga',
+    image: '/images/services/yoga-therapy.jpg',
+    description: 'Personalized yoga practices focused on movement, mobility, flexibility, strength, breathing awareness, relaxation, and overall well-being.',
+    points: ['Movement & Mobility', 'Breath Awareness', 'Postural Alignment', 'Deep Relaxation'],
+  },
   {
     title: 'Naturopathy',
     image: '/images/therapies/Naturopathy.jpg',
-    icon: IoLeafOutline,
-    accent: 'primary',
-    description: 'Healing through nature with detox, nutrition, hydrotherapy, mud therapy and lifestyle practices.',
-    recommendedFor: ['Lifestyle Disorders', 'Digestive Problems', 'Obesity', 'Diabetes Support', 'Stress Management', 'Detoxification'],
-    benefits: ['Improves Immunity', 'Restores Energy', 'Enhances Digestion', 'Promotes Natural Healing'],
+    description: "A natural wellness approach focused on lifestyle, diet, natural practices, rest, and the body's overall balance.",
+    points: ['Body Detoxification', 'Natural Diet & Rest', 'Internal Balance', 'Lifestyle Healing'],
+  },
+  {
+    title: 'Acupressure',
+    image: '/images/therapies/Acupressure_Therapy.jpg',
+    description: 'A traditional pressure-based wellness practice using specific points on the body to promote relaxation and support overall well-being.',
+    points: ['Pressure Points', 'Energy Flow', 'Muscular Relief', 'Circulation Support'],
   },
   {
     title: 'Cupping Therapy',
     image: '/images/therapies/Cupping_Therapy.jpg',
-    icon: IoWaterOutline,
-    accent: 'primary',
-    description: 'Ancient therapy that uses suction cups to improve circulation and relieve muscular tension.',
-    recommendedFor: ['Back Pain', 'Neck Pain', 'Shoulder Pain', 'Sports Recovery', 'Muscle Tightness'],
-    benefits: ['Pain Relief', 'Better Blood Circulation', 'Muscle Recovery', 'Detoxification'],
-  },
-  {
-    title: 'Acupressure Therapy',
-    image: '/images/therapies/Acupressure_Therapy.jpg',
-    icon: IoHandLeftOutline,
-    accent: 'primary',
-    description: 'Stimulating pressure points to restore energy flow and support the body\u2019s natural healing.',
-    recommendedFor: ['Migraine', 'Cervical Pain', 'Joint Pain', 'Stress & Anxiety', 'Digestive Issues'],
-    benefits: ['Relieves Pain', 'Reduces Stress', 'Improves Energy Flow', 'Supports Overall Wellness'],
-  },
-  {
-    title: 'Therapeutic Massage',
-    image: '/images/therapies/Therapeutic_Massage.webp',
-    icon: IoBodyOutline,
-    accent: 'dark',
-    description: 'Professional massage therapies to relax muscles, improve circulation and reduce stress.',
-    recommendedFor: ['Muscle Pain', 'Fatigue', 'Stress', 'Poor Circulation', 'Sports Recovery'],
-    benefits: ['Deep Relaxation', 'Improved Mobility', 'Faster Recovery', 'Better Sleep'],
-  },
-  {
-    title: 'Shirodhara',
-    image: '/images/therapies/Shirodhara.jpeg',
-    icon: IoFlameOutline,
-    accent: 'secondary',
-    description: 'Warm herbal oil is gently poured over the forehead to calm the nervous system and mind.',
-    recommendedFor: ['Stress', 'Anxiety', 'Insomnia', 'Mental Fatigue', 'Headaches'],
-    benefits: ['Mental Relaxation', 'Better Sleep', 'Improved Concentration', 'Emotional Balance'],
-  },
-  {
-    title: 'Janu Basti',
-    image: '/images/therapies/Janu_Basti.webp',
-    icon: IoFootstepsOutline,
-    accent: 'secondary',
-    description: 'Warm medicated oil is retained around the knee joint to nourish tissues and improve function.',
-    recommendedFor: ['Knee Pain', 'Arthritis', 'Joint Stiffness', 'Sports Injuries'],
-    benefits: ['Reduces Pain', 'Improves Joint Mobility', 'Strengthens Knee Health', 'Supports Recovery'],
-  },
-  {
-    title: 'Kati Basti',
-    image: '/images/therapies/Kati_Basti.webp',
-    icon: IoFlashlightOutline,
-    accent: 'dark',
-    description: 'Warm medicated oil is retained over the lower back to relieve pain and stiffness.',
-    recommendedFor: ['Lower Back Pain', 'Sciatica', 'Lumbar Stiffness', 'Disc-Related Discomfort'],
-    benefits: ['Relieves Lower Back Pain', 'Improves Flexibility', 'Reduces Muscle Tightness', 'Supports Spine Health'],
-  },
-  {
-    title: 'Head & Shoulder Massage',
-    image: '/images/therapies/hero.jpg',
-    icon: IoMoonOutline,
-    accent: 'primary',
-    description: 'A soothing candlelit ritual that eases tension through the head, neck and shoulders.',
-    recommendedFor: ['Stress', 'Tension Headaches', 'Poor Sleep', 'Mental Fatigue'],
-    benefits: ['Deep Relaxation', 'Relieves Tension', 'Improves Sleep Quality', 'Calms the Mind'],
+    description: 'A traditional therapy involving the controlled application of cups to the body, commonly used as a supportive practice for muscular relaxation and physical comfort.',
+    points: ['Suction Cups', 'Muscular Relaxation', 'Tension Release', 'Deep Comfort'],
   },
 ];
 
-/* Tailwind-safe class lookups per accent (keeps arbitrary class names static so
-   the JIT compiler can see them, rather than building class strings at runtime).
-   Icon badges keep a bit of color variety across cards; the "Explore" button
-   below is intentionally the same color on every card (see EXPLORE_BUTTON_CLASS). */
-const accentClasses = {
-  primary: { icon: 'bg-primary text-white' },
-  secondary: { icon: 'bg-secondary text-white' },
-  dark: { icon: 'bg-dark text-white' },
-};
+/* ===== 11 Sub-Therapies (From Handwritten Note) ===== */
+const subTherapies = [
+  { name: 'Snehan (मसाज / Massage)', desc: 'Herbal oil massage to nourish tissues and relieve stiffness.' },
+  { name: 'Swedan (Steam)', desc: 'Medicated herbal steam therapy for full-body detoxification.' },
+  { name: 'Patra Potali Massage', desc: 'Warm herbal poultice massage for joint & muscle comfort.' },
+  { name: 'Shirodhara', desc: 'Continuous stream of warm oil on forehead for deep mental peace.' },
+  { name: 'Janu Vasti', desc: 'Medicated oil pooling therapy specifically for knee joint care.' },
+  { name: 'Kati Vasti', desc: 'Warm herbal oil reservoir over lower back for spinal relief.' },
+  { name: 'Mud Bath', desc: 'Mineral-rich mud therapy for cooling, detox and skin vitality.' },
+  { name: 'Abdominal Mud Pack', desc: 'Targeted mud application on abdomen to support digestion.' },
+  { name: 'Hip Bath', desc: 'Hydrotherapy sitz bath supporting pelvic and lower body wellness.' },
+  { name: 'Arm Bath', desc: 'Targeted hydrotherapy bath for arms and upper-body circulation.' },
+  { name: 'Colon Cleansing', desc: 'Natural digestive and colon wellness cleansing practice.' },
+];
 
-const EXPLORE_BUTTON_CLASS = 'bg-primary text-white hover:bg-primary-dark';
+/* ===== What We Aim to Support ===== */
+const supportGoals = [
+  'Move with greater ease',
+  'Develop better body awareness',
+  'Improve flexibility and mobility',
+  'Relax the body and mind',
+  'Develop healthier daily habits',
+  'Improve breathing awareness',
+  'Support better sleep and relaxation',
+  'Manage lifestyle-related stress',
+  'Build consistency in self-care',
+  'Develop a more balanced lifestyle',
+];
 
 /* ===== Benefits of natural healing ===== */
 const healingBenefits = [
@@ -210,7 +270,10 @@ const faqs = [
   { q: 'What are your centre timings?', a: 'We\u2019re open daily by appointment. Reach out and we\u2019ll find a slot that works for you.' },
 ];
 
-const therapyOptions = therapies.map((t) => t.title);
+const therapyOptions = [
+  ...mainTherapies.map((t) => t.title),
+  ...subTherapies.map((s) => s.name),
+];
 
 export default function TherapiesPage() {
   usePageMeta('therapies');
@@ -238,45 +301,24 @@ export default function TherapiesPage() {
 
   return (
     <div data-page="therapies">
-      {/* ===== Hero ===== */}
+      {/* ===== 1. Hero Section ===== */}
       <section className="bg-background pt-[120px] pb-[60px] sm:pt-[140px] md:pt-[160px] md:pb-[80px]">
         <Container className="max-w-[1320px]">
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col items-start gap-5"
-            >
-              <motion.span
-                variants={fadeUp}
-                className="font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary"
-              >
-                Natural Healing Therapies
-              </motion.span>
+            <div className="flex flex-col items-start gap-5">
+              <span className="font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary">
+                Holistic Wellness for a Healthier Life
+              </span>
 
-              <motion.h1
-                variants={fadeUp}
-                className="font-heading text-3xl font-semibold leading-tight text-dark sm:text-4xl md:text-5xl"
-              >
-                Heal Naturally.
-                <br />
-                Restore Balance.
-                <br />
-                <span className="text-primary">Live Better.</span>
-              </motion.h1>
+              <h1 className="font-heading text-3xl font-semibold leading-tight text-dark sm:text-4xl md:text-5xl">
+                Wellness &amp; <span className="text-primary">Therapies</span>
+              </h1>
 
-              <motion.p variants={fadeUp} className="max-w-md text-base leading-relaxed text-muted">
-                At Vimoksha Yogshala, we combine the wisdom of Ayurveda,
-                Naturopathy and traditional healing therapies to address the
-                root cause of discomfort and support your body's natural
-                healing process.
-              </motion.p>
+              <p className="max-w-lg text-base leading-relaxed text-muted">
+                At Vimoksha Yogshala, we believe wellness is more than simply managing symptoms. It is about creating balance in the body, breath, mind, and lifestyle. Our holistic approach brings together the traditional wisdom of Yoga and Naturopathy with supportive wellness therapies selected according to individual needs, lifestyle, and wellness goals.
+              </p>
 
-              <motion.div
-                variants={fadeUp}
-                className="mt-2 grid w-full grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4"
-              >
+              <div className="mt-2 grid w-full grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
                 {heroBadges.map((badge) => {
                   const Icon = badge.icon;
                   return (
@@ -290,15 +332,10 @@ export default function TherapiesPage() {
                     </div>
                   );
                 })}
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="relative overflow-hidden rounded-[28px] shadow-elevated"
-            >
+            <div className="relative overflow-hidden rounded-[28px] shadow-elevated">
               <img
                 src="/images/therapies/hero.jpg"
                 alt="Guest enjoying a calming candlelit head and face massage at Vimoksha Yogshala"
@@ -309,186 +346,257 @@ export default function TherapiesPage() {
                 <span className="mb-1 block text-3xl leading-none text-white/70">&ldquo;</span>
                 Nature has the power to heal. We simply help your body remember it.
               </blockquote>
-            </motion.div>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* ===== Therapies grid ===== */}
-      <section className="bg-white py-[60px] md:py-[100px]">
-        <Container className="max-w-[1400px]">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            className="mx-auto mb-12 flex flex-col items-center gap-3 text-center"
-          >
-            <motion.h2
-              variants={fadeUp}
-              className="font-heading text-2xl font-semibold uppercase tracking-wide text-dark sm:text-3xl"
-            >
-              Our Healing Therapies
-            </motion.h2>
-          </motion.div>
+      {/* ===== 2. Wellness Support For (8 Categories) ===== */}
+      <section className="bg-white py-16 md:py-24 border-b border-border/70">
+        <Container className="max-w-[1320px]">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary mb-3">
+              Targeted Care
+            </span>
+            <h2 className="font-heading text-3xl md:text-4xl font-semibold text-dark">
+              Wellness <span className="text-primary">Support For</span>
+            </h2>
+            <p className="mt-4 text-base md:text-lg text-muted leading-relaxed">
+              Modern lifestyles can affect our physical health, mental well-being, sleep, digestion, movement, and hormonal health. Our wellness services are designed to support individuals experiencing common lifestyle-related concerns.
+            </p>
+          </div>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.05 }}
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-          >
-            {therapies.map((therapy) => {
-              const Icon = therapy.icon;
-              const accent = accentClasses[therapy.accent];
-              return (
-                <motion.div
-                  key={therapy.title}
-                  variants={fadeUp}
-                  whileHover={{ y: -6 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-                  className="flex flex-col overflow-hidden rounded-[20px] border border-border bg-background shadow-soft transition-shadow duration-300 hover:shadow-elevated"
-                >
-                  <div className="relative">
-                    <img
-                      src={therapy.image}
-                      alt={therapy.title}
-                      className="h-[150px] w-full object-cover"
-                    />
-                    <span
-                      className={`absolute -bottom-5 left-5 flex h-11 w-11 items-center justify-center rounded-full border-4 border-background ${accent.icon}`}
-                    >
-                      <Icon className="text-lg" />
-                    </span>
-                  </div>
-
-                  <div className="flex flex-1 flex-col px-5 pb-5 pt-8">
-                    <h3 className="font-heading text-lg font-semibold uppercase tracking-wide text-dark">
-                      {therapy.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">
-                      {therapy.description}
-                    </p>
-
-                    <p className="mt-4 font-body text-xs font-bold uppercase tracking-wide text-dark">
-                      Recommended For
-                    </p>
-                    <ul className="mt-1.5 space-y-0.5">
-                      {therapy.recommendedFor.map((item) => (
-                        <li key={item} className="text-xs leading-relaxed text-muted">
-                          &bull; {item}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <p className="mt-4 font-body text-xs font-bold uppercase tracking-wide text-dark">
-                      Benefits
-                    </p>
-                    <ul className="mt-1.5 space-y-0.5">
-                      {therapy.benefits.map((item) => (
-                        <li key={item} className="text-xs leading-relaxed text-muted">
-                          &bull; {item}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <a
-                      href="#book-consultation"
-                      className={`mt-auto pt-5 inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-2.5 font-body text-xs font-bold uppercase tracking-wide transition-colors ${EXPLORE_BUTTON_CLASS}`}
-                    >
-                      Explore
-                    </a>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {wellnessCategories.map((category) => (
+              <div
+                key={category.title}
+                className="bg-background rounded-[24px] p-6 border border-border shadow-soft flex flex-col transition-all duration-300 hover:shadow-elevated hover:-translate-y-1"
+              >
+                <h3 className="font-heading text-lg font-semibold text-dark mb-4 pb-3 border-b border-border/80">
+                  {category.title}
+                </h3>
+                <ul className="space-y-2.5 text-sm text-muted">
+                  {category.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
 
-      {/* ===== Main content + sticky booking sidebar ===== */}
-      <section className="bg-background pt-[60px] md:pt-[100px]">
-        <Container className="max-w-[1400px]">
+      {/* ===== 3. Our Wellness Therapies (Main + Sub-Therapies) ===== */}
+      <section className="bg-background py-16 md:py-24">
+        <Container className="max-w-[1320px]">
+          {/* Section Heading */}
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary mb-3">
+              Holistic Care
+            </span>
+            <h2 className="font-heading text-3xl md:text-4xl font-semibold text-dark">
+              Our Wellness <span className="text-primary">Therapies</span>
+            </h2>
+            <p className="mt-4 text-base md:text-lg text-muted">
+              Evidence-informed traditional therapies administered by trained practitioners.
+            </p>
+          </div>
+
+          {/* 4 Main Therapies */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {mainTherapies.map((therapy) => (
+              <div
+                key={therapy.title}
+                className="bg-white rounded-[24px] border border-border overflow-hidden shadow-soft flex flex-col justify-between transition-all duration-300 hover:shadow-elevated hover:-translate-y-1"
+              >
+                <div>
+                  <div className="h-44 w-full overflow-hidden bg-muted/20">
+                    <img
+                      src={therapy.image}
+                      alt={therapy.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      onError={(e) => {
+                        e.target.src = '/images/therapies/Naturopathy.jpg';
+                      }}
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-semibold text-dark mb-2">
+                      {therapy.title}
+                    </h3>
+                    <p className="text-sm text-muted leading-relaxed mb-4">
+                      {therapy.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {therapy.points.map((pt) => (
+                        <span key={pt} className="rounded-md bg-primary/10 text-primary px-2.5 py-1 text-xs font-medium">
+                          {pt}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 11 Sub-Therapies (From Handwritten Note) */}
+          <div className="bg-white rounded-[28px] p-8 md:p-12 border border-border shadow-soft mb-16">
+            <div className="text-center max-w-xl mx-auto mb-10">
+              <span className="inline-block rounded-full bg-secondary/15 text-secondary px-4 py-1.5 text-xs font-semibold uppercase tracking-wider mb-2">
+                Specialized Healing Modalities
+              </span>
+              <h3 className="font-heading text-2xl md:text-3xl font-semibold text-dark">
+                Supportive <span className="text-primary">Sub-Therapies</span>
+              </h3>
+              <p className="mt-2 text-sm text-muted">
+                Traditional Ayurvedic and Naturopathic therapies integrated into your personalized plan.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {subTherapies.map((sub, idx) => (
+                <div
+                  key={sub.name}
+                  className="rounded-2xl bg-background p-5 border border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-bold shrink-0">
+                      {idx + 1}
+                    </span>
+                    <h4 className="font-heading text-base font-semibold text-dark">
+                      {sub.name}
+                    </h4>
+                  </div>
+                  <p className="text-xs md:text-sm text-muted leading-relaxed pl-10">
+                    {sub.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Personalized Approach & What We Aim to Support */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left: Personalized Wellness Approach */}
+            <div className="bg-white rounded-[28px] p-8 md:p-10 border border-border shadow-soft flex flex-col justify-between">
+              <div>
+                <span className="inline-block rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-semibold uppercase tracking-wider mb-4">
+                  Individual Care
+                </span>
+                <h3 className="font-heading text-2xl md:text-3xl font-semibold text-dark mb-4">
+                  Personalized Wellness Approach
+                </h3>
+                <p className="text-base text-muted leading-relaxed mb-4">
+                  We understand that every individual is different.
+                </p>
+                <p className="text-base text-muted leading-relaxed mb-4">
+                  Instead of following the same approach for everyone, we first understand your lifestyle, physical condition, daily routine, wellness goals, and individual requirements.
+                </p>
+                <p className="text-base text-muted leading-relaxed">
+                  Based on this understanding, appropriate yoga practices and wellness therapies may be combined to create a truly personalized healing experience.
+                </p>
+              </div>
+              <div className="pt-6 mt-6 border-t border-border">
+                <a
+                  href="#book-consultation"
+                  className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary-dark transition-colors"
+                >
+                  Book a Wellness Consultation
+                </a>
+              </div>
+            </div>
+
+            {/* Right: What We Aim to Support (10 Goals) */}
+            <div className="bg-white rounded-[28px] p-8 md:p-10 border border-border shadow-soft">
+              <span className="inline-block rounded-full bg-secondary/15 text-secondary px-4 py-1.5 text-xs font-semibold uppercase tracking-wider mb-4">
+                Our Goals
+              </span>
+              <h3 className="font-heading text-2xl md:text-3xl font-semibold text-dark mb-2">
+                What We Aim to Support
+              </h3>
+              <p className="text-sm font-medium text-primary mb-6">
+                Our goal is to help you:
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {supportGoals.map((goal) => (
+                  <div key={goal} className="flex items-start gap-2.5 text-sm text-dark/80">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shrink-0 text-xs mt-0.5">
+                      ✓
+                    </span>
+                    <span className="leading-tight">{goal}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ===== 4. Benefits & Why Choose Us + Booking Form ===== */}
+      <section className="bg-white py-16 md:py-24 border-t border-border/70">
+        <Container className="max-w-[1320px]">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_380px]">
-            {/* ----- Left column ----- */}
+            {/* Left column */}
             <div className="flex flex-col gap-16">
               {/* Benefits of natural healing */}
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <motion.h2
-                  variants={fadeUp}
-                  className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl"
-                >
+              <div>
+                <h2 className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl">
                   Benefits of Natural Healing
-                </motion.h2>
+                </h2>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
                   {healingBenefits.map((item) => {
                     const Icon = item.icon;
                     return (
-                      <motion.div
+                      <div
                         key={item.label}
-                        variants={fadeUp}
                         className="flex flex-col items-center gap-3 text-center"
                       >
-                        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-white text-primary shadow-soft">
+                        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-background text-primary shadow-soft">
                           <Icon className="text-2xl" />
                         </span>
                         <span className="font-body text-xs font-medium leading-snug text-dark/70">
                           {item.label}
                         </span>
-                      </motion.div>
+                      </div>
                     );
                   })}
                 </div>
-              </motion.div>
+              </div>
 
               {/* Why choose us */}
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <motion.h2
-                  variants={fadeUp}
-                  className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl"
-                >
+              <div>
+                <h2 className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl">
                   Why Choose Vimoksha Yogshala?
-                </motion.h2>
+                </h2>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
                   {whyChooseUs.map((item) => {
                     const Icon = item.icon;
                     return (
-                      <motion.div
+                      <div
                         key={item.label}
-                        variants={fadeUp}
                         className="flex flex-col items-center gap-3 text-center"
                       >
-                        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-white text-secondary shadow-soft">
+                        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-background text-secondary shadow-soft">
                           <Icon className="text-2xl" />
                         </span>
                         <span className="font-body text-xs font-medium leading-snug text-dark/70">
                           {item.label}
                         </span>
-                      </motion.div>
+                      </div>
                     );
                   })}
                 </div>
-              </motion.div>
+              </div>
             </div>
 
-            {/* ----- Right column: booking sidebar ----- */}
-            <motion.div
+            {/* Right column: booking sidebar */}
+            <div
               id="book-consultation"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="h-fit overflow-hidden rounded-[20px] border border-border shadow-elevated lg:sticky lg:top-28"
             >
               <div className="bg-secondary px-6 py-5 text-white">
@@ -613,109 +721,87 @@ export default function TherapiesPage() {
                   Call Now: +91 90266 12796
                 </a>
               </form>
-            </motion.div>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* ===== Client reviews & FAQ (full width) ===== */}
-      <section className="bg-background pb-[60px] md:pb-[100px]">
-        <Container className="max-w-[1400px]">
+      {/* ===== 5. Client reviews & FAQ ===== */}
+      <section className="bg-background py-16 md:py-24">
+        <Container className="max-w-[1320px]">
           <div className="flex flex-col gap-16">
-              {/* Testimonials */}
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <motion.h2
-                  variants={fadeUp}
-                  className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl"
-                >
-                  What Our Clients Say
-                </motion.h2>
-                <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                  {testimonials.map((t) => (
-                    <motion.div
-                      key={t.name}
-                      variants={fadeUp}
-                      className="flex h-full flex-col rounded-[20px] border border-border bg-white p-5 shadow-soft"
-                    >
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={t.image}
-                          alt={t.name}
-                          className="h-11 w-11 shrink-0 rounded-full object-cover"
-                        />
-                        <div className="flex text-primary">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <IoStar key={i} className="text-sm" />
-                          ))}
-                        </div>
+            {/* Testimonials */}
+            <div>
+              <h2 className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl">
+                What Our Clients Say
+              </h2>
+              <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {testimonials.map((t) => (
+                  <div
+                    key={t.name}
+                    className="flex h-full flex-col rounded-[20px] border border-border bg-white p-5 shadow-soft"
+                  >
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={t.image}
+                        alt={t.name}
+                        className="h-11 w-11 shrink-0 rounded-full object-cover"
+                      />
+                      <div className="flex text-primary">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <IoStar key={i} className="text-sm" />
+                        ))}
                       </div>
-                      <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
-                        {t.quote}
-                      </p>
-                      <p className="mt-4 font-heading text-sm font-semibold text-dark">
-                        &mdash; {t.name}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
+                    </div>
+                    <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                      {t.quote}
+                    </p>
+                    <p className="mt-4 font-heading text-sm font-semibold text-dark">
+                      &mdash; {t.name}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-              {/* FAQ */}
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <motion.h2
-                  variants={fadeUp}
-                  className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl"
-                >
-                  Frequently Asked Questions
-                </motion.h2>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-1 sm:grid-cols-3">
-                  {faqs.map((faq, i) => {
-                    const isOpen = openFaq === i;
-                    return (
-                      <motion.div key={faq.q} variants={fadeUp} className="border-b border-border py-3">
-                        <button
-                          type="button"
-                          onClick={() => setOpenFaq(isOpen ? null : i)}
-                          className="flex w-full items-center justify-between gap-3 text-left"
-                          aria-expanded={isOpen}
-                        >
-                          <span className="font-body text-sm font-medium text-dark/80">
-                            {faq.q}
-                          </span>
-                          <span className="shrink-0 text-primary">
-                            {isOpen ? <IoRemoveOutline /> : <IoAddOutline />}
-                          </span>
-                        </button>
-                        {isOpen && (
-                          <motion.p
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            transition={{ duration: 0.25 }}
-                            className="mt-2 text-xs leading-relaxed text-muted"
-                          >
-                            {faq.a}
-                          </motion.p>
-                        )}
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </motion.div>
+            {/* FAQ */}
+            <div>
+              <h2 className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl">
+                Frequently Asked Questions
+              </h2>
+              <div className="grid grid-cols-1 gap-x-8 gap-y-1 sm:grid-cols-3">
+                {faqs.map((faq, i) => {
+                  const isOpen = openFaq === i;
+                  return (
+                    <div key={faq.q} className="border-b border-border py-3">
+                      <button
+                        type="button"
+                        onClick={() => setOpenFaq(isOpen ? null : i)}
+                        className="flex w-full items-center justify-between gap-3 text-left"
+                        aria-expanded={isOpen}
+                      >
+                        <span className="font-body text-sm font-medium text-dark/80">
+                          {faq.q}
+                        </span>
+                        <span className="shrink-0 text-primary">
+                          {isOpen ? <IoRemoveOutline /> : <IoAddOutline />}
+                        </span>
+                      </button>
+                      {isOpen && (
+                        <p className="mt-2 text-xs leading-relaxed text-muted">
+                          {faq.a}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* ===== Closing CTA banner ===== */}
+      {/* ===== 6. Closing CTA banner ===== */}
       <section className="relative overflow-hidden bg-dark py-14">
         <img
           src="/images/therapies/hero.jpg"
@@ -725,23 +811,17 @@ export default function TherapiesPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/90 to-dark/40" />
         <Container className="relative max-w-[1320px]">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between"
-          >
-            <motion.div variants={fadeUp}>
+          <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
               <h2 className="font-heading text-2xl font-semibold text-white sm:text-3xl">
                 Begin Your <span className="text-primary">Natural Healing Journey</span> Today
               </h2>
               <p className="mt-2 font-body text-sm text-white/70">
                 Let nature heal you. Let us guide you.
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-6">
+            <div className="flex flex-wrap items-center gap-6">
               {[
                 { label: 'Heal Naturally', icon: IoLeafOutline },
                 { label: 'Restore Balance', icon: IoBodyOutline },
@@ -760,9 +840,9 @@ export default function TherapiesPage() {
                   </div>
                 );
               })}
-            </motion.div>
+            </div>
 
-            <motion.div variants={fadeUp}>
+            <div>
               <Button
                 as={Link}
                 to="/contact"
@@ -773,8 +853,8 @@ export default function TherapiesPage() {
               >
                 Book a Consultation
               </Button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </Container>
       </section>
     </div>

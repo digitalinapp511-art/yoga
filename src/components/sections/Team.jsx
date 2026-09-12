@@ -12,13 +12,13 @@ export default function Team() {
       name: 'Yogacharya Rita',
       role: 'Co-Founder & Yoga Teacher',
       certification: 'Certified from Shri Guru Ram Rai University',
-      image: '🧘‍♀️',
+      image: '/images/about-instructor.jpg',
     },
     {
       name: 'Yogi Anuj',
       role: 'Yoga Instructor',
-      certification: 'Certified by Yoga Certification Board Ministry of AYUSH',
-      image: '🙏',
+      certification: 'Certified by Yoga Certification Board Ministry of AYUSH.',
+      image: '/images/about-instructor.jpg',
     },
   ];
 
@@ -40,8 +40,13 @@ export default function Team() {
               key={index}
               className="group rounded-2xl border border-border bg-gradient-to-br from-white to-primary/5 p-8 text-center transition-all duration-300 hover:shadow-lg hover:border-primary/30"
             >
-              <div className="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-primary/10 text-6xl group-hover:bg-primary/20 transition-colors">
-                {member.image}
+              <div className="mx-auto mb-6 h-48 w-full overflow-hidden rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/20">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="h-full w-full object-cover object-top"
+                  loading="lazy"
+                />
               </div>
               <h3 className="font-heading text-lg font-semibold text-primary mb-2">
                 {member.name}

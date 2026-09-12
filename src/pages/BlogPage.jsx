@@ -16,7 +16,7 @@ export default function BlogPage() {
   useEffect(() => {
     api
       .getPublishedPosts()
-      .then(setPosts)
+      .then((data) => setPosts(Array.isArray(data) ? data : []))
       .catch(() => setPosts([]))
       .finally(() => setLoading(false));
   }, []);
@@ -37,7 +37,7 @@ export default function BlogPage() {
         )}
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post, i) => (
+          {(Array.isArray(posts) ? posts : []).map((post, i) => (
             <motion.div
               key={post._id}
               variants={fadeUp}
