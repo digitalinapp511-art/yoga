@@ -22,11 +22,8 @@ export function createApp() {
   app.use(
     cors({
       origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin) || /^http:\/\/localhost:\d+$/.test(origin)) {
-          callback(null, true);
-        } else {
-          callback(new Error('CORS not allowed'));
-        }
+        // Allow requests with no origin (mobile apps, curl, etc.) or any origin
+        callback(null, true);
       },
       credentials: true,
     })
