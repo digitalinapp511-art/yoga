@@ -1,8 +1,10 @@
 import usePageMeta from '@/hooks/usePageMeta';
 import { Container } from '@/components/ui';
 import PathwaysSection from '@/components/sections/PathwaysSection';
+import { Link } from 'react-router-dom';
 import {
   HeroSection,
+  WhyChooseUs,
   Services,
   ProgramsSection,
   TestimonialsSection,
@@ -19,7 +21,7 @@ function PhilosophySection() {
       {/* Full width 1320px to match Hero & Pathways */}
       <Container className="max-w-[1320px]">
         <div className="bg-white rounded-[28px] p-6 sm:p-8 md:p-12 border border-border shadow-soft">
-          <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
             <span className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary mb-3">
               Ancient Yogic Wisdom
             </span>
@@ -28,44 +30,55 @@ function PhilosophySection() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {/* Shloka 1 */}
-            <div className="rounded-2xl bg-background p-6 md:p-8 border border-border/80 flex flex-col justify-between">
-              <div>
-                <div className="border-l-4 border-primary pl-4 mb-4">
-                  <p className="font-heading text-xl md:text-2xl font-bold text-dark">
-                    समत्वं योग उच्यते
-                  </p>
-                  <p className="text-sm italic font-medium text-primary mt-1">
-                    &ldquo;Equanimity is Yoga.&rdquo;
-                  </p>
-                </div>
-                <p className="text-sm md:text-base leading-relaxed text-muted mt-4">
-                  At Vimoksha Yogshala, we believe yoga is not just about flexibility, strength, or physical postures. It is a journey towards balance within — bringing harmony to the body, awareness to the breath, clarity to the mind, and steadiness to everyday life.
-                </p>
-                <p className="text-sm md:text-base leading-relaxed text-muted mt-3">
-                  Inspired by the timeless wisdom of <em>&ldquo;Samatvam Yoga Uchyate,&rdquo;</em> we see yoga as the cultivation of inner balance — learning to remain steady through both comfort and discomfort, success and failure, activity and rest.
-                </p>
-              </div>
+          <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+            {/* Left Column: Photo matching the exact height & size of the shlok card */}
+            <div className="overflow-hidden rounded-[24px] border border-border/80 shadow-xs bg-background h-full min-h-[350px] sm:min-h-[400px]">
+              <img
+                src="/images/abouthome.jpg"
+                alt="Yogacharya Gyan Prakash at Vimoksha Yogshala"
+                className="w-full h-full object-cover object-center block"
+                loading="lazy"
+              />
             </div>
 
-            {/* Shloka 2 */}
-            <div className="rounded-2xl bg-background p-6 md:p-8 border border-border/80 flex flex-col justify-between">
-              <div>
-                <div className="border-l-4 border-secondary pl-4 mb-4">
-                  <p className="font-heading text-xl md:text-2xl font-bold text-dark">
-                    ततो द्वन्द्वानभिघातः
-                  </p>
-                  <p className="text-sm italic font-medium text-secondary mt-1">
-                    tato dvandva-anabhighātaḥ — &ldquo;Then, one is no longer disturbed by the pairs of opposites.&rdquo;
-                  </p>
+            {/* Right Column: Single Shlok + About Us CTA Button */}
+            <div className="h-full">
+              <div className="rounded-[24px] bg-background p-7 sm:p-8 md:p-10 border border-border/80 shadow-xs h-full flex flex-col justify-between">
+                <div>
+                  <div className="border-l-4 border-primary pl-4 mb-5">
+                    <span className="inline-block rounded-full bg-primary/10 text-primary px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-2">
+                      Core Yogic Philosophy
+                    </span>
+                    <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-dark tracking-wide">
+                      समत्वं योग उच्यते
+                    </h3>
+                    <p className="text-sm sm:text-base italic font-medium text-primary mt-1.5">
+                      samatvaṁ yoga ucyate — &ldquo;Equanimity is Yoga.&rdquo;
+                    </p>
+                  </div>
+
+                  <div className="space-y-3.5 text-sm sm:text-base leading-relaxed text-muted">
+                    <p>
+                      At Vimoksha Yogshala, we believe yoga is not just about flexibility, strength, or physical postures. It is a journey towards balance within — bringing harmony to the body, awareness to the breath, clarity to the mind, and steadiness to everyday life.
+                    </p>
+                    <p>
+                      Inspired by the timeless wisdom of <em>&ldquo;Samatvam Yoga Uchyate,&rdquo;</em> we see yoga as the cultivation of inner balance — learning to remain steady through both comfort and discomfort, success and failure, activity and rest.
+                    </p>
+                    <p>
+                      We bring together the traditional wisdom of Asana, Pranayama, Shatkriya, Meditation, and Yoga Philosophy with a practical approach to modern wellness.
+                    </p>
+                  </div>
                 </div>
-                <p className="text-sm md:text-base leading-relaxed text-muted mt-4">
-                  Through consistent practice, yoga helps us develop a more stable relationship with life&apos;s changing experiences. Rather than being constantly affected by stress, discomfort, or external circumstances, we learn to respond with greater awareness, resilience, and calmness.
-                </p>
-                <p className="text-sm md:text-base leading-relaxed text-muted mt-3">
-                  We bring together the traditional wisdom of Asana, Pranayama, Shatkriya, Meditation, and Yoga Philosophy with a practical approach to modern wellness.
-                </p>
+
+                {/* About Us Button */}
+                <div className="mt-8 pt-2">
+                  <Link
+                    to="/about#about-philosophy"
+                    className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 font-body text-sm font-bold uppercase tracking-[0.14em] text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-dark hover:shadow-elevated"
+                  >
+                    About Us &rarr;
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -83,16 +96,9 @@ export default function HomePage() {
       {/* Our Philosophy: Perfectly placed between Hero Banner and Explore Our Pathways */}
       <PhilosophySection />
       <PathwaysSection />
+      {/* Why Choose Us Section with Mandala Photo */}
+      <WhyChooseUs />
       <Services />
-      {/* Yoga Features Section - 100% Responsive Full Width */}
-      <section className="w-full overflow-hidden">
-        <img
-          src="/images/yoga-features.jpg"
-          alt="Why Choose Us Features"
-          className="w-full h-auto block"
-          loading="lazy"
-        />
-      </section>
       <ProgramsSection />
       <TestimonialsSection />
       <GallerySection />

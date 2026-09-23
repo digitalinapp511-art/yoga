@@ -267,7 +267,7 @@ export default function AdminContentPage() {
   };
 
   const inputClass =
-    'w-full rounded-xl border border-border px-4 py-2.5 text-sm outline-none transition-colors focus:border-secondary';
+    'w-full rounded-xl border border-border bg-white px-4 py-2.5 text-sm font-body font-medium text-dark outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary';
   const labelClass = 'mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-muted';
 
   const cardsHelperText = () => {
@@ -305,7 +305,7 @@ export default function AdminContentPage() {
       </div>
 
       {loading ? (
-        <p className="text-sm text-muted">Loadingâ€¦</p>
+        <p className="text-sm text-muted">Loading…</p>
       ) : (
         <form
           onSubmit={handleSubmit}
@@ -320,6 +320,9 @@ export default function AdminContentPage() {
               className={inputClass}
               placeholder="Section main title"
             />
+            <p className="mt-1 text-[11px] text-muted">
+              Tip: Wrap words in asterisks like <span className="font-semibold text-primary">*Vimoksha Yogshala*</span> to highlight them in the brand color. All text renders in the site&apos;s matching Outfit font.
+            </p>
           </div>
 
           <div>
@@ -343,6 +346,9 @@ export default function AdminContentPage() {
               className={inputClass}
               placeholder="Section introductory paragraph"
             />
+            <p className="mt-1 text-[11px] text-muted">
+              Renders in high-contrast, crystal-clear readable font on the website.
+            </p>
           </div>
 
           {SECTIONS_WITH_IMAGE.includes(active) && (

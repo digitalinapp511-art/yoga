@@ -1,8 +1,9 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/ui';
 import { Link } from 'react-router-dom';
 import { IoArrowForward } from 'react-icons/io5';
 import useSiteContent from '@/hooks/useSiteContent';
+import FormattedText from '@/components/common/FormattedText';
 
 // Service images â€” replace paths if your project stores images elsewhere
 import yogaClassesImg from '@/assets/images/services/yoga-classes.jpg';
@@ -176,7 +177,7 @@ function ServiceGrid({ items }) {
             <h3 className="font-heading text-lg font-semibold text-primary">
               {service.title}
             </h3>
-            <p className="mt-1.5 flex-1 text-sm leading-relaxed text-dark/70">
+            <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted font-normal">
               {service.description}
             </p>
             <Link
@@ -224,14 +225,14 @@ function SectionHeading({ badge, title, description, image, features }) {
 
       <motion.h2
         variants={fadeUp}
-        className="font-heading text-4xl font-semibold leading-tight text-primary md:text-5xl"
+        className="font-heading text-4xl font-semibold leading-tight text-dark md:text-5xl"
       >
-        {title}
+        <FormattedText text={title} />
       </motion.h2>
 
       <motion.p
         variants={fadeUp}
-        className="max-w-xl text-base leading-relaxed text-dark/70 md:text-lg"
+        className="max-w-xl text-base leading-relaxed text-muted md:text-lg font-normal"
       >
         {description}
       </motion.p>

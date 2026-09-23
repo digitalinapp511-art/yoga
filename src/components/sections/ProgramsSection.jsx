@@ -1,8 +1,9 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Container, Button } from '@/components/ui';
 import { Link } from 'react-router-dom';
 import { HiArrowRight } from 'react-icons/hi2';
 import useSiteContent from '@/hooks/useSiteContent';
+import FormattedText from '@/components/common/FormattedText';
 
 // Program images â€” used as fallback photos until/unless the admin uploads
 // a replacement for that card in the Programs tab of Site Content.
@@ -131,12 +132,12 @@ export default function ProgramsSection() {
             variants={fadeUp}
             className="font-heading text-4xl font-semibold leading-tight text-dark md:text-5xl"
           >
-            {content.heading}
+            <FormattedText text={content.heading} />
           </motion.h2>
 
           <motion.p
             variants={fadeUp}
-            className="max-w-xl text-base leading-relaxed text-muted md:text-lg"
+            className="max-w-xl text-base leading-relaxed text-muted md:text-lg font-normal"
           >
             {content.description}
           </motion.p>

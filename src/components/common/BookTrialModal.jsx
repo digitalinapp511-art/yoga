@@ -43,10 +43,7 @@ export default function BookTrialModal() {
               <span className="inline-block rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
                 Free Experience
               </span>
-              <h2
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                className="mt-2 text-2xl sm:text-3xl font-semibold text-dark leading-tight"
-              >
+              <h2 className="mt-2 text-2xl sm:text-3xl font-semibold text-dark leading-tight">
                 Book Your Trial Class
               </h2>
               <p className="mt-1.5 text-xs sm:text-sm text-muted">

@@ -1,22 +1,10 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import usePageMeta from '@/hooks/usePageMeta';
 import { Container, Button } from '@/components/ui';
 import { Team, FAQSection } from '@/components/sections';
 import { HiArrowRight } from 'react-icons/hi2';
-import { FiPlus, FiMinus } from 'react-icons/fi';
-import {
-  IoLeafOutline,
-  IoBodyOutline,
-  IoHandLeftOutline,
-  IoWaterOutline,
-  IoSchoolOutline,
-  IoMailOutline,
-  IoTimeOutline,
-  IoRibbonOutline,
-} from 'react-icons/io5';
-import { GiMeditation, GiLotus } from 'react-icons/gi';
+import { GiLotus } from 'react-icons/gi';
 
 /* ===== Animation variants ===== */
 const fadeUp = {
@@ -36,130 +24,193 @@ const staggerContainer = {
   },
 };
 
-/* ===== Programs offered ===== */
-const programs = [
-  {
-    title: 'Yoga Classes',
-    description: 'Asanas, Pranayama, Shatkriya, Yoga Nidra & Meditation for all levels.',
-    icon: GiMeditation,
-  },
-  {
-    title: 'Yoga Therapy',
-    description: 'Therapeutic practice tailored to specific health concerns and recovery.',
-    icon: IoBodyOutline,
-  },
-  {
-    title: 'Naturopathy',
-    description: 'Ancient detoxification techniques to cleanse and restore balance.',
-    icon: IoLeafOutline,
-  },
-  {
-    title: 'Acupressure',
-    description: 'Pressure-point therapy for natural pain relief and circulation.',
-    icon: IoHandLeftOutline,
-  },
-  {
-    title: 'Cupping Therapy',
-    description: 'Traditional suction therapy to stimulate healing and wellness.',
-    icon: IoWaterOutline,
-  },
-  {
-    title: 'Yoga Teacher Training',
-    description: 'Certified training for those ready to deepen and share their practice.',
-    icon: IoSchoolOutline,
-  },
-];
-
 /* ===== Practices & styles ===== */
 const practices = ['Asanas', 'Pranayama', 'Shatkriya', 'Yoga Nidra', 'Meditation'];
 const styles = ['Hatha Yoga', 'Ashtanga Vinyasa Yoga', 'Iyengar Yoga', 'Chakra Yoga'];
 
-/* ===== Founder credentials ===== */
-const credentials = [
-  'M.A. (Yogacharya)',
-  'B.N.Y.',
-  'UGC NET (Yoga)',
-  'D.N.Y.S.',
-  'D.A.H.S.',
-  'H.H.M.',
-];
-
-const founderBioFull = `When he came to Haridwar, he stayed at Shantikunj Ashram. Attended regular yoga and yagya classes there for 45 days and ate satvik food and saw huge change in his physical, mental health, stress, and insomnia — and came to know that yoga is the art of living life. So he decided to live his future life in the same way. Then he did a Diploma in Holistic Health Management course from Dev Sanskriti Vishwavidyalaya, Shantikunj in 2012, and from there continued further education in Yoga and tried to bring changes in the health and lifestyle of people based on knowledge and experience. Meanwhile, he also got education in Naturopathy, Diploma in Acupressure, Ayurveda, and Marma Chikitsa.
-
-Established Vimoksha Yogashala in 2019 after doing his MA in Yoga. From there, efforts are being made to bring changes in the health and lifestyle of people through Yoga and Naturopathy.`;
-
 export default function AboutPage() {
   usePageMeta('about');
-  const [bioExpanded, setBioExpanded] = useState(false);
 
   return (
     <div data-page="about">
       {/* ===== 1. Intro / Hero ===== */}
-      <section className="overflow-hidden bg-background pt-[110px] pb-[70px] sm:pt-[135px] md:pb-[90px]">
-        <Container className="max-w-[1280px]">
-          <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-            <div className="relative order-2 lg:order-1">
-              <div className="absolute -left-5 -top-5 h-28 w-28 rounded-full border border-secondary/30" />
-              <div className="relative overflow-hidden rounded-[32px] border-[10px] border-white shadow-elevated">
+      <section className="relative overflow-hidden bg-background pt-[115px] sm:pt-[135px] md:pt-[145px] pb-10 sm:pb-16">
+        {/* Subtle ambient decorative lighting */}
+        <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-secondary/10 blur-3xl" />
+        <div className="pointer-events-none absolute top-1/2 -left-24 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
+
+        <Container className="max-w-[1320px]">
+          <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14 xl:gap-16">
+            {/* LEFT: Framed Luxury Hero Photo */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              className="relative order-2 lg:order-1"
+            >
+              {/* Main Photo Frame */}
+              <div className="relative overflow-hidden rounded-[32px] border-[8px] sm:border-[10px] border-white bg-white shadow-elevated">
                 <img
                   src="/images/about-hero-yoga.jpg"
-                  alt="Yoga practice at Vimoksha Yogshala"
-                  className="aspect-[4/5] w-full object-cover"
+                  alt="Himalayan Yoga Sanctuary at Vimoksha Yogshala Dehradun"
+                  fetchPriority="high"
+                  className="h-[380px] sm:h-[460px] md:h-[500px] lg:h-[520px] w-full object-cover object-center"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-4 rounded-2xl bg-primary px-5 py-4 text-white shadow-card sm:right-5">
-                <p className="font-heading text-2xl font-semibold">Since 2019</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.16em] text-white/75">Rooted in tradition</p>
-              </div>
-            </div>
+            </motion.div>
 
-            <div className="order-1 flex flex-col items-start gap-5 lg:order-2">
-              <span className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary">
-                About Us
-              </span>
-              <h1 className="max-w-xl font-heading text-4xl font-semibold leading-[1.05] text-dark sm:text-5xl md:text-6xl">
-                A quieter path to a <span className="text-primary">stronger self.</span>
-              </h1>
-              <p className="max-w-xl text-base leading-relaxed text-muted md:text-lg">
-                Vimoksha Yogshala is a sanctuary for holistic wellness in Dehradun,
-                where authentic yoga, natural healing, and thoughtful guidance meet.
-                We help you build a steadier body, clearer mind, and more balanced life.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-2">
-                {['Yoga Classes', 'Yoga Therapy', 'Teacher Training'].map((item) => (
-                  <span key={item} className="rounded-full bg-white px-4 py-2 text-sm font-medium text-dark shadow-soft">
-                    {item}
+            {/* RIGHT: Text Content */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col items-start justify-center order-1 lg:order-2"
+            >
+              {/* Heading */}
+              <motion.h1
+                variants={fadeUp}
+                className="font-medium text-3xl sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[58px] leading-[1.15] tracking-tight text-dark"
+              >
+                A Sacred Sanctuary for <span className="italic text-primary">Inner Peace</span> &amp; Authentic Yoga
+              </motion.h1>
+
+              {/* Description (Meaning of Vimoksha) */}
+              <motion.div
+                variants={fadeUp}
+                className="mt-6 space-y-3.5 text-sm sm:text-base md:text-lg font-normal leading-relaxed text-muted max-w-xl"
+              >
+                <p>
+                  <strong className="text-dark font-semibold">Vimoksha means liberation.</strong> For us, liberation does not mean liberation from life, but liberation from physical and mental problems that occur in everyday life.
+                </p>
+                <p>
+                  We chose this name because yoga helps us find freedom from physical ailments, mental stress, and constant ups and downs. Vimoksha symbolizes a dedicated journey towards health, clarity, balance, and inner well-being.
+                </p>
+              </motion.div>
+
+              {/* Inspired by Sacred Wisdom */}
+              <motion.div
+                variants={fadeUp}
+                className="mt-6 sm:mt-7 w-full max-w-xl rounded-2xl border border-secondary/30 bg-gradient-to-br from-secondary/10 via-primary/5 to-white/90 p-4 sm:p-5 shadow-xs backdrop-blur-xs"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/15 text-secondary text-xs">
+                    <GiLotus />
                   </span>
-                ))}
+                  <span className="font-body text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
+                    Inspired by Ancient Yogic Wisdom
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-primary/50 transition-colors">
+                    <span className="h-2 w-2 rounded-full bg-primary" />
+                    Shree Madbhagwat Geeta
+                  </span>
+                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-secondary/50 transition-colors">
+                    <span className="h-2 w-2 rounded-full bg-secondary" />
+                    Patanjali Yogsutra
+                  </span>
+                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-primary/50 transition-colors">
+                    <span className="h-2 w-2 rounded-full bg-primary" />
+                    Hatha Yoga
+                  </span>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ===== 2. Our Philosophy — Full Card ===== */}
+      <section id="about-philosophy" className="bg-white pt-12 md:pt-16 pb-14 md:pb-20 border-b border-border/60 scroll-mt-24">
+        <Container className="max-w-[1200px]">
+          <div id="about-gateway" className="rounded-[28px] bg-background p-8 md:p-12 border border-border shadow-soft">
+            {/* Header: Our Philosophy */}
+            <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
+              <span className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary mb-3">
+                Ancient Yogic Wisdom
+              </span>
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold text-dark">
+                Our <span className="text-primary">Philosophy</span>
+              </h2>
+            </div>
+
+            {/* Row 1: Photo + Samatvam Yoga Uchyate */}
+            <div className="grid items-stretch gap-8 pb-10 border-b border-border/70 lg:grid-cols-2 lg:gap-12">
+              {/* Left Column: Photo */}
+              <div className="overflow-hidden rounded-[24px] border border-border/80 shadow-xs bg-white h-full min-h-[340px] sm:min-h-[380px]">
+                <img
+                  src="/images/abouthome.jpg"
+                  alt="Yogacharya Gyan Prakash practicing yoga"
+                  className="w-full h-full object-cover object-center block"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Right Column: Samatvam Yoga Uchyate */}
+              <div className="h-full">
+                <div className="rounded-[24px] bg-white p-6 sm:p-8 md:p-10 border border-border/80 shadow-xs h-full flex flex-col justify-center">
+                  <div className="border-l-4 border-primary pl-4 mb-5">
+                    <span className="inline-block rounded-full bg-primary/10 text-primary px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-2">
+                      Bhagavad Gita II.48
+                    </span>
+                    <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-dark tracking-wide">
+                      समत्वं योग उच्यते
+                    </h3>
+                    <p className="text-sm sm:text-base italic font-medium text-primary mt-1.5">
+                      samatvaṁ yoga ucyate — &ldquo;Equanimity is Yoga.&rdquo;
+                    </p>
+                  </div>
+
+                  <div className="space-y-3.5 text-sm sm:text-base leading-relaxed text-muted">
+                    <p>
+                      At Vimoksha Yogshala, we believe yoga is not just about flexibility, strength, or physical postures. It is a journey towards balance within — bringing harmony to the body, awareness to the breath, clarity to the mind, and steadiness to everyday life.
+                    </p>
+                    <p>
+                      Inspired by the timeless wisdom of <em>&ldquo;Samatvam Yoga Uchyate,&rdquo;</em> we see yoga as the cultivation of inner balance — learning to remain steady through both comfort and discomfort, success and failure, activity and rest.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Row 2: Tato Dvandva-anabhighatah (Full-Width Card) */}
+            <div className="mt-10 rounded-[24px] bg-white p-6 sm:p-8 md:p-10 border border-border/80 shadow-xs">
+              <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-6 lg:gap-12 items-center">
+                {/* Left Column: Shloka Header */}
+                <div>
+                  <div className="border-l-4 border-secondary pl-4">
+                    <span className="inline-block rounded-full bg-secondary/15 text-secondary px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-2">
+                      Patanjali Yoga Sutra II.48
+                    </span>
+                    <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-dark tracking-wide">
+                      ततो द्वन्द्वानभिघातः
+                    </h3>
+                    <p className="text-sm sm:text-base italic font-medium text-secondary mt-1.5">
+                      tato dvandva-anabhighātaḥ
+                    </p>
+                    <p className="text-xs sm:text-sm font-semibold text-dark/70 mt-1">
+                      &ldquo;Then, one is no longer disturbed by the pairs of opposites.&rdquo;
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right Column: Detailed Explanation */}
+                <div className="space-y-3.5 text-sm sm:text-base leading-relaxed text-muted">
+                  <p>
+                    Through consistent practice, yoga helps us develop a more stable relationship with life&apos;s changing experiences. Rather than being constantly affected by stress, discomfort, or external circumstances, we learn to respond with greater awareness, resilience, and calmness.
+                  </p>
+                  <p>
+                    We bring together the traditional wisdom of Asana, Pranayama, Shatkriya, Meditation, and Yoga Philosophy with a practical approach to modern wellness.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* ===== 2. Meaning of Vimoksha ===== */}
-      <section className="bg-white py-14 md:py-18 border-y border-border/60">
-        <Container className="max-w-[1200px]">
-          <div className="rounded-[28px] bg-background p-8 md:p-12 border border-border shadow-soft text-center">
-            <span className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary mb-4">
-              More than a Yoga Studio
-            </span>
-            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-semibold text-dark mb-4">
-              Dehradun&apos;s Yoga &amp; Lifestyle <span className="text-primary">Transformation Center</span>
-            </h2>
-            <div className="mx-auto max-w-3xl space-y-4 text-base md:text-lg leading-relaxed text-muted">
-              <p>
-                <strong className="text-dark font-semibold">Vimoksha means liberation.</strong> For us, liberation does not mean liberation from life, but liberation from physical and mental problems that occur in everyday life.
-              </p>
-              <p>
-                We chose this name because yoga helps us find freedom from physical ailments, mental stress, and constant ups and downs. Vimoksha symbolizes a dedicated journey towards health, clarity, balance, and inner well-being.
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-           {/* ===== 3. Vision & Mission ===== */}
+      {/* ===== 3. Vision & Mission ===== */}
       <section className="bg-background py-14 md:py-18">
         <Container className="max-w-[1200px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -196,41 +247,8 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* ===== 4. What We Offer ===== */}
-      <section className="bg-white py-14 md:py-20">
-        <Container className="max-w-[1200px]">
-          <div className="mx-auto mb-12 flex max-w-2xl flex-col items-center gap-4 text-center">
-            <h2 className="font-heading text-2xl font-semibold text-dark sm:text-3xl md:text-4xl">
-              What We Offer
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {programs.map((program) => {
-              const Icon = program.icon;
-              return (
-                <div
-                  key={program.title}
-                  className="group flex flex-col rounded-[24px] border border-border bg-white p-7 shadow-soft transition-all duration-300 hover:shadow-elevated hover:-translate-y-1"
-                >
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                    <Icon className="text-2xl" />
-                  </div>
-                  <h3 className="font-heading text-xl font-semibold text-dark">
-                    {program.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {program.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
-      {/* ===== 5. Our Story ===== */}
-      <section className="bg-background py-8 md:py-12">
+      {/* ===== 4. Our Story ===== */}
+      <section className="bg-background pt-4 pb-12 md:pt-6 md:pb-16">
         <Container className="max-w-[1200px]">
           <div className="bg-white rounded-[28px] p-8 md:p-12 border border-border shadow-soft flex flex-col gap-6">
             <span className="mx-auto inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary">
@@ -312,89 +330,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* ===== 6. Founder Profile ===== */}
-      <section className="bg-background pt-4 pb-12 md:pb-16">
-        <Container className="max-w-[1200px]">
-          <div className="rounded-[28px] border border-border bg-white p-8 shadow-soft md:p-10">
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-              {/* Founder photo */}
-              <div className="mx-auto h-40 w-40 shrink-0 overflow-hidden rounded-full border border-border bg-background sm:mx-0">
-                <img
-                  src="/images/about-instructor.jpg"
-                  alt="Yogacharya Gyan Prakash"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-
-              <div className="flex flex-1 flex-col gap-2 text-center sm:text-left">
-                <h3 className="font-heading text-xl font-semibold text-dark sm:text-2xl md:text-3xl">
-                  Yogacharya Gyan Prakash
-                </h3>
-                <p className="font-body text-sm text-muted">
-                  {credentials.join(', ')}
-                </p>
-              </div>
-            </div>
-
-            {/* Quick facts */}
-            <div className="mt-6 flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 rounded-full border border-border px-4 py-2">
-                <IoTimeOutline className="h-4 w-4 text-primary" />
-                <span className="font-body text-sm text-dark/80">13 years experience</span>
-              </div>
-              <a
-                href="mailto:info@vimokshayogshala.in"
-                className="flex items-center gap-2 rounded-full border border-border px-4 py-2 transition-colors hover:border-primary/40"
-              >
-                <IoMailOutline className="h-4 w-4 text-primary" />
-                <span className="font-body text-sm text-dark/80">info@vimokshayogshala.in</span>
-              </a>
-              <div className="flex items-center gap-2 rounded-full border border-border px-4 py-2">
-                <IoRibbonOutline className="h-4 w-4 text-primary" />
-                <span className="font-body text-sm text-dark/80">Founder &amp; Patron</span>
-              </div>
-            </div>
-
-            {/* Bio */}
-            <p className="mt-6 text-base leading-relaxed text-dark/80">
-              Yogacharya Gyan Prakash is the founder and patron of Vimoksha
-              Yogashala. He is a PhD scholar in Yogic Science from Shri Guru
-              Ram Rai University and has qualified UGC NET in Yoga. He also
-              serves as Assistant Professor in the Department of Yoga at ITM
-              College, Dehradun. The beginning of yoga in his life is like a
-              mysterious event which brought a lot of change in his life.
-            </p>
-
-            {/* Expandable "About More" */}
-            <div className="mt-4">
-              <button
-                onClick={() => setBioExpanded(!bioExpanded)}
-                className="flex items-center gap-2 font-body text-sm font-semibold text-primary transition-all hover:gap-3"
-                aria-expanded={bioExpanded}
-              >
-                {bioExpanded ? 'Show Less' : 'About More'}
-                {bioExpanded ? (
-                  <FiMinus className="h-4 w-4" />
-                ) : (
-                  <FiPlus className="h-4 w-4" />
-                )}
-              </button>
-
-              {bioExpanded && (
-                <div className="mt-4 flex flex-col gap-4 border-t border-border pt-4">
-                  {founderBioFull.split('\n\n').map((para, i) => (
-                    <p key={i} className="text-sm leading-relaxed text-dark/70">
-                      {para}
-                    </p>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* ===== 7. Team Section ===== */}
+      {/* ===== 5. Team Section ===== */}
       <Team />
 
       {/* ===== 8. Recognitions & Associations (3 Logos) ===== */}

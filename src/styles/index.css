@@ -10,13 +10,15 @@
   --color-accent: #eb5e1a;
   --color-background: #f5ede1;
   --color-surface: #ffffff;
-  --color-dark: #2e2e2e;
-  --color-muted: #6b6b6b;
+  --color-dark: #181818;
+  --color-muted: #333333;
+  --color-muted-light: #525252;
   --color-border: #ebe0d2;
 
   /* Typography */
-  --font-heading: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Poppins', system-ui, sans-serif;
+  --font-heading: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Outfit', 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-outfit: 'Outfit', system-ui, sans-serif;
 
   /* Spacing & radius */
   --radius-sm: 0.5rem;
@@ -71,10 +73,13 @@
     overflow-x: hidden;
     font-family: var(--font-body);
     font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
     color: var(--color-dark);
     background-color: var(--color-background);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1,
@@ -82,10 +87,26 @@
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  .font-heading {
     font-family: var(--font-heading);
-    font-weight: 500;
-    line-height: 1.15;
+    font-weight: 600;
+    line-height: 1.18;
+    color: var(--color-dark);
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    color: var(--color-muted);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  input,
+  textarea,
+  select {
+    font-family: var(--font-body);
     color: var(--color-dark);
   }
 
@@ -117,6 +138,29 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Enhance readability and eliminate faint/faded text across the whole site */
+  .font-light {
+    font-weight: 400 !important;
+  }
+
+  .text-muted {
+    color: var(--color-muted) !important;
+  }
+
+  /* Upgrade faded opacity values so text is always high-contrast and crystal clear */
+  .text-dark\/70,
+  .text-dark\/60 {
+    color: rgba(24, 24, 24, 0.88) !important;
+  }
+
+  .text-dark\/80 {
+    color: rgba(24, 24, 24, 0.94) !important;
+  }
+
+  .text-neutral-500 {
+    color: var(--color-muted) !important;
   }
 
   .shadow-soft {

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * BlogsSection â€” Latest blogs with premium card design.
  *
  * Blog cards are admin-editable from the Site Content > Blogs tab. Until the
@@ -19,6 +19,7 @@ import { HiArrowRight } from 'react-icons/hi2';
 import { IoTimeOutline, IoCalendarOutline } from 'react-icons/io5';
 import { FiArrowUpRight } from 'react-icons/fi';
 import useSiteContent from '@/hooks/useSiteContent';
+import FormattedText from '@/components/common/FormattedText';
 
 /* ===== Blog images â€” uncomment when images are added ===== */
 // import blog1 from '@/assets/images/blogs/blog1.jpg';
@@ -135,12 +136,12 @@ export default function BlogsSection() {
             variants={fadeUp}
             className="font-heading text-4xl font-semibold leading-tight text-dark md:text-5xl"
           >
-            {content.heading}
+            <FormattedText text={content.heading} />
           </motion.h2>
 
           <motion.p
             variants={fadeUp}
-            className="max-w-[700px] text-base leading-relaxed text-muted md:text-lg"
+            className="max-w-[700px] text-base leading-relaxed text-muted md:text-lg font-normal"
           >
             {content.description}
           </motion.p>
@@ -217,7 +218,7 @@ export default function BlogsSection() {
                 </h3>
 
                 {/* Excerpt */}
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted font-normal">
                   {blog.description}
                 </p>
 

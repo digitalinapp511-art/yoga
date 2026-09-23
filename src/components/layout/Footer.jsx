@@ -44,20 +44,19 @@ const staggerContainer = {
 const quickLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
-  { label: 'Classes', path: '/classes' },
-  { label: 'Therapies', path: '/classes' },
+  { label: 'Classes', path: '/classes/beginner' },
+  { label: 'Therapies', path: '/therapies' },
   { label: 'Gallery', path: '/gallery' },
   { label: 'Blogs', path: '/blog' },
   { label: 'Contact', path: '/contact' },
 ];
 
 const programs = [
-  { label: 'Hatha Yoga', path: '/classes' },
-  { label: 'Meditation', path: '/classes' },
-  { label: 'Pranayama', path: '/classes' },
-  { label: 'Yoga Therapy', path: '/classes' },
-  { label: 'Teacher Training', path: '/courses' },
-  { label: 'Kids Yoga', path: '/classes' },
+  { label: 'Beginner Classes', path: '/classes/beginner' },
+  { label: 'Intermediate Classes', path: '/classes/intermediate' },
+  { label: 'Advance Classes', path: '/classes/advance' },
+  { label: 'Yoga Therapy', path: '/therapies' },
+  { label: 'Teacher Training', path: '/teacher-training' },
 ];
 
 const socialLinks = [
@@ -82,7 +81,7 @@ const policyLinks = [
 
 /* ===== Reusable class — smooth underline on hover ===== */
 const footerLinkClass =
-  'relative inline-block w-fit text-sm text-white/70 transition-colors duration-300 hover:text-white ' +
+  'relative inline-block w-fit text-sm text-[#EAD8C7]/75 transition-colors duration-300 hover:text-white ' +
   'after:absolute after:bottom-[-2px] after:left-0 after:h-px after:w-0 after:bg-secondary ' +
   'after:transition-all after:duration-300 hover:after:w-full';
 
@@ -106,11 +105,23 @@ export default function Footer() {
     setEmail('');
   };
 
-return (
-    <footer className="relative z-10 text-white" style={{ background: '#2E2E2E' }}>
+  return (
+    <footer
+      className="relative z-10 overflow-hidden text-white border-t border-secondary/20"
+      style={{
+        background: 'linear-gradient(180deg, #3A1409 0%, #220B04 55%, #150602 100%)',
+      }}
+    >
+      {/* Top golden / saffron accent line */}
+      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-secondary/70 to-transparent" />
+
+      {/* Subtle ambient warm decorative lighting */}
+      <div className="pointer-events-none absolute -top-32 left-1/4 h-96 w-96 rounded-full bg-secondary/8 blur-[130px]" />
+      <div className="pointer-events-none absolute bottom-0 right-10 h-80 w-80 rounded-full bg-primary/25 blur-[120px]" />
+
       <div
-        className="mx-auto px-6"
-        style={{ maxWidth: '1320px', paddingTop: '100px', paddingBottom: '40px' }}
+        className="relative z-10 mx-auto px-6"
+        style={{ maxWidth: '1320px', paddingTop: '90px', paddingBottom: '40px' }}
       >
         {/* ===== Top: 5-column grid ===== */}
         <motion.div
@@ -125,7 +136,7 @@ return (
             <Link
               to="/"
               aria-label="Vimoksha Yogshala home"
-              className="inline-flex w-fit items-center rounded-2xl bg-white p-3 shadow-soft"
+              className="inline-flex w-fit items-center rounded-2xl bg-white p-3 shadow-soft border border-secondary/20"
             >
               <img
                 src="/logo.png"
@@ -133,7 +144,7 @@ return (
                 className="h-auto w-[140px] object-contain"
               />
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-white/70">
+            <p className="max-w-xs text-sm leading-relaxed text-[#EAD8C7]/80">
               {siteConfig.description}
             </p>
             <div className="flex gap-3">
@@ -146,7 +157,7 @@ return (
                   whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 12 }}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors duration-300 hover:border-secondary hover:bg-secondary hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-[#EAD8C7] transition-all duration-300 hover:border-secondary hover:bg-secondary hover:text-white shadow-xs"
                 >
                   {social.icon}
                 </motion.a>
@@ -156,7 +167,9 @@ return (
 
           {/* ===== Column 2: Quick Links ===== */}
           <motion.div variants={fadeUp} className="flex flex-col gap-5">
-            <h3 className="font-heading text-lg font-medium text-white">Quick Links</h3>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-wide text-[#FFF5EA]">
+              Quick Links
+            </h3>
             <ul className="flex flex-col gap-3">
               {quickLinks.map((link) => (
                 <li key={link.label}>
@@ -170,7 +183,9 @@ return (
 
           {/* ===== Column 3: Programs ===== */}
           <motion.div variants={fadeUp} className="flex flex-col gap-5">
-            <h3 className="font-heading text-lg font-medium text-white">Programs</h3>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-wide text-[#FFF5EA]">
+              Programs
+            </h3>
             <ul className="flex flex-col gap-3">
               {programs.map((program) => (
                 <li key={program.label}>
@@ -184,22 +199,24 @@ return (
 
           {/* ===== Column 4: Contact ===== */}
           <motion.div variants={fadeUp} className="flex flex-col gap-5">
-            <h3 className="font-heading text-lg font-medium text-white">Contact</h3>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-wide text-[#FFF5EA]">
+              Contact
+            </h3>
             <ul className="flex flex-col gap-4">
               {contactItems.map((item) => (
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="group flex items-start gap-3 text-sm text-white/70 transition-colors duration-300 hover:text-white"
+                    className="group flex items-start gap-3 text-sm text-[#EAD8C7]/80 transition-colors duration-300 hover:text-white"
                   >
-                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-secondary transition-colors duration-300 group-hover:bg-secondary group-hover:text-white">
+                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary border border-secondary/25 transition-all duration-300 group-hover:bg-secondary group-hover:text-white">
                       {item.icon}
                     </span>
                     <span className="flex flex-col">
-                      <span className="text-xs uppercase tracking-wider text-white/50">
+                      <span className="text-[11px] uppercase tracking-wider text-secondary/85 font-medium">
                         {item.label}
                       </span>
-                      <span className="text-sm">{item.value}</span>
+                      <span className="text-sm font-light text-[#FFF5EA]">{item.value}</span>
                     </span>
                   </a>
                 </li>
@@ -209,8 +226,10 @@ return (
 
           {/* ===== Column 5: Newsletter ===== */}
           <motion.div variants={fadeUp} className="flex flex-col gap-5">
-            <h3 className="font-heading text-lg font-medium text-white">Newsletter</h3>
-            <p className="text-sm leading-relaxed text-white/70">
+            <h3 className="text-xl sm:text-2xl font-bold tracking-wide text-[#FFF5EA]">
+              Newsletter
+            </h3>
+            <p className="text-sm leading-relaxed text-[#EAD8C7]/80">
               Subscribe to receive wellness tips, class updates, and exclusive offers.
             </p>
             <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
@@ -222,14 +241,14 @@ return (
                   if (status.message) setStatus({ type: '', message: '' });
                 }}
                 placeholder="Enter your email"
-                className="w-full rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm text-white placeholder-white/40 outline-none transition-colors duration-300 focus:border-secondary"
+                className="w-full rounded-full border border-white/20 bg-black/25 px-5 py-3 text-sm text-white placeholder-white/45 outline-none transition-colors duration-300 focus:border-secondary focus:bg-black/40"
               />
               <motion.button
                 type="submit"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-5 py-3 text-sm font-medium text-white transition-colors duration-300 hover:bg-secondary/90"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary hover:bg-secondary-light px-5 py-3 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:shadow-elevated"
               >
                 Subscribe
                 <FiArrowRight />
@@ -250,14 +269,18 @@ return (
         {/* ===== Bottom Bar ===== */}
         <div className="mt-16 pt-8">
           {/* Horizontal Divider */}
-          <div className="mb-8 h-px w-full bg-white/10" />
-          <div className="flex flex-col items-center justify-between gap-4 text-sm text-white/60 md:flex-row">
+          <div className="mb-8 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+          <div className="flex flex-col items-center justify-between gap-4 text-sm text-[#EAD8C7]/60 md:flex-row">
             {/* Left */}
             <p>&copy; 2026 Vimoksha Yogshala. All Rights Reserved.</p>
             {/* Right */}
             <div className="flex flex-wrap items-center gap-6">
               {policyLinks.map((link) => (
-                <Link key={link.label} to={link.path} className={footerLinkClass}>
+                <Link
+                  key={link.label}
+                  to={link.path}
+                  className="text-sm text-[#EAD8C7]/60 transition-colors duration-300 hover:text-white"
+                >
                   {link.label}
                 </Link>
               ))}

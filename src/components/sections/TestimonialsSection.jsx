@@ -32,6 +32,8 @@ const STARTER_REVIEWS = [
   {
     id: 'seed-1',
     name: 'Ananya Sharma',
+    role: 'Hatha Yoga Student',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&h=200&q=80',
     rating: 5,
     message:
       'The instructors genuinely care about how you progress. I went from a complete beginner to feeling confident in a few months.',
@@ -39,6 +41,8 @@ const STARTER_REVIEWS = [
   {
     id: 'seed-2',
     name: 'Rohit Verma',
+    role: 'Morning Batch Student',
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&h=200&q=80',
     rating: 5,
     message:
       'Friendly staff, clean facility, and a schedule that actually works around my job. Would recommend to anyone starting out.',
@@ -46,6 +50,8 @@ const STARTER_REVIEWS = [
   {
     id: 'seed-3',
     name: 'Priya Nair',
+    role: 'Yoga Therapy Student',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&h=200&q=80',
     rating: 5,
     message:
       'Small batch sizes mean the teacher actually corrects your form. Best decision I made this year.',
@@ -53,7 +59,9 @@ const STARTER_REVIEWS = [
   {
     id: 'seed-4',
     name: 'Karan Mehta',
-    rating: 4,
+    role: 'TTC 200-Hour Graduate',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&h=200&q=80',
+    rating: 5,
     message:
       'Great variety of classes and the teacher training program is genuinely thorough and well structured.',
   },
@@ -83,8 +91,8 @@ function StarRatingInput({ value, onChange }) {
               size={26}
               className={
                 filled
-                  ? 'fill-primary text-primary transition-colors'
-                  : 'fill-transparent text-muted transition-colors'
+                  ? 'fill-secondary text-secondary transition-colors'
+                  : 'fill-transparent text-muted/50 transition-colors'
               }
               strokeWidth={1.5}
             />
@@ -98,12 +106,16 @@ function StarRatingInput({ value, onChange }) {
 /* ===== Static star display (read-only) ===== */
 function StarDisplay({ rating }) {
   return (
-    <div className="flex items-center gap-0.5" aria-label={`${rating} out of 5 stars`}>
+    <div className="flex items-center gap-1" aria-label={`${rating} out of 5 stars`}>
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
-          size={13}
-          className={star <= rating ? 'fill-primary text-primary' : 'fill-transparent text-muted'}
+          size={16}
+          className={
+            star <= rating
+              ? 'fill-secondary text-secondary drop-shadow-[0_1px_3px_rgba(246,145,22,0.35)]'
+              : 'fill-transparent text-border'
+          }
           strokeWidth={1.5}
         />
       ))}
@@ -113,17 +125,60 @@ function StarDisplay({ rating }) {
 
 /* ===== Review card ===== */
 function ReviewCard({ review }) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <motion.div
       variants={fadeUp}
       layout
-      className="flex h-full flex-col gap-2 rounded-xl border border-dark/5 bg-white p-3.5 shadow-sm"
+      whileHover={{ y: -4, transition: { duration: 0.25 } }}
+      className="group relative flex h-full flex-col justify-between rounded-[24px] border border-border/80 bg-white p-6 sm:p-7 shadow-soft transition-all duration-300 hover:border-secondary/40 hover:shadow-card"
     >
-      <Quote className="h-3.5 w-3.5 text-primary/40" strokeWidth={1.5} />
-      <p className="line-clamp-3 flex-1 text-xs leading-relaxed text-muted">{review.message}</p>
-      <div className="flex items-center justify-between border-t border-dark/5 pt-2">
-        <span className="font-heading text-xs font-semibold text-dark">{review.name}</span>
+      {/* Top Header: Star rating + Elegant Quote Badge */}
+      <div className="flex items-center justify-between mb-4">
         <StarDisplay rating={review.rating} />
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary/10 text-primary transition-all duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-white">
+          <Quote size={15} className="rotate-180" />
+        </div>
+      </div>
+
+      {/* Review text */}
+      <p className="flex-1 font-body text-sm leading-relaxed text-dark/80 italic mb-6">
+        &ldquo;{review.message}&rdquo;
+      </p>
+
+      {/* Author Info with Circular Photo */}
+      <div className="flex items-center justify-between border-t border-border/60 pt-4 mt-auto">
+        <div className="flex items-center gap-3.5">
+          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-secondary/30 shadow-xs ring-2 ring-white/80 bg-secondary/10">
+            {review.avatar && !imgError ? (
+              <img
+                src={review.avatar}
+                alt={review.name}
+                className="h-full w-full object-cover"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary to-secondary font-heading text-base font-bold text-white">
+                {review.name ? review.name.charAt(0).toUpperCase() : 'U'}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <span className="font-heading text-base font-bold text-dark leading-tight group-hover:text-primary transition-colors">
+              {review.name}
+            </span>
+            <span className="text-[11px] font-semibold text-secondary uppercase tracking-wider mt-0.5">
+              {review.role || 'Verified Student'}
+            </span>
+          </div>
+        </div>
+
+        {/* Small Verified Badge */}
+        <div className="hidden sm:flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50/90 px-2.5 py-1 rounded-full border border-emerald-200/60">
+          <span className="text-xs">✓</span>
+          <span>Verified</span>
+        </div>
       </div>
     </motion.div>
   );
@@ -150,6 +205,8 @@ function ReviewForm({ onSubmit }) {
       name: name.trim(),
       rating,
       message: message.trim(),
+      role: 'Student Practitioner',
+      avatar: '',
     });
 
     setName('');
@@ -163,11 +220,14 @@ function ReviewForm({ onSubmit }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 rounded-xl border border-dark/5 bg-white p-5 shadow-sm"
+      className="flex flex-col gap-4 rounded-[24px] border border-border/80 bg-white p-6 sm:p-7 shadow-soft"
     >
       <div>
-        <h3 className="font-heading text-xl font-semibold text-dark">Share your experience</h3>
-        <p className="mt-1 text-sm leading-relaxed text-muted">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-secondary">
+          Your Feedback Matters
+        </span>
+        <h3 className="font-heading text-2xl font-bold text-dark mt-1">Share your experience</h3>
+        <p className="mt-1 text-xs leading-relaxed text-muted">
           Your review will appear in the list below.
         </p>
       </div>
@@ -182,7 +242,7 @@ function ReviewForm({ onSubmit }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Jane Doe"
-          className="rounded-lg border border-dark/10 bg-background px-4 py-2.5 text-sm text-dark placeholder:text-muted/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          className="rounded-xl border border-dark/10 bg-background/50 px-4 py-2.5 text-sm text-dark placeholder:text-muted/60 focus:border-primary focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
         />
       </div>
 
@@ -201,7 +261,7 @@ function ReviewForm({ onSubmit }) {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Tell us what stood out about your experience..."
           rows={4}
-          className="resize-none rounded-lg border border-dark/10 bg-background px-4 py-2.5 text-sm text-dark placeholder:text-muted/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          className="resize-none rounded-xl border border-dark/10 bg-background/50 px-4 py-2.5 text-sm text-dark placeholder:text-muted/60 focus:border-primary focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
         />
       </div>
 
@@ -213,16 +273,16 @@ function ReviewForm({ onSubmit }) {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="text-sm font-medium text-primary"
+            className="text-sm font-medium text-emerald-600 bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-100"
           >
-            Thanks! Your review has been posted below.
+            ✓ Thanks! Your review has been posted.
           </motion.p>
         )}
       </AnimatePresence>
 
       <button
         type="submit"
-        className="mt-1 inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+        className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-body text-xs font-bold uppercase tracking-wider text-white shadow-soft transition-all duration-300 hover:bg-primary-dark hover:shadow-card"
       >
         Submit review
       </button>
@@ -246,8 +306,12 @@ export default function TestimonialsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="mx-auto mb-12 flex max-w-[700px] flex-col items-center gap-0 text-center"
+          className="mx-auto mb-14 flex max-w-[700px] flex-col items-center gap-0 text-center"
         >
+          <span className="inline-block rounded-full border border-secondary/35 bg-white/80 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-primary shadow-soft backdrop-blur-sm mb-4">
+            Testimonials & Love
+          </span>
+
           <motion.h2
             variants={fadeUp}
             className="font-heading text-4xl font-semibold leading-tight text-dark md:text-5xl"
@@ -259,7 +323,7 @@ export default function TestimonialsSection() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-7 max-w-[640px] text-base leading-relaxed text-muted md:text-lg"
+            className="mt-4 max-w-[640px] text-base leading-relaxed text-muted md:text-lg"
           >
             Read what students are saying, or leave a review of your own.
           </motion.p>
@@ -269,21 +333,21 @@ export default function TestimonialsSection() {
             href={GOOGLE_REVIEW_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-dark/10 bg-white px-5 py-2.5 text-sm font-semibold text-dark shadow-sm transition-colors hover:border-primary hover:text-primary"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-dark shadow-soft transition-all duration-300 hover:border-primary hover:text-primary hover:shadow-card"
           >
             Leave us a review on Google
-            <ExternalLink size={16} strokeWidth={2} />
+            <ExternalLink size={15} strokeWidth={2} className="text-secondary" />
           </motion.a>
         </motion.div>
 
-        <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-[minmax(0,1fr)_400px]">
           {/* ===== Review cards (2x2 grid) ===== */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:grid-rows-2"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2"
           >
             <AnimatePresence>
               {reviews.slice(0, 4).map((review) => (

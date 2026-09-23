@@ -1,11 +1,14 @@
 import HomePage from '@/pages/HomePage';
 import AboutPage from '@/pages/AboutPage';
-import StudentClassesPage from '@/pages/StudentClassesPage';
-import ProfessionalClassesPage from '@/pages/ProfessionalClassesPage';
-import AdultClassesPage from '@/pages/AdultClassesPage';
+import BeginnerClassesPage from '@/pages/BeginnerClassesPage';
+import IntermediateClassesPage from '@/pages/IntermediateClassesPage';
+import AdvanceClassesPage from '@/pages/AdvanceClassesPage';
 import TherapiesPage from '@/pages/TherapiesPage';
 import CoursesPage from '@/pages/CoursesPage';
 import TeacherTrainingPage from '@/pages/TeacherTrainingPage';
+import Ttc200Page from '@/pages/Ttc200Page';
+import Ttc300Page from '@/pages/Ttc300Page';
+import TtcAerialPage from '@/pages/TtcAerialPage';
 import GalleryPage from '@/pages/GalleryPage';
 import BlogPage from '@/pages/BlogPage';
 import ContactPage from '@/pages/ContactPage';
@@ -18,12 +21,20 @@ export const navigationLinks = [
     label: 'Classes',
     path: '/classes',
     children: [
-      { label: 'Student', path: '/classes/beginner' },
-      { label: 'Professional', path: '/classes/intermediate' },
-      { label: 'Adult', path: '/classes/advance' },
+      { label: 'Beginner', path: '/classes/beginner' },
+      { label: 'Intermediate', path: '/classes/intermediate' },
+      { label: 'Advance', path: '/classes/advance' },
     ],
   },
-  { label: 'Teacher Training', path: '/teacher-training' },
+  {
+    label: 'Teacher Training',
+    path: '/teacher-training',
+    children: [
+      { label: '200-Hour TTC', path: '/teacher-training/200-hour' },
+      { label: '300-Hour TTC', path: '/teacher-training/300-hour' },
+      { label: '50-Hour Aerial TTC', path: '/teacher-training/50-hour-aerial' },
+    ],
+  },
   { label: 'Therapies', path: '/therapies' },
   { label: 'Gallery', path: '/gallery' },
   { label: 'Blogs', path: '/blog' },
@@ -35,20 +46,32 @@ export const routeMeta = {
   about: { title: 'About', description: 'Learn about Vimoksha Yogshala and our philosophy.' },
   classes: { title: 'Classes', description: 'Explore our yoga classes and schedules.' },
   classesBeginner: {
-    title: 'Student Classes',
-    description: 'Beginner, Intermediate & Advance batches for students, all in one place.',
+    title: 'Beginner Yoga Classes',
+    description: 'Build your foundation with proper alignment, gentle breathwork, and injury-free movement.',
   },
   classesIntermediate: {
-    title: 'Professional Classes',
-    description: 'Beginner, Intermediate & Advance batches built around a working schedule.',
+    title: 'Intermediate Yoga Classes',
+    description: 'Dynamic flowing sequences, deeper breathwork, and strength-building holds.',
   },
   classesAdvance: {
-    title: 'Adult Classes',
-    description: 'Beginner, Intermediate & Advance yoga programs for adult practitioners.',
+    title: 'Advance Yoga Classes',
+    description: 'High-intensity flows, inversions, arm balances, and peak conditioning.',
   },
   therapies: { title: 'Therapies', description: 'Yoga Therapy, Naturopathy, Acupressure and Cupping Therapy at Vimoksha Yogshala.' },
   courses: { title: 'Courses', description: 'Yoga Teacher Training Courses in Dehradun.' },
-  teacherTraining: { title: 'Teacher Training', description: '200-Hour Yoga Teacher Training in Dehradun — an eight-week residential certification program.' },
+  teacherTraining: { title: 'Teacher Training', description: 'Yoga Teacher Training programs in Dehradun at Vimoksha Yogshala.' },
+  ttc200: {
+    title: '200-Hour Yoga Teacher Training',
+    description: '200-Hour Yoga Teacher Training in Dehradun — Yoga Alliance RYS 200 certified foundational residential program.',
+  },
+  ttc300: {
+    title: '300-Hour Advanced Yoga Teacher Training',
+    description: '300-Hour Advanced Yoga Teacher Training in Dehradun — Yoga Alliance RYS 300 master certification.',
+  },
+  ttcAerial: {
+    title: '50-Hour Aerial Yoga Teacher Training',
+    description: '50-Hour Aerial Yoga Teacher Training in Dehradun — Specialized 7-day intensive silk certification.',
+  },
   gallery: { title: 'Gallery', description: 'Moments from Vimoksha Yogshala.' },
   blog: { title: 'Blog', description: 'Wellness insights and yoga articles.' },
   contact: { title: 'Contact', description: 'Get in touch with Vimoksha Yogshala.' },
@@ -58,19 +81,20 @@ export const routeMeta = {
 /* ===== Single source of truth: path -> page component -> meta key =====
    AppRoutes.jsx renders <Route> elements straight from this list, so
    registering a page here is the only step needed to make it live.
-   Note: each Classes page (Student/Professional/Adult) internally
-   renders all three levels — Beginner, Intermediate, Advance — via a
-   shared level switcher; the path/component below just controls which
-   level tab opens by default. */
+   Each classes and TTC page has its own dedicated view and content
+   without clutter or in-page switcher buttons. */
 export const appRoutes = [
   { path: '/', component: HomePage, metaKey: 'home' },
   { path: '/about', component: AboutPage, metaKey: 'about' },
-  { path: '/classes/beginner', component: StudentClassesPage, metaKey: 'classesBeginner' },
-  { path: '/classes/intermediate', component: ProfessionalClassesPage, metaKey: 'classesIntermediate' },
-  { path: '/classes/advance', component: AdultClassesPage, metaKey: 'classesAdvance' },
+  { path: '/classes/beginner', component: BeginnerClassesPage, metaKey: 'classesBeginner' },
+  { path: '/classes/intermediate', component: IntermediateClassesPage, metaKey: 'classesIntermediate' },
+  { path: '/classes/advance', component: AdvanceClassesPage, metaKey: 'classesAdvance' },
   { path: '/therapies', component: TherapiesPage, metaKey: 'therapies' },
   { path: '/courses', component: CoursesPage, metaKey: 'courses' },
-  { path: '/teacher-training', component: TeacherTrainingPage, metaKey: 'teacherTraining' },
+  { path: '/teacher-training', component: Ttc200Page, metaKey: 'ttc200' },
+  { path: '/teacher-training/200-hour', component: Ttc200Page, metaKey: 'ttc200' },
+  { path: '/teacher-training/300-hour', component: Ttc300Page, metaKey: 'ttc300' },
+  { path: '/teacher-training/50-hour-aerial', component: TtcAerialPage, metaKey: 'ttcAerial' },
   { path: '/gallery', component: GalleryPage, metaKey: 'gallery' },
   { path: '/blog', component: BlogPage, metaKey: 'blog' },
   { path: '/contact', component: ContactPage, metaKey: 'contact' },

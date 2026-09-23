@@ -130,7 +130,7 @@ export default function AdminBlogPage() {
   };
 
   const inputClass =
-    'w-full rounded-xl border border-border px-4 py-2.5 text-sm outline-none focus:border-secondary';
+    'w-full rounded-xl border border-border bg-white px-4 py-2.5 text-sm font-body font-medium text-dark outline-none focus:border-primary focus:ring-1 focus:ring-primary';
 
   return (
     <AdminShell>

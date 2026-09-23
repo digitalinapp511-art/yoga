@@ -1,6 +1,9 @@
 export { default as HomePage } from './HomePage';
 export { default as AboutPage } from './AboutPage';
 export { default as ClassesPage } from './ClassesPage';
+export { default as BeginnerClassesPage } from './BeginnerClassesPage';
+export { default as IntermediateClassesPage } from './IntermediateClassesPage';
+export { default as AdvanceClassesPage } from './AdvanceClassesPage';
 export { default as StudentClassesPage } from './StudentClassesPage';
 export { default as ProfessionalClassesPage } from './ProfessionalClassesPage';
 export { default as AdultClassesPage } from './AdultClassesPage';

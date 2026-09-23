@@ -51,10 +51,7 @@ export default function AdminBookingsPage() {
     <AdminShell>
       <div className="flex items-center justify-between">
         <div>
-          <h1
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            className="text-3xl font-semibold text-[#1F1F1F]"
-          >
+          <h1 className="text-3xl font-semibold text-[#1F1F1F]">
             Trial Bookings & Enquiries
           </h1>
           <p className="mt-1 text-sm text-[#85786D]">{bookings.length} total submissions</p>

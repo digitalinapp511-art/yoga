@@ -13,8 +13,8 @@ export const theme = {
     border: '#E8E0D4',
   },
   fonts: {
-    heading: "'Cormorant Garamond', Georgia, serif",
-    body: "'Poppins', system-ui, sans-serif",
+    heading: "'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+    body: "'Outfit', 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
   },
   radius: {
     sm: '0.5rem',

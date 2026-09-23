@@ -1,4 +1,4 @@
-﻿/**
+/**
  * GallerySection â€” Premium gallery with true masonry layout, animated filters,
  * blur-up image loading, and a swipeable lightbox with thumbnail strip.
  *
@@ -11,7 +11,7 @@
  * keep that extension, don't rename it to .jpg.
  */
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Container, Button } from '@/components/ui';
 import { Link } from 'react-router-dom';
@@ -210,14 +210,87 @@ export default function GallerySection() {
     };
   }, [lightboxIndex, closeLightbox, nextImage, prevImage]);
 
+  const scrollContainerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftState, setScrollLeftState] = useState(0);
+  const [hasDragged, setHasDragged] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const scroll = useCallback((dir) => {
+    if (!scrollContainerRef.current) return;
+    const cardWidth = 360 + 24;
+    scrollContainerRef.current.scrollBy({
+      left: dir === 'left' ? -cardWidth : cardWidth,
+      behavior: 'smooth',
+    });
+  }, []);
+
+  const handleMouseDown = (e) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setHasDragged(false);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeftState(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(walk) > 6) setHasDragged(true);
+    scrollContainerRef.current.scrollLeft = scrollLeftState - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  /* Autoplay smooth advancement */
+  useEffect(() => {
+    if (isHovered || isDragging || lightboxIndex !== null) return;
+    const interval = setInterval(() => {
+      if (!scrollContainerRef.current) return;
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      if (scrollLeft + clientWidth >= scrollWidth - 20) {
+        scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        const cardWidth = 360 + 24;
+        scrollContainerRef.current.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+    }, 3800);
+    return () => clearInterval(interval);
+  }, [isHovered, isDragging, lightboxIndex, filteredItems]);
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const cardWidth = 360 + 24;
+    const newIdx = Math.round(scrollContainerRef.current.scrollLeft / cardWidth);
+    setActiveIndex(Math.min(Math.max(0, newIdx), filteredItems.length - 1));
+  };
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      setActiveIndex(0);
+    }
+  }, [activeFilter]);
+
   const dragThreshold = 80;
 
   return (
     <section
       id="gallery"
-      className="relative overflow-hidden bg-[#FAF7F2] py-[120px]"
+      className="relative overflow-hidden bg-[#FAF7F2] py-16 md:py-20"
     >
-      {/* Ambient decorative glow, quiet and out of the way */}
+      <style>{`
+        .gallery-scroller::-webkit-scrollbar { display: none; }
+        .gallery-scroller { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
+
+      {/* Ambient decorative glow */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-40 top-20 h-[420px] w-[420px] rounded-full bg-primary/5 blur-3xl"
@@ -228,197 +301,199 @@ export default function GallerySection() {
       />
 
       <Container className="relative max-w-[1320px]">
-        {/* ===== Section Heading ===== */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="mx-auto mb-12 flex max-w-[700px] flex-col items-center gap-4 text-center"
-        >
-          <motion.span
-            variants={fadeUp}
-            className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary"
+        {/* ===== Section Heading & Desktop Controls ===== */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="max-w-2xl"
           >
-            {content.subheading}
-          </motion.span>
+            <motion.span
+              variants={fadeUp}
+              className="inline-block rounded-full border border-secondary/35 bg-white/80 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-primary shadow-soft backdrop-blur-sm mb-3"
+            >
+              {content.subheading || 'Our Gallery'}
+            </motion.span>
+            <motion.h2
+              variants={fadeUp}
+              className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight text-dark"
+            >
+              {content.heading || 'Experience the Journey of Wellness'}
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="mt-3 text-sm sm:text-base text-muted leading-relaxed max-w-xl"
+            >
+              {content.description ||
+                'Showcase the peaceful environment, yoga sessions, workshops, teacher training, meditation, and community activities.'}
+            </motion.p>
+          </motion.div>
 
-          <motion.h2
-            variants={fadeUp}
-            className="font-heading text-4xl font-semibold leading-tight text-dark md:text-5xl"
-          >
-            {content.heading}
-          </motion.h2>
+          {/* Navigation Arrow Controls */}
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              onClick={() => scroll('left')}
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-border/80 bg-white text-dark shadow-soft transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white"
+              aria-label="Previous photos"
+            >
+              <FiChevronLeft size={22} />
+            </button>
+            <button
+              onClick={() => scroll('right')}
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-border/80 bg-white text-dark shadow-soft transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white"
+              aria-label="Next photos"
+            >
+              <FiChevronRight size={22} />
+            </button>
+          </div>
+        </div>
 
-          <motion.p
-            variants={fadeUp}
-            className="max-w-[700px] text-base leading-relaxed text-muted md:text-lg"
-          >
-            {content.description}
-          </motion.p>
-        </motion.div>
-
-        {/* ===== Category Filters ===== */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="mb-12 flex flex-wrap items-center justify-center gap-3"
-        >
+        {/* ===== Category Filter Pills ===== */}
+        <div className="mb-8 flex flex-wrap items-center gap-2.5">
           {categories.map((category) => {
             const isActive = activeFilter === category;
             return (
-              <motion.button
+              <button
                 key={category}
-                variants={fadeUp}
                 onClick={() => setActiveFilter(category)}
-                whileTap={{ scale: 0.95 }}
-                className={`relative overflow-hidden rounded-full px-5 py-2.5 font-body text-sm font-medium transition-colors duration-300 ${
+                className={`relative overflow-hidden rounded-full px-4 py-2 font-body text-xs font-semibold transition-all duration-300 ${
                   isActive
-                    ? 'text-white shadow-soft'
-                    : 'border border-border bg-white text-dark/70 hover:border-primary/40 hover:text-primary'
+                    ? 'bg-primary text-white shadow-soft'
+                    : 'border border-border/80 bg-white text-dark/70 hover:border-primary/40 hover:text-primary'
                 }`}
               >
-                {isActive && (
-                  <motion.span
-                    layoutId="activeFilterPill"
-                    className="absolute inset-0 bg-primary"
-                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                  />
-                )}
                 <span className="relative z-10 flex items-center gap-1.5">
                   {category}
                   <span
-                    className={`text-[11px] font-semibold ${
-                      isActive ? 'text-white/70' : 'text-dark/30'
+                    className={`text-[10px] font-bold ${
+                      isActive ? 'text-white/80' : 'text-dark/40'
                     }`}
                   >
                     {categoryCounts[category]}
                   </span>
                 </span>
-              </motion.button>
+              </button>
             );
           })}
-        </motion.div>
+        </div>
 
-        {/* ===== Masonry Gallery Grid ===== */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFilter}
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        {/* ===== Horizontal Image Scroller Track ===== */}
+        <div className="relative">
+          <div
+            ref={scrollContainerRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => {
+              setIsHovered(false);
+              handleMouseUp();
+            }}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onScroll={handleScroll}
+            className="gallery-scroller flex gap-5 sm:gap-6 overflow-x-auto pb-4 pt-1 cursor-grab active:cursor-grabbing snap-x snap-mandatory scroll-smooth select-none"
           >
             {filteredItems.map((item, index) => {
               const isLoaded = loadedIds.has(item.id);
               return (
-                <motion.div
-                  layout
+                <div
                   key={item.id}
-                  variants={cardVariants}
-                  onHoverStart={() => setHoveredId(item.id)}
-                  onHoverEnd={() => setHoveredId(null)}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-                  onClick={() => goToImage(index)}
-                  className={`group relative block w-full cursor-pointer overflow-hidden rounded-[24px] bg-dark/5 shadow-soft ${item.height}`}
+                  onClick={() => {
+                    if (hasDragged) return;
+                    goToImage(index);
+                  }}
+                  className="group relative w-[280px] sm:w-[340px] md:w-[370px] h-[320px] sm:h-[350px] shrink-0 cursor-pointer overflow-hidden rounded-[26px] bg-dark/5 shadow-soft border border-border/80 transition-all duration-500 hover:shadow-card hover:border-secondary/50 snap-start"
                 >
-                  {/* Loading skeleton shimmer */}
+                  {/* Skeleton shimmer */}
                   {!isLoaded && (
                     <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-dark/10 via-dark/5 to-dark/10" />
                   )}
 
-                  {/* Image or gradient placeholder */}
+                  {/* Photo */}
                   {item.image ? (
                     <img
                       src={item.image}
                       alt={item.title}
                       onLoad={() => markLoaded(item.id)}
-                      className={`h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-110 ${
+                      draggable={false}
+                      className={`h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-108 ${
                         isLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-md'
                       }`}
                       loading="lazy"
                     />
                   ) : (
                     <div
-                      className={`h-full w-full bg-gradient-to-br ${gradients[index % gradients.length]} transition-transform duration-500 ease-out group-hover:scale-110`}
+                      className={`h-full w-full bg-gradient-to-br ${gradients[index % gradients.length]} transition-transform duration-500 ease-out group-hover:scale-108`}
                     />
                   )}
 
-                  {/* Dark overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  {/* Gradient shadow for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-300" />
 
-                  {/* Hover content â€” icon + title, rising from the bottom */}
-                  <motion.div
-                    initial={false}
-                    animate={
-                      hoveredId === item.id ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }
-                    }
-                    transition={{ duration: 0.25, ease: 'easeOut' }}
-                    className="absolute inset-x-0 bottom-0 flex flex-col gap-1 p-5"
-                  >
-                    <div className="mb-1 flex h-11 w-11 items-center justify-center rounded-full bg-white/20 backdrop-blur-md">
-                      <FiImage className="h-5 w-5 text-white" />
-                    </div>
-                    <span className="font-heading text-lg font-semibold text-white">
-                      {item.title}
-                    </span>
-                    <span className="font-body text-xs text-white/70">
-                      Click to view
-                    </span>
-                  </motion.div>
-
-                  {/* Category badge */}
+                  {/* Category Pill Tag (Top Left) */}
                   {item.category && (
-                    <span className="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 font-body text-xs font-semibold text-primary backdrop-blur-md transition-transform duration-300 group-hover:-translate-y-0.5">
+                    <span className="absolute left-4 top-4 rounded-full bg-white/90 backdrop-blur-md px-3.5 py-1 font-body text-xs font-semibold text-primary shadow-soft border border-white/70">
                       {item.category}
                     </span>
                   )}
-                </motion.div>
+
+                  {/* Bottom Content Card */}
+                  <div className="absolute inset-x-0 bottom-0 p-5 flex items-end justify-between gap-3">
+                    <div className="flex-1">
+                      <h3 className="font-heading text-lg sm:text-xl font-bold text-white leading-snug drop-shadow-sm group-hover:text-secondary-light transition-colors">
+                        {item.title}
+                      </h3>
+                      <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-white/80">
+                        <FiImage className="text-secondary" /> Click to view full
+                      </span>
+                    </div>
+
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-primary">
+                      <FiImage size={18} />
+                    </div>
+                  </div>
+                </div>
               );
             })}
 
             {filteredItems.length === 0 && (
-              <motion.div
-                variants={fadeUp}
-                className="col-span-full flex flex-col items-center gap-3 py-20 text-center"
-              >
+              <div className="w-full flex flex-col items-center gap-3 py-16 text-center">
                 <FiImage className="h-10 w-10 text-dark/20" />
-                <p className="font-body text-muted">
-                  No photos in this category yet â€” check back soon.
-                </p>
-              </motion.div>
+                <p className="font-body text-muted">No photos in this category yet.</p>
+              </div>
             )}
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        </div>
 
-        {/* ===== Bottom CTA Button ===== */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          className="mt-16 flex justify-center"
-        >
-          <motion.div
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+        {/* ===== Indicator Dots & Bottom Action ===== */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6 pt-4 border-t border-border/60">
+          {/* Progress Indicator Dots */}
+          <div className="flex items-center gap-2">
+            {filteredItems.slice(0, 9).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  if (!scrollContainerRef.current) return;
+                  const cardWidth = 370 + 24;
+                  scrollContainerRef.current.scrollTo({ left: i * cardWidth, behavior: 'smooth' });
+                }}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === activeIndex ? 'w-8 bg-primary shadow-xs' : 'w-2 bg-border hover:bg-secondary/60'
+                }`}
+              />
+            ))}
+          </div>
+
+          <Link
+            to="/gallery"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 font-body text-xs font-bold uppercase tracking-wider text-dark border border-border/80 shadow-soft transition-all duration-300 hover:border-primary hover:text-primary hover:shadow-card"
           >
-            <Button
-              as={Link}
-              to="/gallery"
-              variant="primary"
-              size="lg"
-              icon={<HiArrowRight className="h-4 w-4" />}
-              className="h-[56px] rounded-full px-8 text-base"
-            >
-              View Full Gallery
-            </Button>
-          </motion.div>
-        </motion.div>
+            View Full Gallery
+            <HiArrowRight className="h-3.5 w-3.5 text-primary" />
+          </Link>
+        </div>
       </Container>
 
       {/* ===== Lightbox ===== */}

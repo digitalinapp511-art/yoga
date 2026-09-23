@@ -1,4 +1,4 @@
-﻿/**
+/**
  * FAQSection â€” Frequently Asked Questions with animated accordion.
  *
  * The photo and the question/answer list are both admin-editable from
@@ -256,7 +256,7 @@ export default function FAQSection() {
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="pt-2.5 text-xs leading-relaxed text-muted">
+                        <p className="pt-2.5 text-xs sm:text-sm leading-relaxed text-muted font-normal">
                           {faq.description}
                         </p>
                       </motion.div>

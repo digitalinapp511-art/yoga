@@ -7,6 +7,7 @@ import { GiMeditation } from 'react-icons/gi';
 import { useRef } from 'react';
 import { useAppContext } from '@/context/AppContext';
 import useSiteContent from '@/hooks/useSiteContent';
+import FormattedText from '@/components/common/FormattedText';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -27,7 +28,7 @@ const stagger = {
 
 const stats = [
   { icon: IoLeafOutline, value: '1000+', label: 'Happy Students' },
-  { icon: GiMeditation, value: '50+', label: 'Years Experience' },
+  { icon: GiMeditation, value: '15+', label: 'Years Experience' },
   { icon: HiOutlineCheckBadge, value: 'Certified', label: 'Yoga Teachers' },
   { icon: HiOutlineMapPin, value: 'Dehradun', label: 'Uttarakhand, India' },
 ];
@@ -36,19 +37,10 @@ const stats = [
    so the strip visually ties back to the CTA button above it. */
 const colorPrimary = '#9a3617';
 
-/* Delicate high-contrast serif for the hero headline — matches the new
-   reference screenshot's font (with italic for the accent line).
-   Move this <link> to index.html if you'd rather not inject it at runtime. */
-const HeadingFont = () => (
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap"
-  />
-);
 
 /* ===== Fallback copy — used until/unless the admin saves Hero content ===== */
 const heroFallback = {
-  heading: 'Find Your Inner Peace at Vimoksha Yogshala',
+  heading: 'Find Your Inner Peace at *Vimoksha Yogshala*',
   subheading: "EST. 2019 · DEHRADUN'S TRUSTED YOGSHALA",
   description:
     "Nestled in the serene beauty of Dehradun, we've guided over 1000 students through authentic Hatha yoga, pranayama, and yoga therapy — taught in small batches, led by teachers who know your name by the second class.",
@@ -59,76 +51,73 @@ const heroFallback = {
 
 export default function HeroSection() {
   const { openTrialModal } = useAppContext();
-  const sectionRef = useRef(null);
   const { content } = useSiteContent('hero', heroFallback);
 
   const hasCustomLink = content.ctaLink && content.ctaLink.trim().length > 0;
 
   return (
-    <section className="relative bg-[#F3F1EC] pb-6 sm:pb-10">
-      <HeadingFont />
+    <section className="relative overflow-hidden bg-background pt-[115px] sm:pt-[135px] md:pt-[145px] pb-10 sm:pb-14">
+      {/* Subtle ambient decorative lighting */}
+      <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-secondary/10 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/2 -left-24 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
 
-      {/* ===== Full-width, bottom-cropped hero card ===== */}
-      <div
-        ref={sectionRef}
-        className="relative h-[calc(100vh-1rem)] w-full overflow-hidden rounded-b-[28px]"
-      >
-        <div className="absolute inset-0">
-          <img
-            src={content.image || heroFallback.image}
-            alt="Vimoksha Yogshala — student meditating in a sunlit courtyard studio"
-            fetchPriority="high"
-            className="h-full w-full object-cover object-[85%_15%] sm:object-[70%_15%]"
-          />
-        </div>
-
-        {/* ===== Content overlaid on the card ===== */}
-        <div className="relative z-10 flex h-full max-w-[1320px] flex-col items-start justify-center px-6 pt-44 pb-10 sm:px-10 sm:pt-48 md:px-14 md:pt-52">
+      {/* Main 2-Column Split Hero Container */}
+      <Container className="max-w-[1320px]">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 xl:gap-16">
+          {/* LEFT: Text Content */}
           <motion.div
             variants={stagger}
             initial="hidden"
             animate="visible"
-            className="w-full max-w-[280px] sm:max-w-[620px]"
+            className="flex flex-col items-start"
           >
-            {/* Tagline */}
-            <motion.span
-              custom={0}
-              variants={fadeUp}
-              className="mb-3 inline-block whitespace-nowrap rounded-full border border-black/10 bg-white/70 px-3 py-1 font-body text-[9px] font-semibold uppercase tracking-[0.15em] text-[#742711] backdrop-blur-md sm:text-xs sm:tracking-[0.2em]"
-            >
-              {content.subheading || heroFallback.subheading}
-            </motion.span>
+            {/* Tagline Badge */}
+            <motion.div variants={fadeUp} className="mb-4">
+              <span className="inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/8 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
+                <IoLeafOutline className="text-sm" />
+                <span>{content.subheading || heroFallback.subheading}</span>
+              </span>
+            </motion.div>
 
             {/* Heading */}
             <motion.h1
-              custom={1}
               variants={fadeUp}
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              className="mb-6 font-medium leading-[1.15] tracking-tight text-neutral-900"
+              className="font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[60px] leading-[1.08] tracking-tight text-dark"
             >
-              <span className="text-[32px] sm:text-[36px] md:text-[42px] lg:text-[48px]">
-                {content.heading || heroFallback.heading}
-              </span>
+              <FormattedText text={content.heading || heroFallback.heading} />
             </motion.h1>
 
             {/* Description */}
             <motion.p
-              custom={2}
               variants={fadeUp}
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-              className="mb-8 max-w-[480px] text-sm font-light leading-[1.8] text-neutral-600 md:text-base"
+              className="mt-5 text-sm sm:text-base md:text-lg font-normal leading-relaxed text-muted max-w-xl"
             >
               {content.description || heroFallback.description}
             </motion.p>
 
+            {/* Feature Pills */}
+            <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-2.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-dark shadow-xs border border-border/80">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                Himalayan Sanctuary
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-dark shadow-xs border border-border/80">
+                <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                Small Focused Batches
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-dark shadow-xs border border-border/80">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                Certified Yoga Masters
+              </span>
+            </motion.div>
+
             {/* CTA Buttons */}
             <motion.div
-              custom={4}
               variants={fadeUp}
-              className="mb-10 flex flex-wrap items-center gap-3 sm:gap-4"
+              className="mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4"
             >
               <motion.div
-                whileHover={{ scale: 1.04 }}
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 15 }}
               >
@@ -137,8 +126,8 @@ export default function HeroSection() {
                     as={Link}
                     to={content.ctaLink}
                     variant="primary"
-                    icon={<HiArrowRight className="h-3.5 w-3.5" />}
-                    className="h-11 whitespace-nowrap rounded-full px-6 text-sm sm:h-12 sm:px-8 sm:text-base"
+                    icon={<HiArrowRight className="h-4 w-4" />}
+                    className="h-12 rounded-full px-8 text-sm font-semibold shadow-soft hover:shadow-elevated transition-all"
                   >
                     {content.ctaText || heroFallback.ctaText}
                   </Button>
@@ -147,73 +136,114 @@ export default function HeroSection() {
                     type="button"
                     onClick={openTrialModal}
                     variant="primary"
-                    icon={<HiArrowRight className="h-3.5 w-3.5" />}
-                    className="h-11 whitespace-nowrap rounded-full px-6 text-sm sm:h-12 sm:px-8 sm:text-base"
+                    icon={<HiArrowRight className="h-4 w-4" />}
+                    className="h-12 rounded-full px-8 text-sm font-semibold shadow-soft hover:shadow-elevated transition-all"
                   >
                     {content.ctaText || heroFallback.ctaText}
                   </Button>
                 )}
               </motion.div>
 
-              {/* Watch Intro — outline button with circular play icon */}
-              <motion.button
-                type="button"
-                whileHover={{ scale: 1.04 }}
+              <motion.a
+                href="#pathways"
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                className="inline-flex h-11 items-center gap-2.5 whitespace-nowrap rounded-full border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[#742711] backdrop-blur-md sm:h-12 sm:px-6 sm:text-base"
+                className="inline-flex h-12 items-center gap-2 rounded-full border border-border bg-white px-6 text-sm font-semibold text-dark shadow-xs transition-all hover:border-primary hover:text-primary hover:bg-white"
               >
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#742711]/40 sm:h-8 sm:w-8">
-                  <IoPlayOutline className="ml-0.5 h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                </span>
-                Watch Intro
-              </motion.button>
+                Explore Pathways
+                <HiArrowRight className="h-3.5 w-3.5" />
+              </motion.a>
+            </motion.div>
+          </motion.div>
+
+          {/* RIGHT: Half Photo with Luxury Framed UI */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            className="relative"
+          >
+            {/* Decorative accent ring */}
+            <div className="absolute -left-4 -top-4 h-28 w-28 rounded-full border border-secondary/30 pointer-events-none -z-10" />
+
+            {/* Main Photo Frame */}
+            <div className="relative overflow-hidden rounded-[32px] border-[8px] sm:border-[10px] border-white bg-white shadow-elevated">
+              <img
+                src={content.image || heroFallback.image}
+                alt="Vimoksha Yogshala student meditating in serene environment"
+                fetchPriority="high"
+                className="h-[380px] sm:h-[460px] md:h-[500px] lg:h-[530px] w-full object-cover object-center"
+              />
+            </div>
+
+            {/* Floating Trust Badge 1: Top Right */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="absolute -top-3 -right-2 sm:-right-4 rounded-2xl bg-white px-4 py-2.5 shadow-card border border-border/70 flex items-center gap-2.5"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary/15 text-secondary text-base">
+                ★
+              </span>
+              <div>
+                <p className="text-xs font-bold text-dark leading-none">4.9 / 5.0 Rating</p>
+                <p className="text-[10px] text-muted leading-tight mt-0.5">350+ Google Reviews</p>
+              </div>
+            </motion.div>
+
+            {/* Floating Trust Badge 2: Bottom Left */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              className="absolute -bottom-4 -left-2 sm:-left-4 rounded-2xl bg-primary px-5 py-3 text-white shadow-elevated"
+            >
+              <p className="font-heading text-xl font-bold leading-none">Since 2019</p>
+              <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-white/80">
+                Rooted in Himalayan Tradition
+              </p>
             </motion.div>
           </motion.div>
         </div>
-      </div>
 
-      {/* ===== Stats strip — trust markers, kept static (not part of the
-          admin content editor's fields). ===== */}
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        style={{ fontFamily: "'Poppins', sans-serif" }}
-        className="relative z-10 mx-auto -mt-px flex max-w-[1320px] flex-wrap items-center justify-center gap-x-10 gap-y-8 px-6 pt-10 pb-4 sm:justify-between sm:gap-y-0 sm:px-10 sm:pt-14 md:px-14"
-      >
-        {stats.map(({ icon: Icon, value, label }, i) => (
-          <motion.div
-            key={label}
-            custom={i}
-            variants={fadeUp}
-            className="flex items-center gap-3.5 sm:gap-4"
-          >
-            <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#EAE6DA] sm:h-14 sm:w-14" style={{ color: colorPrimary }}>
-              <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-            </span>
-            <span className="flex flex-col leading-tight">
+        {/* ===== Stats strip — trust markers ===== */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
+          className="mt-14 sm:mt-18 rounded-[28px] border border-border/80 bg-white p-6 sm:p-8 md:p-10 shadow-soft grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+        >
+          {stats.map(({ icon: Icon, value, label }, i) => (
+            <motion.div
+              key={label}
+              custom={i}
+              variants={fadeUp}
+              className="flex items-center gap-3.5 sm:gap-4"
+            >
               <span
+                className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#EAE6DA] sm:h-14 sm:w-14"
                 style={{ color: colorPrimary }}
-                className="font-heading text-lg font-semibold sm:text-xl"
               >
-                {value}
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
               </span>
-              <span className="text-xs font-light text-neutral-500 sm:text-sm">
-                {label}
+              <span className="flex flex-col leading-tight">
+                <span
+                  style={{ color: colorPrimary }}
+                  className="font-heading text-lg sm:text-xl md:text-2xl font-bold"
+                >
+                  {value}
+                </span>
+                <span className="text-xs font-light text-neutral-500 sm:text-sm mt-0.5">
+                  {label}
+                </span>
               </span>
-            </span>
-
-            {i < stats.length - 1 && (
-              <span
-                style={{ backgroundColor: colorPrimary }}
-                className="ml-6 hidden h-8 w-[3px] flex-shrink-0 rounded-full opacity-25 sm:ml-8 sm:block lg:ml-10"
-              />
-            )}
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </Container>
     </section>
   );
 }

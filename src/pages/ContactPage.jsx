@@ -4,6 +4,7 @@ import usePageMeta from '@/hooks/usePageMeta';
 import { Container, Button } from '@/components/ui';
 import { api } from '@/lib/api';
 import { HiArrowRight } from 'react-icons/hi2';
+import { GiLotus } from 'react-icons/gi';
 import {
   IoLocationOutline,
   IoCallOutline,
@@ -123,37 +124,122 @@ export default function ContactPage() {
 
   return (
     <div data-page="contact">
-      {/* ===== Intro / Welcome ===== */}
-      <section className="bg-background pt-[120px] pb-[50px] sm:pt-[140px] sm:pb-[65px] md:pt-[160px] md:pb-[80px]">
-        <Container className="max-w-[900px]">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col items-center gap-5 text-center"
-          >
-            <motion.span
-              variants={fadeUp}
-              className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary"
-            >
-              Get In Touch
-            </motion.span>
+      {/* ===== 1. Hero Banner (Framed Luxury Sanctuary Aesthetic) ===== */}
+      <section className="relative overflow-hidden bg-background pt-[115px] pb-12 sm:pt-[135px] sm:pb-16 md:pt-[145px] md:pb-20">
+        {/* Subtle ambient decorative lighting */}
+        <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-secondary/10 blur-3xl" />
+        <div className="pointer-events-none absolute top-1/2 -left-24 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
 
-            <motion.h1
-              variants={fadeUp}
-              className="font-heading text-3xl font-semibold leading-tight text-dark sm:text-4xl md:text-5xl"
+        <Container className="max-w-[1320px]">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 xl:gap-16">
+            {/* Left Column: Text Content */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col items-start"
             >
-              Let's Start Your <span className="text-primary">Practice</span>
-            </motion.h1>
+              {/* Badge */}
+              <motion.div variants={fadeUp} className="mb-4">
+                <span className="inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/8 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
+                  <GiLotus className="text-sm text-primary" />
+                  <span>Get In Touch • Welcome to Vimoksha</span>
+                </span>
+              </motion.div>
 
-            <motion.p
-              variants={fadeUp}
-              className="text-base leading-relaxed text-muted md:text-lg"
+              {/* Heading */}
+              <motion.h1
+                variants={fadeUp}
+                className="font-heading font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-[48px] xl:text-[54px] leading-[1.15] tracking-tight text-dark"
+              >
+                Let's Start Your <span className="italic text-primary">Sacred Journey</span> Together
+              </motion.h1>
+
+              {/* Description */}
+              <motion.p
+                variants={fadeUp}
+                className="mt-5 text-sm sm:text-base md:text-lg font-normal leading-relaxed text-muted max-w-xl"
+              >
+                Visit our Dehradun studios, call us, or send a message — our master teachers and team are here to help you choose the right yoga practice, therapy, or teacher training path.
+              </motion.p>
+
+              {/* Feature Highlights Pills */}
+              <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-2.5">
+                {[
+                  '2 Studios: GMS Road & Dalanwala',
+                  'Personalized Consultation',
+                  'Open 6 Days a Week',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-dark shadow-xs border border-border/80"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    {item}
+                  </span>
+                ))}
+              </motion.div>
+
+              {/* Action Buttons */}
+              <motion.div
+                variants={fadeUp}
+                className="mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4"
+              >
+                <motion.a
+                  href="#contact-form"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-8 text-sm font-semibold text-white shadow-soft transition-all hover:bg-primary-dark hover:shadow-elevated"
+                >
+                  Send a Message <HiArrowRight className="h-4 w-4" />
+                </motion.a>
+
+                <motion.a
+                  href="tel:+919026612796"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                  className="inline-flex h-12 items-center gap-2 rounded-full border border-border bg-white px-6 text-sm font-semibold text-dark shadow-xs transition-all hover:border-primary hover:text-primary"
+                >
+                  <IoCallOutline className="text-base text-primary" />
+                  Call: +91 90266 12796
+                </motion.a>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column: Framed Luxury Hero Photo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              className="relative w-full"
             >
-              Visit our Dehradun studio, call, or send a message — we'll get
-              back to you and help you find the right class to start with.
-            </motion.p>
-          </motion.div>
+              {/* Decorative accent ring */}
+              <div className="pointer-events-none absolute -left-4 -top-4 -z-10 h-28 w-28 rounded-full border border-secondary/30" />
+
+              {/* Main Photo Frame */}
+              <div className="relative overflow-hidden rounded-[28px] sm:rounded-[32px] border-[8px] sm:border-[10px] border-white bg-white shadow-elevated">
+                <img
+                  src="/images/contact/contact-hero.jpg"
+                  alt="Vimoksha Yogshala sanctuary reception and welcoming wellness hall in Dehradun"
+                  fetchPriority="high"
+                  className="h-[340px] sm:h-[410px] md:h-[450px] lg:h-[480px] w-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/75 via-dark/20 to-transparent pointer-events-none" />
+
+                {/* Floating Tagline & Quote Overlay */}
+                <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6">
+                  <span className="inline-block rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-[11px] uppercase tracking-wider font-bold text-white border border-white/30 mb-2">
+                    Dehradun Sanctuaries
+                  </span>
+                  <p className="font-heading text-base sm:text-lg italic font-medium text-white drop-shadow-md leading-snug">
+                    &ldquo;A sacred, welcoming space dedicated to your peace, health &amp; liberation.&rdquo;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </Container>
       </section>
 
@@ -243,8 +329,9 @@ export default function ContactPage() {
 
             {/* Form */}
             <motion.div
+              id="contact-form"
               variants={fadeUp}
-              className="rounded-[28px] border border-border bg-white p-8 shadow-soft md:p-10"
+              className="scroll-mt-28 rounded-[28px] border border-border bg-white p-8 shadow-soft md:p-10"
             >
               <h2 className="font-heading text-xl font-semibold text-dark sm:text-2xl md:text-3xl">
                 Send a Message

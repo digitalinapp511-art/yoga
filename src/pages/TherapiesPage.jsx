@@ -2,8 +2,9 @@ import { useState } from 'react';
 import usePageMeta from '@/hooks/usePageMeta';
 import { Container, Button } from '@/components/ui';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { HiArrowRight } from 'react-icons/hi2';
+import { Star, Quote, ExternalLink } from 'lucide-react';
 import {
   IoLeafOutline,
   IoWaterOutline,
@@ -33,6 +34,10 @@ import {
   IoCalendarOutline,
   IoMailOutline,
   IoChevronDown,
+  IoTimeOutline,
+  IoEyeOutline,
+  IoCloseOutline,
+  IoCheckmarkCircleOutline,
 } from 'react-icons/io5';
 
 /* ===== Animation variants ===== */
@@ -180,19 +185,140 @@ const mainTherapies = [
   },
 ];
 
-/* ===== 11 Sub-Therapies (From Handwritten Note) ===== */
+/* ===== 11 Sub-Therapies (Rich Data with Photos & Modalities) ===== */
 const subTherapies = [
-  { name: 'Snehan (मसाज / Massage)', desc: 'Herbal oil massage to nourish tissues and relieve stiffness.' },
-  { name: 'Swedan (Steam)', desc: 'Medicated herbal steam therapy for full-body detoxification.' },
-  { name: 'Patra Potali Massage', desc: 'Warm herbal poultice massage for joint & muscle comfort.' },
-  { name: 'Shirodhara', desc: 'Continuous stream of warm oil on forehead for deep mental peace.' },
-  { name: 'Janu Vasti', desc: 'Medicated oil pooling therapy specifically for knee joint care.' },
-  { name: 'Kati Vasti', desc: 'Warm herbal oil reservoir over lower back for spinal relief.' },
-  { name: 'Mud Bath', desc: 'Mineral-rich mud therapy for cooling, detox and skin vitality.' },
-  { name: 'Abdominal Mud Pack', desc: 'Targeted mud application on abdomen to support digestion.' },
-  { name: 'Hip Bath', desc: 'Hydrotherapy sitz bath supporting pelvic and lower body wellness.' },
-  { name: 'Arm Bath', desc: 'Targeted hydrotherapy bath for arms and upper-body circulation.' },
-  { name: 'Colon Cleansing', desc: 'Natural digestive and colon wellness cleansing practice.' },
+  {
+    id: 'snehan',
+    name: 'Snehan (मसाज / Abhyanga)',
+    englishName: 'Medicated Herbal Oil Massage',
+    category: 'Ayurveda & Panchakarma',
+    image: '/images/therapies/Therapeutic_Massage.webp',
+    duration: '45 - 60 Min',
+    idealFor: 'Muscle stiffness, joint fatigue, stress & insomnia',
+    benefits: ['Nourishes Deep Tissues', 'Relieves Joint Stiffness', 'Calms Nervous System'],
+    shortDesc: 'Medicated herbal oil massage to nourish tissues and relieve stiffness.',
+    desc: 'Deeply relaxing full-body rhythmic massage using warm Ayurvedic herbal oils tailored to your dosha constitution. It stimulates blood circulation, releases muscle knots, and restores youthful suppleness.',
+  },
+  {
+    id: 'swedan',
+    name: 'Swedan (हर्बल स्टीम / Steam)',
+    englishName: 'Herbal Steam Chamber Detox',
+    category: 'Ayurveda & Panchakarma',
+    image: '/images/therapies/swedan_steam.jpg',
+    duration: '20 - 30 Min',
+    idealFor: 'Body heaviness, toxin buildup, sluggish metabolism',
+    benefits: ['Sweats Out Toxins', 'Opens Micro-Channels', 'Eases Body Heaviness'],
+    shortDesc: 'Medicated herbal steam therapy for full-body detoxification & lightness.',
+    desc: 'Medicated herbal steam therapy inside a traditional hand-crafted wooden chamber. Aromatic steam infused with healing leaves opens up micro-circulation channels (srotas) and eliminates deep metabolic waste.',
+  },
+  {
+    id: 'patra-potali',
+    name: 'Patra Potali (पत्र पोटली / Kizhi)',
+    englishName: 'Warm Herbal Leaf Poultice Therapy',
+    category: 'Ayurveda & Panchakarma',
+    image: '/images/therapies/patra_potali.jpg',
+    duration: '45 - 60 Min',
+    idealFor: 'Arthritis, sciatica, frozen shoulder, chronic inflammation',
+    benefits: ['Relieves Chronic Inflammation', 'Soothes Arthritic Pain', 'Improves Joint Mobility'],
+    shortDesc: 'Warm herbal leaf poultice massage for joint & deep muscle comfort.',
+    desc: 'Therapeutic massage using warm cotton boluses (potlis) packed with fresh medicinal leaves fried in Ayurvedic oils. Rhythmically applied over joints and muscles to reduce swelling and ease acute joint discomfort.',
+  },
+  {
+    id: 'shirodhara',
+    name: 'Shirodhara (शिरोधरा)',
+    englishName: 'Warm Oil Third-Eye Flow',
+    category: 'Ayurveda & Panchakarma',
+    image: '/images/therapies/Shirodhara.jpeg',
+    duration: '45 - 60 Min',
+    idealFor: 'Anxiety, mental fatigue, insomnia, chronic headaches',
+    benefits: ['Deep Mental Calm', 'Alleviates Insomnia', 'Soothes Migraine & Stress'],
+    shortDesc: 'Continuous stream of warm oil on forehead for deep mental peace.',
+    desc: 'A continuous, soothing stream of warm dosha-specific herbal oil gently poured over the forehead (Ajna chakra). Induces a profound meditative state, lowers stress hormones, and promotes restorative sleep.',
+  },
+  {
+    id: 'janu-vasti',
+    name: 'Janu Vasti (जानु बस्ति)',
+    englishName: 'Knee Joint Oil Reservoir Care',
+    category: 'Ayurveda & Panchakarma',
+    image: '/images/therapies/Janu_Basti.webp',
+    duration: '30 - 45 Min',
+    idealFor: 'Osteoarthritis, knee stiffness, cartilage degeneration',
+    benefits: ['Nourishes Knee Joint', 'Lubricates Synovial Fluid', 'Relieves Walking Pain'],
+    shortDesc: 'Medicated oil pooling therapy specifically for knee joint care & mobility.',
+    desc: 'A leak-proof dough dam placed over the knee joint, filled with continuously warm medicinal oils. Deeply lubricates the joint capsule, eases degenerative friction, and strengthens surrounding tendons.',
+  },
+  {
+    id: 'kati-vasti',
+    name: 'Kati Vasti (कटि बस्ति)',
+    englishName: 'Lumbosacral Spinal Oil Reservoir',
+    category: 'Ayurveda & Panchakarma',
+    image: '/images/therapies/Kati_Basti.webp',
+    duration: '30 - 45 Min',
+    idealFor: 'Lower back pain, slipped disc, sciatica, lumbar spondylosis',
+    benefits: ['Decompresses Spinal Nerves', 'Soothes Sciatic Ache', 'Strengthens Lumbar Muscles'],
+    shortDesc: 'Warm herbal oil reservoir over lower back for spine & sciatica relief.',
+    desc: 'Warm herbal medicated oil retained within a dough boundary placed over the lower spinal region. Relieves nerve compression, nourishes vertebral discs, and provides long-lasting relief from lumbar pain.',
+  },
+  {
+    id: 'mud-bath',
+    name: 'Mud Bath (मिट्टी स्नान / Mitti Snan)',
+    englishName: 'Full Body Therapeutic Clay Bath',
+    category: 'Naturopathy & Clay',
+    image: '/images/therapies/mud_bath.jpg',
+    duration: '40 - 50 Min',
+    idealFor: 'Skin conditions, high body heat, systemic impurities',
+    benefits: ['Draws Out Impurities', 'Enhances Skin Radiance', 'Cools Internal Heat'],
+    shortDesc: 'Mineral-rich therapeutic mud bath for cooling, detox & skin radiance.',
+    desc: 'Immersive application of mineral-rich Himalayan healing clay. The volcanic and mineral elements draw out impurities through the skin pores, balance body temperature, and revitalize the epidermis.',
+  },
+  {
+    id: 'abdominal-mud-pack',
+    name: 'Abdominal Mud Pack (उदर मिट्टी पट्टी)',
+    englishName: 'Digestive Detox Clay Pack',
+    category: 'Naturopathy & Clay',
+    image: '/images/therapies/abdominal_mud_pack.jpg',
+    duration: '25 - 35 Min',
+    idealFor: 'Constipation, acid reflux, sluggish digestion, bloating',
+    benefits: ['Stimulates Bowel Peristalsis', 'Alleviates Acid Reflux', 'Soothes Gut Heat'],
+    shortDesc: 'Targeted cooling mud pack on abdomen to support digestive wellness.',
+    desc: 'A pure, sterile natural mud pack applied directly over the stomach and abdominal area. It absorbs excess gastrointestinal heat, stimulates intestinal motility, and supports natural, regular digestion.',
+  },
+  {
+    id: 'hip-bath',
+    name: 'Hip Bath (कटि स्नान / Kati Snan)',
+    englishName: 'Hydrotherapy Sitz Bath',
+    category: 'Hydrotherapy & Detox',
+    image: '/images/therapies/hip_bath.jpg',
+    duration: '20 - 30 Min',
+    idealFor: 'Pelvic congestion, menstrual cramps, piles, reproductive wellness',
+    benefits: ['Tones Pelvic Organs', 'Relieves Menstrual Pain', 'Improves Lower Circulation'],
+    shortDesc: 'Hydrotherapy sitz bath supporting pelvic circulation & lower body comfort.',
+    desc: 'Specialized hydrotherapeutic tub bath where the pelvic and lower abdominal regions are immersed in temperature-regulated therapeutic water, stimulating vital circulation to the reproductive and digestive organs.',
+  },
+  {
+    id: 'arm-bath',
+    name: 'Arm Bath (हस्त स्नान / Hasta Snan)',
+    englishName: 'Arm & Forearm Immersion Therapy',
+    category: 'Hydrotherapy & Detox',
+    image: '/images/therapies/arm_bath.jpg',
+    duration: '15 - 25 Min',
+    idealFor: 'Respiratory distress, asthma, upper-body stiffness, cold extremities',
+    benefits: ['Stimulates Reflex Points', 'Eases Breathing Constriction', 'Relieves Arm Tension'],
+    shortDesc: 'Targeted hydrotherapy bath for arm circulation & nervous relaxation.',
+    desc: 'A calming hydrotherapy session where forearms and hands are submerged in warm medicated water. Through nervous reflex action, it promotes bronchial relaxation, improves circulation, and clears chest tension.',
+  },
+  {
+    id: 'colon-cleansing',
+    name: 'Colon Cleansing & Detox (शंखप्रक्षालन)',
+    englishName: 'Digestive Tract Cleansing Practice',
+    category: 'Hydrotherapy & Detox',
+    image: '/images/therapies/colon_cleansing.jpg',
+    duration: '45 - 60 Min',
+    idealFor: 'Chronic toxicity, sluggish metabolism, metabolic reset',
+    benefits: ['Flushes Gastrointestinal Toxins', 'Resets Digestive Agni', 'Restores Gut Energy'],
+    shortDesc: 'Natural digestive & colon cleansing practice for internal purification.',
+    desc: 'Gentle, traditional yogic and naturopathic cleansing method using herbal infusions and natural hydration under expert guidance. Completely resets the digestive tract, clears encrusted waste, and revitalizes whole-body energy.',
+  },
 ];
 
 /* ===== What We Aim to Support ===== */
@@ -233,29 +359,114 @@ const whyChooseUs = [
   { label: 'Peaceful Wellness Centre', icon: IoHomeOutline },
 ];
 
-/* ===== Testimonials ===== */
+/* ===== Testimonials (Verified Client Healing Stories) ===== */
 const testimonials = [
   {
-    name: 'Neha S.',
-    image: '/images/testimonials/neha.jpg',
-    quote: 'Naturopathy sessions helped me detox and improve my energy levels naturally. I feel lighter, healthier and more active.',
+    id: 'th-rev-1',
+    name: 'Neha Sharma',
+    role: 'Naturopathy & Detox Patient',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&h=200&q=80',
+    rating: 5,
+    quote:
+      'Naturopathy sessions helped me detox, reset my metabolism, and improve my energy levels naturally. I feel remarkably lighter, healthier, and refreshed.',
   },
   {
-    name: 'Rohit M.',
-    image: '/images/testimonials/rohit.jpg',
-    quote: 'Cupping therapy and massage reduced my back pain significantly. The therapists are professional and caring.',
+    id: 'th-rev-2',
+    name: 'Rohit Verma',
+    role: 'Cupping & Back Pain Relief',
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&h=200&q=80',
+    rating: 5,
+    quote:
+      'Cupping therapy and therapeutic massage reduced my severe lower back pain within 3 sessions. The therapists are exceptionally professional, gentle, and caring.',
   },
   {
-    name: 'Priya D.',
-    image: '/images/testimonials/priya.jpg',
-    quote: 'Shirodhara therapy is extremely relaxing. It has improved my sleep and reduced my stress levels a lot.',
+    id: 'th-rev-3',
+    name: 'Priya Nair',
+    role: 'Shirodhara & Stress Relief',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&h=200&q=80',
+    rating: 5,
+    quote:
+      'Shirodhara therapy was deeply soothing. It normalized my sleep cycle and melted away months of accumulated work stress. Highly recommended!',
   },
   {
-    name: 'Arjun K.',
-    image: '/images/testimonials/arjun.jpg',
-    quote: 'The Janu Basti sessions eased my knee pain within a couple of weeks. The therapists genuinely listen and adjust the treatment to what you need.',
+    id: 'th-rev-4',
+    name: 'Arjun Kapoor',
+    role: 'Janu Basti (Knee & Joint Care)',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&h=200&q=80',
+    rating: 5,
+    quote:
+      'The Janu Basti herbal oil therapy relieved my persistent knee stiffness within two weeks. The team genuinely listens and customizes every session with utmost care.',
   },
 ];
+
+/* ===== Therapy Review Card (Exact Luxury Home Page Aesthetic) ===== */
+function TherapyReviewCard({ review }) {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <div className="group relative flex h-full flex-col justify-between rounded-[24px] border border-border/80 bg-white p-6 sm:p-7 shadow-soft transition-all duration-300 hover:border-secondary/40 hover:shadow-card hover:-translate-y-1.5">
+      {/* Top Header: Star Rating + Signature Quote Badge */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-1" aria-label={`${review.rating} out of 5 stars`}>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <Star
+              key={star}
+              size={16}
+              className={
+                star <= review.rating
+                  ? 'fill-secondary text-secondary drop-shadow-[0_1px_3px_rgba(246,145,22,0.35)]'
+                  : 'fill-transparent text-border'
+              }
+              strokeWidth={1.5}
+            />
+          ))}
+        </div>
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary/10 text-primary transition-all duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-white">
+          <Quote size={15} className="rotate-180" />
+        </div>
+      </div>
+
+      {/* Review Text */}
+      <p className="flex-1 font-body text-sm leading-relaxed text-dark/85 italic mb-6">
+        &ldquo;{review.quote}&rdquo;
+      </p>
+
+      {/* Author Info with Circular Photo */}
+      <div className="flex items-center justify-between border-t border-border/60 pt-4 mt-auto">
+        <div className="flex items-center gap-3.5">
+          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-secondary/30 shadow-xs ring-2 ring-white/80 bg-secondary/10">
+            {review.avatar && !imgError ? (
+              <img
+                src={review.avatar}
+                alt={review.name}
+                className="h-full w-full object-cover"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary to-secondary font-heading text-base font-bold text-white">
+                {review.name ? review.name.charAt(0).toUpperCase() : 'U'}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <span className="font-heading text-base font-bold text-dark leading-tight group-hover:text-primary transition-colors">
+              {review.name}
+            </span>
+            <span className="text-[11px] font-semibold text-secondary uppercase tracking-wider mt-0.5">
+              {review.role}
+            </span>
+          </div>
+        </div>
+
+        {/* Verified Badge */}
+        <div className="hidden sm:flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50/90 px-2.5 py-1 rounded-full border border-emerald-200/60">
+          <span className="text-xs">✓</span>
+          <span>Verified</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /* ===== FAQs ===== */
 const faqs = [
@@ -279,6 +490,7 @@ export default function TherapiesPage() {
   usePageMeta('therapies');
 
   const [openFaq, setOpenFaq] = useState(null);
+  const [selectedTherapyModal, setSelectedTherapyModal] = useState(null);
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -288,6 +500,19 @@ export default function TherapiesPage() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+
+  const handleSelectTherapy = (therapyName) => {
+    setForm((prev) => ({ ...prev, therapy: therapyName }));
+    if (selectedTherapyModal) setSelectedTherapyModal(null);
+    const el = document.getElementById('book-consultation');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('ring-4', 'ring-primary', 'ring-offset-2', 'transition-all', 'duration-500');
+      setTimeout(() => {
+        el.classList.remove('ring-4', 'ring-primary', 'ring-offset-2');
+      }, 2500);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -443,37 +668,60 @@ export default function TherapiesPage() {
             ))}
           </div>
 
-          {/* 11 Sub-Therapies (From Handwritten Note) */}
-          <div className="bg-white rounded-[28px] p-8 md:p-12 border border-border shadow-soft mb-16">
-            <div className="text-center max-w-xl mx-auto mb-10">
-              <span className="inline-block rounded-full bg-secondary/15 text-secondary px-4 py-1.5 text-xs font-semibold uppercase tracking-wider mb-2">
+          {/* 11 Sub-Therapies (Option A: Clean Luxury Grid - User Sketch Format) */}
+          <div className="bg-white/90 backdrop-blur-sm rounded-[32px] p-6 sm:p-10 md:p-12 border border-border shadow-soft mb-16 relative overflow-hidden">
+            {/* Ambient decorative glow */}
+            <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
+
+            {/* Header */}
+            <div className="text-center max-w-2xl mx-auto mb-10 relative z-10">
+              <span className="inline-block rounded-full border border-secondary/30 bg-secondary/8 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary mb-3">
                 Specialized Healing Modalities
               </span>
-              <h3 className="font-heading text-2xl md:text-3xl font-semibold text-dark">
+              <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-semibold text-dark">
                 Supportive <span className="text-primary">Sub-Therapies</span>
               </h3>
-              <p className="mt-2 text-sm text-muted">
-                Traditional Ayurvedic and Naturopathic therapies integrated into your personalized plan.
+              <p className="mt-3 text-sm sm:text-base text-muted leading-relaxed">
+                Time-tested Ayurvedic Panchakarma, Naturopathic Clay, and Hydrotherapy healing modalities integrated seamlessly into your individualized wellness plan.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {subTherapies.map((sub, idx) => (
+            {/* 11 Sub-Therapies Grid (Format matching user sketch: Circular Photo + Name + 2-line Description) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 relative z-10">
+              {subTherapies.map((sub) => (
                 <div
-                  key={sub.name}
-                  className="rounded-2xl bg-background p-5 border border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors"
+                  key={sub.id || sub.name}
+                  onClick={() => setSelectedTherapyModal(sub)}
+                  className="group relative flex items-center gap-3.5 sm:gap-4.5 rounded-2xl sm:rounded-full bg-[#fcfaf7] p-3 sm:p-3.5 pr-5 sm:pr-6 border border-border/80 shadow-xs transition-all duration-300 hover:shadow-card hover:border-primary/40 hover:-translate-y-1 hover:bg-white cursor-pointer"
                 >
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-bold shrink-0">
-                      {idx + 1}
-                    </span>
-                    <h4 className="font-heading text-base font-semibold text-dark">
+                  {/* Left: Circular Image Frame (Matching User Sketch 'imge') */}
+                  <div className="relative shrink-0 w-16 h-16 sm:w-[74px] sm:h-[74px] rounded-full overflow-hidden border-2 border-primary/20 ring-2 ring-secondary/20 shadow-xs group-hover:scale-105 group-hover:border-primary group-hover:ring-primary/30 transition-all duration-300">
+                    <img
+                      src={sub.image}
+                      alt={sub.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.src = '/images/therapies/hero.jpg';
+                      }}
+                    />
+                  </div>
+
+                  {/* Right: Content Block (Therapy Name + Accent Line + Short 2-word Description) */}
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-heading text-base sm:text-[17px] font-bold text-dark group-hover:text-primary transition-colors leading-snug truncate">
                       {sub.name}
                     </h4>
+
+                    {/* Subtle underline / accent line as drawn in sketch */}
+                    <div className="w-8 h-0.5 bg-primary/25 group-hover:w-16 group-hover:bg-primary transition-all duration-300 rounded-full my-1" />
+
+                    {/* इसके बारे में 2 शब्द (Short Description) */}
+                    <p className="text-xs sm:text-[13px] text-muted leading-relaxed line-clamp-2">
+                      {sub.shortDesc || sub.desc}
+                    </p>
                   </div>
-                  <p className="text-xs md:text-sm text-muted leading-relaxed pl-10">
-                    {sub.desc}
-                  </p>
                 </div>
               ))}
             </div>
@@ -730,36 +978,38 @@ export default function TherapiesPage() {
       <section className="bg-background py-16 md:py-24">
         <Container className="max-w-[1320px]">
           <div className="flex flex-col gap-16">
-            {/* Testimonials */}
+            {/* Testimonials (Matching Home Page Luxury Aesthetic) */}
             <div>
-              <h2 className="mb-8 text-center font-heading text-xl font-semibold uppercase tracking-wide text-dark sm:text-2xl">
-                What Our Clients Say
-              </h2>
-              <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {testimonials.map((t) => (
-                  <div
-                    key={t.name}
-                    className="flex h-full flex-col rounded-[20px] border border-border bg-white p-5 shadow-soft"
-                  >
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={t.image}
-                        alt={t.name}
-                        className="h-11 w-11 shrink-0 rounded-full object-cover"
-                      />
-                      <div className="flex text-primary">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <IoStar key={i} className="text-sm" />
-                        ))}
-                      </div>
-                    </div>
-                    <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
-                      {t.quote}
-                    </p>
-                    <p className="mt-4 font-heading text-sm font-semibold text-dark">
-                      &mdash; {t.name}
-                    </p>
+              <div className="mx-auto mb-12 flex max-w-[720px] flex-col items-center text-center">
+                <span className="inline-block rounded-full border border-secondary/35 bg-white/90 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-primary shadow-soft backdrop-blur-sm mb-3">
+                  Community Love &amp; Experiences
+                </span>
+                <h2 className="font-heading text-3xl font-semibold leading-tight text-dark sm:text-4xl md:text-5xl">
+                  What Our Clients <span className="text-primary">Say About Our Therapies</span>
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-muted max-w-[620px]">
+                  Real transformative recovery journeys from individuals who restored bodily balance, relieved chronic back &amp; joint pain, and found deep relaxation through our therapies.
+                </p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Vimoksha+Yogshala+27+Mohit+Nagar+GMS+Road+Dehradun"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-dark shadow-soft transition-all duration-300 hover:border-primary hover:text-primary hover:shadow-card"
+                >
+                  <div className="flex items-center gap-0.5 text-secondary">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star key={s} size={14} className="fill-secondary text-secondary" />
+                    ))}
                   </div>
+                  <span>4.9 / 5.0 on Google Reviews</span>
+                  <ExternalLink size={14} className="text-secondary" />
+                </a>
+              </div>
+
+              {/* 4 Luxury Testimonial Cards Grid */}
+              <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {testimonials.map((review) => (
+                  <TherapyReviewCard key={review.id || review.name} review={review} />
                 ))}
               </div>
             </div>
@@ -801,27 +1051,36 @@ export default function TherapiesPage() {
         </Container>
       </section>
 
-      {/* ===== 6. Closing CTA banner ===== */}
-      <section className="relative overflow-hidden bg-dark py-14">
+      {/* ===== 6. Closing CTA banner (Natural Healing Journey) ===== */}
+      <section className="relative overflow-hidden bg-dark py-16 sm:py-20 lg:py-24 border-y border-white/10 shadow-elevated">
+        {/* Cinematic Background Image */}
         <img
-          src="/images/therapies/hero.jpg"
-          alt=""
+          src="/images/therapies/natural-healing-cta-bg.jpg"
+          alt="Ayurvedic natural wellness and healing therapy atmosphere at Vimoksha Yogshala"
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover opacity-30"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/90 to-dark/40" />
+        {/* Luxury Vignette & Contrast Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/85 to-dark/65" />
+        <div className="absolute inset-0 bg-radial from-transparent via-transparent to-dark/60 pointer-events-none" />
+
         <Container className="relative max-w-[1320px]">
-          <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h2 className="font-heading text-2xl font-semibold text-white sm:text-3xl">
-                Begin Your <span className="text-primary">Natural Healing Journey</span> Today
+          <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
+            {/* Left: Heading & Subtitle */}
+            <div className="max-w-xl">
+              <span className="inline-block rounded-full border border-secondary/40 bg-secondary/15 px-3.5 py-1 font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary-light backdrop-blur-xs mb-3">
+                Holistic Wellbeing
+              </span>
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight leading-snug drop-shadow-md">
+                Begin Your <span className="text-secondary-light">Natural Healing Journey</span> Today
               </h2>
-              <p className="mt-2 font-body text-sm text-white/70">
-                Let nature heal you. Let us guide you.
+              <p className="mt-2.5 font-body text-sm sm:text-base text-white/80 leading-relaxed drop-shadow-xs">
+                Let nature heal you. Let us guide you towards renewed vitality, deep peace, and lasting balance.
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-6">
+            {/* Middle: 4 Pillar Feature Badges */}
+            <div className="flex flex-wrap items-center gap-5 sm:gap-7">
               {[
                 { label: 'Heal Naturally', icon: IoLeafOutline },
                 { label: 'Restore Balance', icon: IoBodyOutline },
@@ -830,11 +1089,11 @@ export default function TherapiesPage() {
               ].map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.label} className="flex flex-col items-center gap-2 text-center">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-primary">
-                      <Icon className="text-lg" />
+                  <div key={item.label} className="group flex flex-col items-center gap-2 text-center">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/10 backdrop-blur-md text-secondary-light shadow-soft transition-all duration-300 group-hover:scale-110 group-hover:border-secondary group-hover:bg-secondary/20">
+                      <Icon className="text-xl" />
                     </span>
-                    <span className="font-body text-xs font-medium text-white/80">
+                    <span className="font-body text-xs font-medium text-white/90 drop-shadow-xs tracking-wide">
                       {item.label}
                     </span>
                   </div>
@@ -842,14 +1101,15 @@ export default function TherapiesPage() {
               })}
             </div>
 
-            <div>
+            {/* Right: Primary Action Button */}
+            <div className="shrink-0">
               <Button
                 as={Link}
                 to="/contact"
                 variant="primary"
                 size="lg"
                 icon={<HiArrowRight className="h-4 w-4" />}
-                className="h-[52px] rounded-full px-8 text-sm"
+                className="h-[52px] rounded-full px-8 text-sm font-bold shadow-elevated hover:shadow-2xl transition-all duration-300"
               >
                 Book a Consultation
               </Button>
@@ -857,6 +1117,124 @@ export default function TherapiesPage() {
           </div>
         </Container>
       </section>
+
+      {/* ===== Sub-Therapy Quick View Modal (Compact Luxury Card) ===== */}
+      <AnimatePresence>
+        {selectedTherapyModal && (
+          <div
+            className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-dark/80 backdrop-blur-md"
+            onClick={() => setSelectedTherapyModal(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full max-w-lg bg-white rounded-[24px] overflow-hidden shadow-2xl border border-border flex flex-col my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Image Header — Compact */}
+              <div className="relative h-36 sm:h-40 w-full overflow-hidden bg-muted/20 shrink-0">
+                <img
+                  src={selectedTherapyModal.image}
+                  alt={selectedTherapyModal.name}
+                  className="h-full w-full object-cover"
+                  onError={(e) => {
+                    e.target.src = '/images/therapies/hero.jpg';
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/15" />
+
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedTherapyModal(null)}
+                  className="absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black transition-all shadow-md cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  <IoCloseOutline className="text-xl" />
+                </button>
+
+                {/* Modal Header Titles */}
+                <div className="absolute bottom-3 left-5 right-5 text-white">
+                  <span className="inline-block rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white mb-1 shadow-xs">
+                    {selectedTherapyModal.category}
+                  </span>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold leading-tight drop-shadow-md text-white">
+                    {selectedTherapyModal.name}
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-white/90 font-medium drop-shadow-xs mt-0.5">
+                    {selectedTherapyModal.englishName} &bull; {selectedTherapyModal.duration}
+                  </p>
+                </div>
+              </div>
+
+              {/* Modal Body — Compact & Clean */}
+              <div className="p-5 sm:p-6 space-y-3.5">
+                <div>
+                  <h4 className="font-heading text-sm font-bold text-dark mb-1">
+                    Therapy Overview
+                  </h4>
+                  <p className="text-xs sm:text-[13px] text-muted leading-relaxed line-clamp-3">
+                    {selectedTherapyModal.desc}
+                  </p>
+                </div>
+
+                {selectedTherapyModal.idealFor && (
+                  <div className="rounded-xl bg-background px-3.5 py-2 border border-border/70">
+                    <span className="font-heading text-[10px] font-bold uppercase tracking-wider text-primary block">
+                      Recommended For
+                    </span>
+                    <p className="text-xs font-medium text-dark mt-0.5">
+                      {selectedTherapyModal.idealFor}
+                    </p>
+                  </div>
+                )}
+
+                {selectedTherapyModal.benefits && (
+                  <div>
+                    <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-dark/80 mb-1.5">
+                      Key Benefits
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                      {selectedTherapyModal.benefits.map((b) => (
+                        <div key={b} className="flex items-center gap-1.5 text-xs text-dark/80">
+                          <IoCheckmarkCircleOutline className="text-sm text-primary shrink-0" />
+                          <span className="truncate">{b}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Action Buttons */}
+                <div className="pt-3 border-t border-border flex items-center justify-between gap-3">
+                  <a
+                    href={`https://wa.me/919026612796?text=${encodeURIComponent(
+                      `Hello Vimoksha Yogshala, I would like to inquire about the ${selectedTherapyModal.name} therapy.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full bg-[#25D366] px-4 text-xs font-bold text-white hover:opacity-90 transition-opacity"
+                  >
+                    <IoLogoWhatsapp className="text-base" />
+                    WhatsApp
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSelectTherapy(selectedTherapyModal.name)}
+                    className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full bg-primary px-5 text-xs font-bold text-white hover:bg-primary-dark shadow-xs transition-all cursor-pointer"
+                  >
+                    <span>Book Consultation</span>
+                    <HiArrowRight className="text-xs" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

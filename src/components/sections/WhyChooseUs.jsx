@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion';
-import { Container, Button } from '@/components/ui';
-import { Link } from 'react-router-dom';
-import { HiArrowRight } from 'react-icons/hi2';
+import { Container } from '@/components/ui';
 import {
   FaUserGraduate,
   FaLeaf,
@@ -9,79 +7,68 @@ import {
   FaClock,
   FaHandsHelping,
 } from 'react-icons/fa';
-import { GiMeditation } from 'react-icons/gi';
+import { HiOutlineCheckBadge } from 'react-icons/hi2';
 import useSiteContent from '@/hooks/useSiteContent';
+import FormattedText from '@/components/common/FormattedText';
 
 /* ───── Animation Variants ───── */
 const fadeUp = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { opacity: 0, y: 30 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.12 * i },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 * i },
   }),
 };
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.25 },
-  },
-};
+const defaultIcons = [
+  FaUserGraduate,
+  FaLeaf,
+  FaClock,
+  FaHandsHelping,
+  HiOutlineCheckBadge,
+  FaHeart,
+];
 
-const staggerItem = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const defaultIcons = [FaUserGraduate, FaLeaf, GiMeditation, FaHeart, FaClock, FaHandsHelping];
-
-/* ───── Feature Data ───── */
+/* ───── Feature Data (from original reference) ───── */
 const whyUsFallbackItems = [
   {
-    title: 'Certified Yoga Experts',
+    title: 'Expert Instruction',
     description:
-      'Learn from highly trained instructors with decades of combined experience in authentic yoga traditions.',
+      'Authentic Yoga Studio in Dehradun with certified and experienced instructors.',
   },
   {
-    title: 'Personalized Yoga Programs',
+    title: 'Dedicated Space',
     description:
-      'Customized practices designed to match your unique body type, fitness level, and wellness aspirations.',
+      'Personalized and group Yoga Classes in Dehradun for all levels.',
   },
   {
-    title: 'Peaceful Learning Environment',
+    title: 'Flexible time schedule',
     description:
-      'Immerse yourself in a serene sanctuary surrounded by nature, perfect for deep practice and inner reflection.',
+      'Therapeutic and restorative Yoga Therapy in Dehradun.',
   },
   {
-    title: 'Holistic Wellness Approach',
+    title: 'Variety of Classes',
     description:
-      'We integrate asanas, pranayama, meditation, and yogic philosophy for complete mind-body transformation.',
+      'Traditional healing with Acupressure and Cupping Therapy Dehradun.',
   },
   {
-    title: 'Flexible Class Timings',
+    title: 'Additional Services',
     description:
-      'Early morning, daytime, and evening sessions available to fit seamlessly into your busy schedule.',
+      'Comprehensive Yoga Teacher Training in Dehradun with International certification.',
   },
   {
-    title: 'Lifetime Learning Support',
+    title: 'Safety and Injury Prevention',
     description:
-      'Access ongoing guidance, workshops, and resources to support your yoga journey at every stage.',
+      'A peaceful and welcoming environment for yoga enthusiasts.',
   },
 ];
 
 const whyUsFallback = {
-  heading: 'Experience Authentic Yoga With Expert Guidance',
+  heading: 'Why Choose *Vimoksha Yogshala*?',
   subheading: 'WHY CHOOSE VIMOKSHA YOGSHALA',
-  description:
-    'Discover what makes Vimoksha Yogshala a sanctuary for authentic yoga practice. Our dedicated team of experts provides a transformative experience rooted in tradition and tailored to modern needs.',
-  ctaText: 'Book Free Trial',
-  ctaLink: '/contact',
+  description: 'Discover Balance, Strength, and Serenity',
+  image: '/images/why-choose-man.jpg',
   items: whyUsFallbackItems,
 };
 
@@ -90,167 +77,181 @@ export default function WhyChooseUs() {
   const { content } = useSiteContent('whyUs', whyUsFallback);
   const items = content.items?.length ? content.items : whyUsFallbackItems;
 
-  return (
-    <section className="relative overflow-hidden bg-[var(--color-background)] py-[120px]">
-      {/* ─── Subtle Decorative Background ─── */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        {/* Large blurred circle top-left */}
-        <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-[var(--color-secondary-light)]/20 blur-[120px]" />
-        {/* Small blurred circle bottom-right */}
-        <div className="absolute -bottom-32 -right-32 h-[400px] w-[400px] rounded-full bg-[var(--color-primary)]/10 blur-[100px]" />
-        {/* Leaf-like decorative dots */}
-        <div className="absolute top-[20%] right-[8%] h-3 w-3 rounded-full bg-[var(--color-secondary-light)]/30 blur-[2px]" />
-        <div className="absolute top-[35%] right-[5%] h-2 w-2 rounded-full bg-[var(--color-secondary-light)]/20 blur-[1px]" />
-        <div className="absolute bottom-[25%] left-[6%] h-4 w-4 rounded-full bg-[var(--color-primary)]/15 blur-[2px]" />
-      </div>
+  const leftItems = items.slice(0, 3);
+  const rightItems = items.slice(3, 6);
+  const heroImage = content.image || whyUsFallback.image;
 
-      {/* ─── Header ─── */}
-      <Container className="relative z-10">
+  return (
+    <section className="relative overflow-hidden bg-white py-14 sm:py-20 lg:py-24 border-t border-b border-border/50">
+      {/* Ambient background glows */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-secondary/8 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 right-10 h-72 w-72 rounded-full bg-primary/5 blur-[90px]" />
+
+      <Container className="max-w-[1320px] relative z-10">
+        {/* ─── Header: Why Choose Vimoksha Yogshala? ─── */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          className="mx-auto mb-10 max-w-[620px] text-center md:mb-14"
+          className="mx-auto mb-10 max-w-2xl text-center md:mb-14"
         >
-          {/* Premium Pill Badge */}
           {content.subheading && (
             <motion.span
               custom={0}
               variants={fadeUp}
-              className="mb-3 inline-block rounded-full border border-[var(--color-secondary)]/30 bg-[var(--color-surface)]/80 px-4 py-1 font-body text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-primary)] shadow-sm backdrop-blur-md"
+              className="mb-3 inline-block rounded-full border border-secondary/30 bg-secondary/8 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary"
             >
               {content.subheading}
             </motion.span>
           )}
 
-          {/* Heading */}
           <motion.h2
             custom={1}
             variants={fadeUp}
-            className="font-heading text-4xl font-semibold leading-tight tracking-tight text-[var(--color-dark)] md:text-5xl"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-semibold tracking-tight text-dark"
           >
-            {content.heading}
+            <FormattedText text={content.heading || whyUsFallback.heading} />
           </motion.h2>
 
-          {/* Description */}
           <motion.p
             custom={2}
             variants={fadeUp}
-            className="mx-auto mt-3 max-w-[460px] text-base leading-relaxed text-[var(--color-muted)] md:text-lg"
+            className="mt-3 text-sm sm:text-base md:text-lg font-normal text-muted"
           >
-            {content.description}
+            {content.description || whyUsFallback.description}
           </motion.p>
         </motion.div>
 
-        {/* ─── Feature Cards (3 across, 2 rows) ─── */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-        >
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((feature, index) => {
-              const IconComponent = defaultIcons[index % defaultIcons.length];
+        {/* ─── Desktop 3-Column Layout: Left (3) | Center Photo | Right (3) ─── */}
+        <div className="hidden lg:grid lg:grid-cols-[1fr_1.15fr_1fr] items-center gap-8 xl:gap-12">
+          {/* Left Column: 3 Items */}
+          <div className="space-y-8 xl:space-y-10">
+            {leftItems.map((feature, idx) => {
+              const Icon = defaultIcons[idx] || FaUserGraduate;
               return (
                 <motion.div
-                  key={index}
-                  variants={staggerItem}
-                  whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                  className="group relative flex flex-col rounded-[24px] border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-[0_4px_24px_rgba(46,46,46,0.08)] transition-all duration-300 hover:border-[var(--color-primary)]/40 hover:shadow-[0_12px_40px_rgba(46,46,46,0.14)]"
+                  key={feature.title || idx}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.6, delay: idx * 0.15 }}
+                  className="group flex items-start gap-4 p-3 rounded-2xl transition-all duration-300 hover:bg-background/80"
                 >
-                  {/* Circular Icon */}
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-secondary-light)]/35 text-[var(--color-primary)] transition-all duration-300 group-hover:rotate-6 group-hover:bg-[var(--color-secondary-light)]/60">
-                    <IconComponent className="text-xl" />
+                  <div className="flex h-12 w-12 xl:h-14 xl:w-14 flex-shrink-0 items-center justify-center rounded-full bg-secondary/15 text-primary border border-secondary/30 shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-white group-hover:border-primary">
+                    <Icon className="text-xl xl:text-2xl" />
                   </div>
-
-                  {/* Title */}
-                  <h3 className="font-heading text-lg font-semibold text-[var(--color-dark)]">
-                    {feature.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--color-dark)]/70">
-                    {feature.description}
-                  </p>
-
-                  {/* Small Arrow - bottom right */}
-                  <div className="mt-4 flex items-center justify-end">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-secondary-light)]/25 text-[10px] text-[var(--color-primary)] transition-all duration-300 group-hover:bg-[var(--color-primary)] group-hover:text-white">
-                      <svg
-                        className="h-3 w-3"
-                        fill="none"
-                        viewBox="0 0 12 12"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M2.5 9.5l7-7M4.5 2.5h5v5" />
-                      </svg>
-                    </span>
+                  <div>
+                    <h3 className="text-xl xl:text-2xl font-bold text-dark transition-colors duration-200 group-hover:text-primary leading-snug">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-1 text-xs xl:text-sm leading-relaxed text-muted font-light">
+                      {feature.description}
+                    </p>
                   </div>
                 </motion.div>
               );
             })}
           </div>
-        </motion.div>
 
-        {/* ─── Bottom CTA ─── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          className="mx-auto mt-24 max-w-[700px] text-center md:mt-28"
-        >
-          <motion.span
-            custom={0}
-            variants={fadeUp}
-            className="mb-4 inline-block rounded-full border border-[var(--color-secondary)]/30 bg-[var(--color-surface)]/80 px-4 py-1 font-body text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-primary)] shadow-sm backdrop-blur-md"
-          >
-            BEGIN YOUR JOURNEY
-          </motion.span>
-
-          <motion.h3
-            custom={1}
-            variants={fadeUp}
-            className="font-heading text-4xl font-semibold leading-tight text-[var(--color-dark)] md:text-5xl"
-          >
-            Start Your Wellness Journey Today
-          </motion.h3>
-
-          <motion.p
-            custom={2}
-            variants={fadeUp}
-            className="mx-auto mt-4 max-w-[520px] text-base leading-relaxed text-[var(--color-muted)] md:text-lg"
-          >
-            Join hundreds of students improving their physical and mental
-            well-being through authentic yoga.
-          </motion.p>
-
+          {/* Center Column: Cutout Yogi with Radiant Mandala */}
           <motion.div
-            custom={3}
-            variants={fadeUp}
-            className="mt-8 flex justify-center"
+            initial={{ opacity: 0, scale: 0.92 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex items-center justify-center"
           >
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-            >
-              <Button
-                as={Link}
-                to={content.ctaLink || '/contact'}
-                variant="primary"
-                size="lg"
-                icon={<HiArrowRight className="h-4 w-4" />}
-                className="h-[56px] rounded-full px-9 text-base font-medium"
-              >
-                {content.ctaText || 'Book Free Trial'}
-              </Button>
-            </motion.div>
+            {/* Soft radiant ambient glow */}
+            <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-secondary/10 blur-3xl scale-90" />
+
+            <div className="relative w-full max-w-[440px] xl:max-w-[480px]">
+              <img
+                src={heroImage}
+                alt="Why Choose Vimoksha Yogshala - Yogacharya Gyan Prakash"
+                className="w-full h-auto object-contain drop-shadow-sm transition-transform duration-700 hover:scale-[1.02]"
+                loading="lazy"
+              />
+            </div>
           </motion.div>
-        </motion.div>
+
+          {/* Right Column: 3 Items */}
+          <div className="space-y-8 xl:space-y-10">
+            {rightItems.map((feature, idx) => {
+              const Icon = defaultIcons[idx + 3] || FaHandsHelping;
+              return (
+                <motion.div
+                  key={feature.title || idx}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.6, delay: idx * 0.15 }}
+                  className="group flex items-start gap-4 p-3 rounded-2xl transition-all duration-300 hover:bg-background/80"
+                >
+                  <div className="flex h-12 w-12 xl:h-14 xl:w-14 flex-shrink-0 items-center justify-center rounded-full bg-secondary/15 text-primary border border-secondary/30 shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-white group-hover:border-primary">
+                    <Icon className="text-xl xl:text-2xl" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl xl:text-2xl font-bold text-dark transition-colors duration-200 group-hover:text-primary leading-snug">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-1 text-xs xl:text-sm leading-relaxed text-muted font-light">
+                      {feature.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ─── Mobile & Tablet Layout (< lg) ─── */}
+        <div className="lg:hidden flex flex-col items-center">
+          {/* Center Yogi Photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative w-full max-w-[340px] sm:max-w-[400px] mb-8 sm:mb-10"
+          >
+            <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-secondary/10 blur-2xl scale-90" />
+            <img
+              src={heroImage}
+              alt="Why Choose Vimoksha Yogshala"
+              className="w-full h-auto object-contain drop-shadow-sm"
+              loading="lazy"
+            />
+          </motion.div>
+
+          {/* 6 Features Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full">
+            {items.map((feature, idx) => {
+              const Icon = defaultIcons[idx] || FaUserGraduate;
+              return (
+                <motion.div
+                  key={feature.title || idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: (idx % 3) * 0.1 }}
+                  className="flex items-start gap-3.5 p-4 rounded-2xl border border-border/70 bg-background/50 shadow-xs"
+                >
+                  <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-secondary/15 text-primary border border-secondary/30 shadow-xs">
+                    <Icon className="text-lg" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-dark leading-snug">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-1 text-xs text-muted font-light leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
       </Container>
     </section>
   );

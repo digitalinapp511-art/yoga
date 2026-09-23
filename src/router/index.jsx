@@ -4,13 +4,15 @@ import { MainLayout } from '@/components/layout';
 import HomePage from '@/pages/HomePage';
 
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
-const ClassesPage = lazy(() => import('@/pages/ClassesPage'));
-const StudentClassesPage = lazy(() => import('@/pages/StudentClassesPage'));
-const ProfessionalClassesPage = lazy(() => import('@/pages/ProfessionalClassesPage'));
-const AdultClassesPage = lazy(() => import('@/pages/AdultClassesPage'));
+const BeginnerClassesPage = lazy(() => import('@/pages/BeginnerClassesPage'));
+const IntermediateClassesPage = lazy(() => import('@/pages/IntermediateClassesPage'));
+const AdvanceClassesPage = lazy(() => import('@/pages/AdvanceClassesPage'));
 const TherapiesPage = lazy(() => import('@/pages/TherapiesPage'));
 const CoursesPage = lazy(() => import('@/pages/CoursesPage'));
 const TeacherTrainingPage = lazy(() => import('@/pages/TeacherTrainingPage'));
+const Ttc200Page = lazy(() => import('@/pages/Ttc200Page'));
+const Ttc300Page = lazy(() => import('@/pages/Ttc300Page'));
+const TtcAerialPage = lazy(() => import('@/pages/TtcAerialPage'));
 const GalleryPage = lazy(() => import('@/pages/GalleryPage'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
@@ -50,13 +52,16 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'about', element: withSuspense(AboutPage) },
-      { path: 'classes', element: withSuspense(ClassesPage) },
-      { path: 'classes/beginner', element: withSuspense(StudentClassesPage) },
-      { path: 'classes/intermediate', element: withSuspense(ProfessionalClassesPage) },
-      { path: 'classes/advance', element: withSuspense(AdultClassesPage) },
+      { path: 'classes', element: <Navigate to="/classes/beginner" replace /> },
+      { path: 'classes/beginner', element: withSuspense(BeginnerClassesPage) },
+      { path: 'classes/intermediate', element: withSuspense(IntermediateClassesPage) },
+      { path: 'classes/advance', element: withSuspense(AdvanceClassesPage) },
       { path: 'therapies', element: withSuspense(TherapiesPage) },
-      { path: 'courses', element: withSuspense(CoursesPage) },
-      { path: 'teacher-training', element: withSuspense(TeacherTrainingPage) },
+      { path: 'courses', element: <Navigate to="/teacher-training/200-hour" replace /> },
+      { path: 'teacher-training', element: <Navigate to="/teacher-training/200-hour" replace /> },
+      { path: 'teacher-training/200-hour', element: withSuspense(Ttc200Page) },
+      { path: 'teacher-training/300-hour', element: withSuspense(Ttc300Page) },
+      { path: 'teacher-training/50-hour-aerial', element: withSuspense(TtcAerialPage) },
       { path: 'gallery', element: withSuspense(GalleryPage) },
       { path: 'blog', element: withSuspense(BlogPage) },
       { path: 'blog/:slug', element: withSuspense(BlogPostPage) },

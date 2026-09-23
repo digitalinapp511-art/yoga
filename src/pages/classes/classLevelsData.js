@@ -75,11 +75,45 @@ export const classLevels = {
       'Beginner-friendly Meditation',
       'Modifications & Props',
     ],
-    batchTimings: ['6:00 – 7:00 AM', '8:00 – 9:00 AM', '4:00 – 5:00 PM'],
+    batchTimings: ['6:00 – 7:00 AM', '8:00 – 9:00 AM', '4:30 – 5:30 PM'],
+    batches: {
+      offline: {
+        title: 'Offline Studio Batches',
+        tag: 'In-Studio (Dehradun)',
+        subtitle: 'Vimoksha Yogshala Studio, Dehradun',
+        days: 'Monday to Saturday',
+        slots: [
+          { time: '6:00 AM – 7:00 AM', label: 'Morning Foundation' },
+          { time: '8:00 AM – 9:00 AM', label: 'Morning Alignment' },
+          { time: '4:30 PM – 5:30 PM', label: 'Evening Gentle Flow' },
+        ],
+        features: [
+          'Hands-on physical posture & alignment corrections',
+          'Studio mats, bolsters, and yoga blocks provided',
+          'Quiet, serene Himalayan studio environment',
+        ],
+      },
+      online: {
+        title: 'Online Live Batches',
+        tag: 'Live 2-Way Interactive',
+        subtitle: 'Live Stream via Zoom / Google Meet',
+        days: 'Monday to Saturday',
+        slots: [
+          { time: '6:30 AM – 7:30 AM', label: 'Morning Live Cohort' },
+          { time: '8:00 AM – 9:00 AM', label: 'Morning Breathwork & Flow' },
+          { time: '5:30 PM – 6:30 PM', label: 'Evening Relaxation & Asana' },
+        ],
+        features: [
+          'Real-time instructor corrections via 2-way HD video',
+          'Practice comfortably from home anywhere in the world',
+          'Interactive Q&A and guided Pranayam support',
+        ],
+      },
+    },
     gallery: [
-      { src: '/images/offline-studio-stretch.jpg', alt: 'Beginner practicing a seated stretch in the studio' },
+      { src: '/images/offline-studio-stretch.jpeg', alt: 'Beginner practicing a seated stretch in the studio' },
       { src: '/images/home-side-stretch.jpg', alt: 'Instructor guiding a new student through a standing side stretch' },
-      { src: '/images/offline-park-session.jpg', alt: 'Beginner-friendly outdoor session in the park' },
+      { src: '/images/offline-park-session.jpeg', alt: 'Beginner-friendly outdoor session in the park' },
     ],
   },
 
@@ -131,7 +165,41 @@ export const classLevels = {
       'Strength-building Holds',
       'Yog Nidra',
     ],
-    batchTimings: ['7:00 – 8:00 AM', '5:00 – 6:00 PM', '7:00 – 8:00 PM'],
+    batchTimings: ['7:00 – 8:00 AM', '5:00 – 6:00 PM', '6:30 – 7:30 PM'],
+    batches: {
+      offline: {
+        title: 'Offline Studio Batches',
+        tag: 'In-Studio (Dehradun)',
+        subtitle: 'Vimoksha Yogshala Studio, Dehradun',
+        days: 'Monday to Saturday',
+        slots: [
+          { time: '7:00 AM – 8:00 AM', label: 'Morning Vinyasa Flow' },
+          { time: '5:00 PM – 6:00 PM', label: 'Evening Dynamic Practice' },
+          { time: '6:30 PM – 7:30 PM', label: 'Sunset Strength & Holds' },
+        ],
+        features: [
+          'Direct physical assists and dynamic sequence coaching',
+          'Deep breath synchronization and bandha work',
+          'Access to all studio training equipment & props',
+        ],
+      },
+      online: {
+        title: 'Online Live Batches',
+        tag: 'Live 2-Way Interactive',
+        subtitle: 'Live Stream via Zoom / Google Meet',
+        days: 'Monday to Saturday',
+        slots: [
+          { time: '7:00 AM – 8:00 AM', label: 'Morning Ashtanga Series' },
+          { time: '6:00 PM – 7:00 PM', label: 'Evening Flow & Conditioning' },
+          { time: '7:30 PM – 8:30 PM', label: 'Night Chakra & Yog Nidra' },
+        ],
+        features: [
+          'Multi-angle master demonstration & real-time cueing',
+          'Progressive stamina building for working professionals',
+          'Interactive personal posture check and advice',
+        ],
+      },
+    },
     gallery: [
       { src: '/images/home-downdog-adjustment.jpg', alt: 'Instructor guiding a student through a flowing transition' },
       { src: '/images/corporate-warrior-pose.webp', alt: 'Group holding Warrior pose through a longer flow' },
@@ -173,6 +241,16 @@ export const classLevels = {
         description: 'A high-intensity style inspired by Ashtanga, built to develop strength and endurance through a vigorous, fast-paced practice.',
         icon: GiMuscleUp,
       },
+      {
+        title: 'Ashtanga Vinyasa Advanced',
+        description: 'Rigorous dynamic series with rapid transitions, jump-backs, and advanced breath-synchronized movement.',
+        icon: GiYinYang,
+      },
+      {
+        title: 'Kundalini & Kriya Practice',
+        description: 'Intense breath retention, bandhas (energy locks), and kriyas aimed at mastering subtler prana and endurance.',
+        icon: GiMeditation,
+      },
     ],
     classIncludes: [
       'Advanced Asana Sequences',
@@ -182,7 +260,41 @@ export const classLevels = {
       'Advanced Pranayam',
       'Teaching-level Alignment Detail',
     ],
-    batchTimings: ['5:00 – 6:00 AM', '10:00 – 11:00 AM', '6:00 – 7:00 PM'],
+    batchTimings: ['5:30 – 7:00 AM', '10:00 – 11:00 AM', '6:00 – 7:30 PM'],
+    batches: {
+      offline: {
+        title: 'Offline Studio Batches',
+        tag: 'In-Studio (Dehradun)',
+        subtitle: 'Vimoksha Yogshala Studio, Dehradun',
+        days: 'Monday to Saturday',
+        slots: [
+          { time: '5:30 AM – 7:00 AM', label: 'Early Intensive (90 Mins)' },
+          { time: '10:00 AM – 11:00 AM', label: 'Mid-Day Mastery & Inversions' },
+          { time: '6:00 PM – 7:30 PM', label: 'Evening Peak Practice (90 Mins)' },
+        ],
+        features: [
+          'Rope walls, inversion spotting, and arm balance drills',
+          'Intensive direct training under Yogacharya Gyan Prakash',
+          'Advanced classical kriyas and meditative immersion',
+        ],
+      },
+      online: {
+        title: 'Online Live Batches',
+        tag: 'Live 2-Way Interactive',
+        subtitle: 'Live Stream via Zoom / Google Meet',
+        days: 'Monday to Saturday',
+        slots: [
+          { time: '6:00 AM – 7:15 AM', label: 'Early Morning Advanced Flow' },
+          { time: '6:30 PM – 7:45 PM', label: 'Intensive Dynamic Sequence' },
+          { time: '8:00 PM – 9:00 PM', label: 'Kriya, Bandha & Advanced Pranayam' },
+        ],
+        features: [
+          'Step-by-step biomechanical breakdown of complex asanas',
+          'Live coaching on joint safety during advanced inversions',
+          'Dedicated international practitioners cohort',
+        ],
+      },
+    },
     gallery: [
       { src: '/images/offline-aerial-yoga.jpg', alt: 'Advanced student practicing aerial yoga' },
       { src: '/images/corporate-studio-group.jpg', alt: 'Group deep in an advanced sequence in the studio' },
