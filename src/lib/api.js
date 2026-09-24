@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? 'https://vimoksha-backend.onrender.com' : 'http://localhost:5000');
 
 function getToken() {
   return localStorage.getItem('admin_token');
