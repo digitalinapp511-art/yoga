@@ -205,18 +205,38 @@ export default function AdminBlogPage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted">
-              Cover Image
+            <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted">
+              Blog Cover Image (Photo)
             </label>
-            <input type="file" accept="image/*" onChange={handleImageUpload} className="text-sm" />
-            {uploading && <p className="mt-1 text-xs text-muted">Uploading…</p>}
-            {form.coverImage && (
-              <img
-                src={form.coverImage}
-                alt="Cover preview"
-                className="mt-3 h-32 w-auto rounded-lg object-cover"
-              />
-            )}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center rounded-xl border border-border bg-[#FBF8F2]/60 p-4">
+              <div className="h-28 w-44 shrink-0 overflow-hidden rounded-lg border border-border bg-white flex items-center justify-center">
+                {form.coverImage ? (
+                  <img
+                    src={form.coverImage}
+                    alt="Cover preview"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="text-xs text-muted">No photo selected</span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="text-sm text-muted file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-primary file:px-5 file:py-2.5 file:text-xs file:font-semibold file:text-white file:transition-colors hover:file:bg-primary-dark"
+                />
+                {uploading && (
+                  <p className="text-xs font-medium text-primary">
+                    Uploading photo to Cloudinary…
+                  </p>
+                )}
+                <p className="text-[11px] text-muted">
+                  Upload any JPG, PNG, or WebP photo (up to 8MB). Automatically hosted on Cloudinary.
+                </p>
+              </div>
+            </div>
           </div>
 
           <label className="flex items-center gap-2 text-sm">

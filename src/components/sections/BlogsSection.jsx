@@ -12,6 +12,7 @@
  * and remove the `placeholder` gradient fallbacks. No JSX changes needed.
  */
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Container, Button } from '@/components/ui';
 import { Link } from 'react-router-dom';
@@ -20,6 +21,7 @@ import { IoTimeOutline, IoCalendarOutline } from 'react-icons/io5';
 import { FiArrowUpRight } from 'react-icons/fi';
 import useSiteContent from '@/hooks/useSiteContent';
 import FormattedText from '@/components/common/FormattedText';
+import { api } from '@/lib/api';
 
 /* ===== Blog images â€” uncomment when images are added ===== */
 // import blog1 from '@/assets/images/blogs/blog1.jpg';
@@ -110,6 +112,37 @@ const blogsFallback = {
 
 export default function BlogsSection() {
   const { content } = useSiteContent('blogs', blogsFallback);
+  const [publishedPosts, setPublishedPosts] = useState([]);
+
+  useEffect(() => {
+    api
+      .getPublishedPosts()
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setPublishedPosts(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const displayItems =
+    publishedPosts.length > 0
+      ? publishedPosts.slice(0, 3).map((post, i) => ({
+          title: post.title,
+          category: content.items?.[i]?.category || ['Yoga', 'Meditation', 'Lifestyle'][i % 3],
+          readTime: content.items?.[i]?.readTime || '5 min',
+          date: post.createdAt
+            ? new Date(post.createdAt).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              })
+            : content.items?.[i]?.date || 'Sep 2026',
+          description: post.excerpt || (post.content ? post.content.slice(0, 140) + '…' : ''),
+          image: post.coverImage || content.items?.[i]?.image || null,
+          link: `/blog/${post.slug}`,
+        }))
+      : content.items;
 
   return (
     <section
@@ -155,7 +188,7 @@ export default function BlogsSection() {
           viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {content.items.map((blog, index) => (
+          {displayItems.map((blog, index) => (
             <motion.article
               key={`${blog.title}-${index}`}
               variants={fadeUp}
