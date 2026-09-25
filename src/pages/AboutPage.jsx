@@ -40,31 +40,13 @@ export default function AboutPage() {
         <div className="pointer-events-none absolute top-1/2 -left-24 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
 
         <Container className="max-w-[1320px]">
-          <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14 xl:gap-16">
-            {/* LEFT: Framed Luxury Hero Photo */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-              className="relative order-2 lg:order-1"
-            >
-              {/* Main Photo Frame */}
-              <div className="relative overflow-hidden rounded-[32px] border-[8px] sm:border-[10px] border-white bg-white shadow-elevated">
-                <img
-                  src="/images/about-hero-yoga.jpg"
-                  alt="Himalayan Yoga Sanctuary at Vimoksha Yogshala Dehradun"
-                  fetchPriority="high"
-                  className="h-[380px] sm:h-[460px] md:h-[500px] lg:h-[520px] w-full object-cover object-center"
-                />
-              </div>
-            </motion.div>
-
-            {/* RIGHT: Text Content */}
+          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 xl:gap-16">
+            {/* LEFT: Text Content */}
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
-              className="flex flex-col items-start justify-center order-1 lg:order-2"
+              className="flex flex-col items-start justify-center"
             >
               {/* Heading */}
               <motion.h1
@@ -86,6 +68,24 @@ export default function AboutPage() {
                   We chose this name because yoga helps us find freedom from physical ailments, mental stress, and constant ups and downs. Vimoksha symbolizes a dedicated journey towards health, clarity, balance, and inner well-being.
                 </p>
               </motion.div>
+            </motion.div>
+
+            {/* RIGHT: Framed Luxury Hero Photo */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              className="relative"
+            >
+              {/* Main Photo Frame */}
+              <div className="relative overflow-hidden rounded-[32px] border-[8px] sm:border-[10px] border-white bg-white shadow-elevated">
+                <img
+                  src="/images/about-hero-yoga.jpg"
+                  alt="Himalayan Yoga Sanctuary at Vimoksha Yogshala Dehradun"
+                  fetchPriority="high"
+                  className="h-[380px] sm:h-[460px] md:h-[500px] lg:h-[520px] w-full object-cover object-center"
+                />
+              </div>
             </motion.div>
           </div>
         </Container>
