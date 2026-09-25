@@ -57,13 +57,14 @@ export default function BlogPostPage() {
           </span>
         </div>
 
-        {post.coverImage && (
-          <img
-            src={post.coverImage}
-            alt={post.title}
-            className="mt-8 h-auto w-full rounded-2xl object-cover"
-          />
-        )}
+        <img
+          src={
+            post.coverImage ||
+            'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&auto=format&fit=crop&q=80'
+          }
+          alt={post.title}
+          className="mt-8 max-h-[460px] w-full rounded-2xl object-cover shadow-soft"
+        />
 
         <div className="prose mt-8 max-w-none">
           {paragraphs.map((p, i) => (

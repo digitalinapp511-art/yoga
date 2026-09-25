@@ -50,15 +50,16 @@ export default function BlogPage() {
                 to={`/blog/${post.slug}`}
                 className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border transition-shadow duration-300 hover:shadow-elevated"
               >
-                {post.coverImage && (
-                  <div className="h-48 w-full overflow-hidden">
-                    <img
-                      src={post.coverImage}
-                      alt={post.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                )}
+                <div className="h-48 w-full overflow-hidden">
+                  <img
+                    src={
+                      post.coverImage ||
+                      'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop&q=80'
+                    }
+                    alt={post.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
                 <div className="flex flex-1 flex-col gap-2 p-6">
                   <h2 className="font-heading text-xl font-semibold text-dark group-hover:text-primary">
                     {post.title}
