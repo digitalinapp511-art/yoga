@@ -86,36 +86,6 @@ export default function AboutPage() {
                   We chose this name because yoga helps us find freedom from physical ailments, mental stress, and constant ups and downs. Vimoksha symbolizes a dedicated journey towards health, clarity, balance, and inner well-being.
                 </p>
               </motion.div>
-
-              {/* Inspired by Sacred Wisdom */}
-              <motion.div
-                variants={fadeUp}
-                className="mt-6 sm:mt-7 w-full max-w-xl rounded-2xl border border-secondary/30 bg-gradient-to-br from-secondary/10 via-primary/5 to-white/90 p-4 sm:p-5 shadow-xs backdrop-blur-xs"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/15 text-secondary text-xs">
-                    <GiLotus />
-                  </span>
-                  <span className="font-body text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
-                    Inspired by Ancient Yogic Wisdom
-                  </span>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-primary/50 transition-colors">
-                    <span className="h-2 w-2 rounded-full bg-primary" />
-                    Shree Madbhagwat Geeta
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-secondary/50 transition-colors">
-                    <span className="h-2 w-2 rounded-full bg-secondary" />
-                    Patanjali Yogsutra
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-primary/50 transition-colors">
-                    <span className="h-2 w-2 rounded-full bg-primary" />
-                    Hatha Yoga
-                  </span>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
         </Container>
@@ -133,6 +103,33 @@ export default function AboutPage() {
               <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold text-dark">
                 Our <span className="text-primary">Philosophy</span>
               </h2>
+
+              {/* Inspired by Sacred Wisdom — moved into Our Philosophy */}
+              <div className="mt-6 mx-auto w-full max-w-xl rounded-2xl border border-secondary/30 bg-gradient-to-br from-secondary/10 via-primary/5 to-white/90 p-4 sm:p-5 shadow-xs backdrop-blur-xs">
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/15 text-secondary text-xs">
+                    <GiLotus />
+                  </span>
+                  <span className="font-body text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
+                    Inspired by Ancient Yogic Wisdom
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-primary/50 transition-colors">
+                    <span className="h-2 w-2 rounded-full bg-primary" />
+                    Shree Madbhagwat Geeta
+                  </span>
+                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-secondary/50 transition-colors">
+                    <span className="h-2 w-2 rounded-full bg-secondary" />
+                    Patanjali Yogsutra
+                  </span>
+                  <span className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-dark shadow-2xs border border-border/80 hover:border-primary/50 transition-colors">
+                    <span className="h-2 w-2 rounded-full bg-primary" />
+                    Hatha Yoga
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Row 1: Photo + Samatvam Yoga Uchyate */}
