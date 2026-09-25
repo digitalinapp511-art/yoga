@@ -95,8 +95,8 @@ const GALLERY_CATEGORY_OPTIONS = [
   'Events',
   'Workshops',
 ];
-// Sections with a single admin-editable top image (not a per-card image)
-const SECTIONS_WITH_IMAGE = ['hero', 'faq'];
+// Sections with a single admin-editable top/center image
+const SECTIONS_WITH_IMAGE = ['hero', 'faq', 'whyUs'];
 // FAQ has a variable-length list of Q&A pairs instead of a fixed card count
 const DYNAMIC_ITEM_SECTIONS = ['faq'];
 
@@ -354,7 +354,11 @@ export default function AdminContentPage() {
           {SECTIONS_WITH_IMAGE.includes(active) && (
             <div>
               <label className={labelClass}>
-                {active === 'faq' ? 'FAQ Photo' : 'Image'}
+                {active === 'faq'
+                  ? 'FAQ Photo'
+                  : active === 'whyUs'
+                  ? 'Center Feature Photo (Main Image)'
+                  : 'Hero Banner Image'}
               </label>
               <input
                 type="file"
@@ -508,33 +512,39 @@ export default function AdminContentPage() {
                 {form.items.map((item, index) => (
                   <div key={index} className="rounded-xl border border-border p-4">
                     <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">
-                      {active === 'gallery' ? `Photo ${index + 1}` : `Card ${index + 1}`}
+                      {active === 'gallery'
+                        ? `Photo ${index + 1}`
+                        : active === 'whyUs'
+                        ? `Feature Point ${index + 1}`
+                        : `Card ${index + 1}`}
                     </p>
                     <div className="flex flex-col gap-4 sm:flex-row">
-                      <div className="sm:w-36 sm:shrink-0">
-                        <div className="h-24 w-full overflow-hidden rounded-lg bg-[#FBF8F2]">
-                          {item.image ? (
-                            <img
-                              src={item.image}
-                              alt=""
-                              className="h-full w-full object-cover"
-                            />
-                          ) : (
-                            <div className="flex h-full items-center justify-center text-[11px] text-muted">
-                              No photo
-                            </div>
+                      {active !== 'whyUs' && (
+                        <div className="sm:w-36 sm:shrink-0">
+                          <div className="h-24 w-full overflow-hidden rounded-lg bg-[#FBF8F2]">
+                            {item.image ? (
+                              <img
+                                src={item.image}
+                                alt=""
+                                className="h-full w-full object-cover"
+                              />
+                            ) : (
+                              <div className="flex h-full items-center justify-center text-[11px] text-muted">
+                                No photo
+                              </div>
+                            )}
+                          </div>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleItemImageUpload(index, e)}
+                            className="mt-2 w-full text-[11px] text-muted file:mr-2 file:rounded-full file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-[11px] file:font-semibold file:text-white file:transition-colors hover:file:bg-primary-dark"
+                          />
+                          {uploadingItemIndex === index && (
+                            <p className="mt-1 text-[11px] text-muted">Uploading…</p>
                           )}
                         </div>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleItemImageUpload(index, e)}
-                          className="mt-2 w-full text-[11px] text-muted file:mr-2 file:rounded-full file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-[11px] file:font-semibold file:text-white file:transition-colors hover:file:bg-primary-dark"
-                        />
-                        {uploadingItemIndex === index && (
-                          <p className="mt-1 text-[11px] text-muted">Uploadingâ€¦</p>
-                        )}
-                      </div>
+                      )}
 
                       <div className="flex-1 space-y-3">
                         <div>
