@@ -122,25 +122,22 @@ export default function HeroSection() {
                 transition={{ type: 'spring', stiffness: 400, damping: 15 }}
               >
                 {hasCustomLink ? (
-                  <Button
-                    as={Link}
+                  <Link
                     to={content.ctaLink}
-                    variant="primary"
-                    icon={<HiArrowRight className="h-4 w-4" />}
-                    className="h-12 rounded-full px-8 text-sm font-semibold shadow-soft hover:shadow-elevated transition-all"
+                    className="inline-flex h-12 items-center gap-2 rounded-full border border-border bg-white px-8 text-sm font-semibold text-dark shadow-soft transition-all hover:border-primary hover:text-primary hover:shadow-elevated"
                   >
                     {content.ctaText || heroFallback.ctaText}
-                  </Button>
+                    <HiArrowRight className="h-4 w-4 text-primary" />
+                  </Link>
                 ) : (
-                  <Button
+                  <button
                     type="button"
                     onClick={openTrialModal}
-                    variant="primary"
-                    icon={<HiArrowRight className="h-4 w-4" />}
-                    className="h-12 rounded-full px-8 text-sm font-semibold shadow-soft hover:shadow-elevated transition-all"
+                    className="inline-flex h-12 items-center gap-2 rounded-full border border-border bg-white px-8 text-sm font-semibold text-dark shadow-soft transition-all hover:border-primary hover:text-primary hover:shadow-elevated cursor-pointer"
                   >
                     {content.ctaText || heroFallback.ctaText}
-                  </Button>
+                    <HiArrowRight className="h-4 w-4 text-primary" />
+                  </button>
                 )}
               </motion.div>
 
@@ -198,10 +195,10 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
-              className="absolute -bottom-4 -left-2 sm:-left-4 rounded-2xl bg-primary px-5 py-3 text-white shadow-elevated"
+              className="absolute -bottom-4 -left-2 sm:-left-4 rounded-2xl bg-white px-5 py-3 text-dark shadow-elevated border border-border/70"
             >
-              <p className="font-heading text-xl font-bold leading-none">Since 2019</p>
-              <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-white/80">
+              <p className="font-heading text-xl font-bold text-primary leading-none">Since 2019</p>
+              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.16em] text-muted">
                 Rooted in Himalayan Tradition
               </p>
             </motion.div>
