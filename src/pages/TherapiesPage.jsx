@@ -189,7 +189,7 @@ const mainTherapies = [
 const subTherapies = [
   {
     id: 'snehan',
-    name: 'Snehan (मसाज / Abhyanga)',
+    name: 'Snehan (Abhyanga)',
     englishName: 'Medicated Herbal Oil Massage',
     category: 'Ayurveda & Panchakarma',
     image: '/images/therapies/Therapeutic_Massage.webp',
@@ -201,7 +201,7 @@ const subTherapies = [
   },
   {
     id: 'swedan',
-    name: 'Swedan (हर्बल स्टीम / Steam)',
+    name: 'Swedan (Herbal Steam)',
     englishName: 'Herbal Steam Chamber Detox',
     category: 'Ayurveda & Panchakarma',
     image: '/images/therapies/swedan_steam.jpg',
@@ -213,7 +213,7 @@ const subTherapies = [
   },
   {
     id: 'patra-potali',
-    name: 'Patra Potali (पत्र पोटली / Kizhi)',
+    name: 'Patra Potali (Kizhi)',
     englishName: 'Warm Herbal Leaf Poultice Therapy',
     category: 'Ayurveda & Panchakarma',
     image: '/images/therapies/patra_potali.jpg',
@@ -225,7 +225,7 @@ const subTherapies = [
   },
   {
     id: 'shirodhara',
-    name: 'Shirodhara (शिरोधरा)',
+    name: 'Shirodhara',
     englishName: 'Warm Oil Third-Eye Flow',
     category: 'Ayurveda & Panchakarma',
     image: '/images/therapies/Shirodhara.jpeg',
@@ -237,7 +237,7 @@ const subTherapies = [
   },
   {
     id: 'janu-vasti',
-    name: 'Janu Vasti (जानु बस्ति)',
+    name: 'Janu Vasti',
     englishName: 'Knee Joint Oil Reservoir Care',
     category: 'Ayurveda & Panchakarma',
     image: '/images/therapies/Janu_Basti.webp',
@@ -249,7 +249,7 @@ const subTherapies = [
   },
   {
     id: 'kati-vasti',
-    name: 'Kati Vasti (कटि बस्ति)',
+    name: 'Kati Vasti',
     englishName: 'Lumbosacral Spinal Oil Reservoir',
     category: 'Ayurveda & Panchakarma',
     image: '/images/therapies/Kati_Basti.webp',
@@ -261,7 +261,7 @@ const subTherapies = [
   },
   {
     id: 'mud-bath',
-    name: 'Mud Bath (मिट्टी स्नान / Mitti Snan)',
+    name: 'Mud Bath (Mitti Snan)',
     englishName: 'Full Body Therapeutic Clay Bath',
     category: 'Naturopathy & Clay',
     image: '/images/therapies/mud_bath.jpg',
@@ -273,7 +273,7 @@ const subTherapies = [
   },
   {
     id: 'abdominal-mud-pack',
-    name: 'Abdominal Mud Pack (उदर मिट्टी पट्टी)',
+    name: 'Abdominal Mud Pack',
     englishName: 'Digestive Detox Clay Pack',
     category: 'Naturopathy & Clay',
     image: '/images/therapies/abdominal_mud_pack.jpg',
@@ -285,7 +285,7 @@ const subTherapies = [
   },
   {
     id: 'hip-bath',
-    name: 'Hip Bath (कटि स्नान / Kati Snan)',
+    name: 'Hip Bath (Kati Snan)',
     englishName: 'Hydrotherapy Sitz Bath',
     category: 'Hydrotherapy & Detox',
     image: '/images/therapies/hip_bath.jpg',
@@ -297,7 +297,7 @@ const subTherapies = [
   },
   {
     id: 'arm-bath',
-    name: 'Arm Bath (हस्त स्नान / Hasta Snan)',
+    name: 'Arm Bath (Hasta Snan)',
     englishName: 'Arm & Forearm Immersion Therapy',
     category: 'Hydrotherapy & Detox',
     image: '/images/therapies/arm_bath.jpg',
@@ -309,7 +309,7 @@ const subTherapies = [
   },
   {
     id: 'colon-cleansing',
-    name: 'Colon Cleansing & Detox (शंखप्रक्षालन)',
+    name: 'Colon Cleansing & Detox',
     englishName: 'Digestive Tract Cleansing Practice',
     category: 'Hydrotherapy & Detox',
     image: '/images/therapies/colon_cleansing.jpg',
