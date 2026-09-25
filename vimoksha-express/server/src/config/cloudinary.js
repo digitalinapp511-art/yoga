@@ -2,9 +2,9 @@ import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'deenyrgo9',
+  api_key: process.env.CLOUDINARY_API_KEY || '232351754877434',
+  api_secret: process.env.CLOUDINARY_API_SECRET || 'dTc7K-OFWmITLepVaIU7zWGAA_Q',
 });
 
 // Files are held in memory briefly, then streamed up to Cloudinary manually
