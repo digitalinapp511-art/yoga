@@ -277,9 +277,14 @@ export default function Footer() {
             {/* Center: Developer Credit */}
             <p className="text-sm text-[#EAD8C7]/80">
               Developed by{' '}
-              <span className="font-semibold tracking-wide text-secondary transition-colors duration-300 hover:text-white">
+              <a
+                href="https://digitalinapp.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold tracking-wide text-secondary underline-offset-4 transition-all duration-300 hover:text-white hover:underline"
+              >
                 Digitalinapp
-              </span>
+              </a>
             </p>
 
             {/* Right */}
