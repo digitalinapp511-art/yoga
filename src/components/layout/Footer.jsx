@@ -270,9 +270,18 @@ export default function Footer() {
         <div className="mt-16 pt-8">
           {/* Horizontal Divider */}
           <div className="mb-8 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-          <div className="flex flex-col items-center justify-between gap-4 text-sm text-[#EAD8C7]/60 md:flex-row">
+          <div className="flex flex-col items-center justify-between gap-4 text-sm text-[#EAD8C7]/70 md:flex-row">
             {/* Left */}
             <p>&copy; 2026 Vimoksha Yogshala. All Rights Reserved.</p>
+
+            {/* Center: Developer Credit */}
+            <p className="text-sm text-[#EAD8C7]/80">
+              Developed by{' '}
+              <span className="font-semibold tracking-wide text-secondary transition-colors duration-300 hover:text-white">
+                Digitalinapp
+              </span>
+            </p>
+
             {/* Right */}
             <div className="flex flex-wrap items-center gap-6">
               {policyLinks.map((link) => (
