@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import usePageMeta from '@/hooks/usePageMeta';
+import { api } from '@/lib/api';
 import { Container, Button } from '@/components/ui';
 import { HiArrowRight } from 'react-icons/hi2';
 import {
@@ -95,8 +97,27 @@ export default function ClassLevelsTemplate({
 }) {
   usePageMeta(metaKey);
   const { openTrialModal } = useAppContext();
+  const [classesData, setClassesData] = useState(null);
+
+  useEffect(() => {
+    api
+      .getSiteContent('classesPage')
+      .then((data) => {
+        if (data && (data.heading || data.image || data.items?.length)) {
+          setClassesData(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const levelIndexMap = {
+    beginner: 0,
+    intermediate: 1,
+    advance: 2,
+  };
+  const dynamicCard = classesData?.items?.[levelIndexMap[levelKey]];
   const level = classLevels[levelKey] || classLevels.beginner;
-  const heroImg = heroImage || defaultHeroImages[levelKey] || defaultHeroImages.beginner;
+  const heroImg = dynamicCard?.image || heroImage || defaultHeroImages[levelKey] || defaultHeroImages.beginner;
   const highlights = levelHighlights[levelKey] || levelHighlights.beginner;
 
   return (

@@ -1,4 +1,4 @@
-﻿import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 const siteContentSchema = new mongoose.Schema(
   {
@@ -6,7 +6,6 @@ const siteContentSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      enum: ['hero', 'training', 'therapy', 'classes', 'programs', 'blogs', 'gallery', 'faq'],
     },
     heading: { type: String, default: '' },
     subheading: { type: String, default: '' },

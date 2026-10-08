@@ -12,6 +12,10 @@ const SECTIONS = [
   'faq',
   'whyUs',
   'pathways',
+  'about',
+  'therapiesPage',
+  'ttcPage',
+  'classesPage',
 ];
 
 // GET /api/content â€” public, returns all sections keyed by section name

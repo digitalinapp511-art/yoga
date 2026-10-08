@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sparkles,
@@ -37,6 +37,7 @@ import {
 } from 'lucide-react';
 import SEO from '@/components/common/SEO';
 import { useAppContext } from '@/context/AppContext';
+import { api } from '@/lib/api';
 
 /* ===== Image Slot Component ===== */
 function ImageSlot({ src, alt = '', label, className = '', focus = 'center' }) {
@@ -851,12 +852,24 @@ const faqs = [
 ];
 
 export default function TeacherTrainingPage() {
+  const [ttcData, setTtcData] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState('200hr'); // '200hr' | '300hr' | 'aerial50hr'
   const [activeModule200, setActiveModule200] = useState(curriculum200[0].id);
   const [activeModule300, setActiveModule300] = useState(0);
   const [activeModuleAerial, setActiveModuleAerial] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
   const { openTrialModal } = useAppContext();
+
+  useEffect(() => {
+    api
+      .getSiteContent('ttcPage')
+      .then((data) => {
+        if (data && (data.heading || data.image || data.items?.length)) {
+          setTtcData(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const selectedModuleObj200 =
     curriculum200.find((m) => m.id === activeModule200) || curriculum200[0];
@@ -974,9 +987,10 @@ export default function TeacherTrainingPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border-[8px] border-white shadow-elevated">
               <ImageSlot
                 src={
-                  selectedCourse === 'aerial50hr'
+                  ttcData?.image ||
+                  (selectedCourse === 'aerial50hr'
                     ? '/images/offline-aerial-yoga.jpg'
-                    : '/images/teacher-training/hero.webp'
+                    : '/images/teacher-training/hero.webp')
                 }
                 alt="Yoga teacher training class in session at Vimoksha Yogshala"
                 label="Teacher Training Class"
@@ -1064,9 +1078,9 @@ export default function TeacherTrainingPage() {
             discountedFee="$649"
             currency="USD"
             inrFee="₹21,000 INR"
-            courseHeading="200 HOUR YOGA TEACHER TRAINING IN DEHRADUN INDIA"
+            courseHeading={ttcData?.items?.[0]?.title || '200 HOUR YOGA TEACHER TRAINING IN DEHRADUN INDIA'}
             courseSubheading="FOUNDATIONAL LEVEL YOGA ALLIANCE CERTIFIED COURSE (RYS 200)"
-            leftImage="/images/teacher-training/200-hero.jpg"
+            leftImage={ttcData?.items?.[0]?.image || '/images/teacher-training/200-hero.jpg'}
             rightImage="/images/teacher-training/hero.webp"
             onBookNow={openTrialModal}
           />
@@ -1345,9 +1359,9 @@ export default function TeacherTrainingPage() {
             discountedFee="$799"
             currency="USD"
             inrFee="₹25,000 INR"
-            courseHeading="300 HOUR ADVANCED YOGA TEACHER TRAINING IN DEHRADUN INDIA"
+            courseHeading={ttcData?.items?.[1]?.title || '300 HOUR ADVANCED YOGA TEACHER TRAINING IN DEHRADUN INDIA'}
             courseSubheading="MASTER LEVEL YOGA ALLIANCE CERTIFIED COURSE (RYS 300)"
-            leftImage="/images/teacher-training/300-hero.jpg"
+            leftImage={ttcData?.items?.[1]?.image || '/images/teacher-training/300-hero.jpg'}
             rightImage="/images/classes/advance-hero.jpg"
             onBookNow={openTrialModal}
           />
@@ -1559,9 +1573,9 @@ export default function TeacherTrainingPage() {
             discountedFee="$299"
             currency="USD"
             inrFee="₹11,999 INR"
-            courseHeading="50 HOUR AERIAL YOGA TEACHER TRAINING IN DEHRADUN INDIA"
+            courseHeading={ttcData?.items?.[2]?.title || '50 HOUR AERIAL YOGA TEACHER TRAINING IN DEHRADUN INDIA'}
             courseSubheading="SPECIALIZATION LEVEL INTERNATIONAL CERTIFIED COURSE"
-            leftImage="/images/teacher-training/aerial-hero.jpg"
+            leftImage={ttcData?.items?.[2]?.image || '/images/teacher-training/aerial-hero.jpg'}
             rightImage="/images/teacher-training/aerial-side.jpg"
             onBookNow={openTrialModal}
           />

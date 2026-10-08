@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import usePageMeta from '@/hooks/usePageMeta';
+import { api } from '@/lib/api';
 import { Container, Button } from '@/components/ui';
 import { Team, FAQSection } from '@/components/sections';
 import { HiArrowRight } from 'react-icons/hi2';
@@ -30,6 +32,18 @@ const styles = ['Hatha Yoga', 'Ashtanga Vinyasa Yoga', 'Iyengar Yoga', 'Chakra Y
 
 export default function AboutPage() {
   usePageMeta('about');
+  const [aboutData, setAboutData] = useState(null);
+
+  useEffect(() => {
+    api
+      .getSiteContent('about')
+      .then((data) => {
+        if (data && (data.heading || data.image || data.description)) {
+          setAboutData(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <div data-page="about">
@@ -48,12 +62,24 @@ export default function AboutPage() {
               animate="visible"
               className="flex flex-col items-start justify-center"
             >
+              {aboutData?.subheading && (
+                <span className="inline-block rounded-full border border-secondary/30 bg-secondary/5 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.25em] text-secondary mb-3">
+                  {aboutData.subheading}
+                </span>
+              )}
+
               {/* Heading */}
               <motion.h1
                 variants={fadeUp}
                 className="font-medium text-3xl sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[58px] leading-[1.15] tracking-tight text-dark"
               >
-                A Sacred Sanctuary for <span className="italic text-primary">Inner Peace</span> &amp; Authentic Yoga
+                {aboutData?.heading ? (
+                  aboutData.heading
+                ) : (
+                  <>
+                    A Sacred Sanctuary for <span className="italic text-primary">Inner Peace</span> &amp; Authentic Yoga
+                  </>
+                )}
               </motion.h1>
 
               {/* Description (Meaning of Vimoksha) */}
@@ -61,12 +87,18 @@ export default function AboutPage() {
                 variants={fadeUp}
                 className="mt-6 space-y-3.5 text-sm sm:text-base md:text-lg font-normal leading-relaxed text-muted max-w-xl"
               >
-                <p>
-                  <strong className="text-dark font-semibold">Vimoksha means liberation.</strong> For us, liberation does not mean liberation from life, but liberation from physical and mental problems that occur in everyday life.
-                </p>
-                <p>
-                  We chose this name because yoga helps us find freedom from physical ailments, mental stress, and constant ups and downs. Vimoksha symbolizes a dedicated journey towards health, clarity, balance, and inner well-being.
-                </p>
+                {aboutData?.description ? (
+                  <p className="whitespace-pre-line">{aboutData.description}</p>
+                ) : (
+                  <>
+                    <p>
+                      <strong className="text-dark font-semibold">Vimoksha means liberation.</strong> For us, liberation does not mean liberation from life, but liberation from physical and mental problems that occur in everyday life.
+                    </p>
+                    <p>
+                      We chose this name because yoga helps us find freedom from physical ailments, mental stress, and constant ups and downs. Vimoksha symbolizes a dedicated journey towards health, clarity, balance, and inner well-being.
+                    </p>
+                  </>
+                )}
               </motion.div>
             </motion.div>
 
@@ -80,7 +112,7 @@ export default function AboutPage() {
               {/* Main Photo Frame */}
               <div className="relative overflow-hidden rounded-[32px] border-[8px] sm:border-[10px] border-white bg-white shadow-elevated">
                 <img
-                  src="/images/about-hero-yoga.jpg"
+                  src={aboutData?.image || '/images/about-hero-yoga.jpg'}
                   alt="Himalayan Yoga Sanctuary at Vimoksha Yogshala Dehradun"
                   fetchPriority="high"
                   className="h-[380px] sm:h-[460px] md:h-[500px] lg:h-[520px] w-full object-cover object-center"

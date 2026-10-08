@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import usePageMeta from '@/hooks/usePageMeta';
+import { api } from '@/lib/api';
 import { Container, Button } from '@/components/ui';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -489,6 +490,7 @@ const therapyOptions = [
 export default function TherapiesPage() {
   usePageMeta('therapies');
 
+  const [therapiesData, setTherapiesData] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
   const [selectedTherapyModal, setSelectedTherapyModal] = useState(null);
   const [form, setForm] = useState({
@@ -500,6 +502,27 @@ export default function TherapiesPage() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    api
+      .getSiteContent('therapiesPage')
+      .then((data) => {
+        if (data && (data.heading || data.image || data.items?.length)) {
+          setTherapiesData(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const activeMainTherapies = mainTherapies.map((defaultItem, index) => {
+    const customItem = therapiesData?.items?.[index];
+    return {
+      ...defaultItem,
+      title: customItem?.title?.trim() || defaultItem.title,
+      description: customItem?.description?.trim() || defaultItem.description,
+      image: customItem?.image?.trim() || defaultItem.image,
+    };
+  });
 
   const handleSelectTherapy = (therapyName) => {
     setForm((prev) => ({ ...prev, therapy: therapyName }));
@@ -562,7 +585,7 @@ export default function TherapiesPage() {
 
             <div className="relative overflow-hidden rounded-[28px] shadow-elevated">
               <img
-                src="/images/therapies/hero.jpg"
+                src={therapiesData?.image || '/images/therapies/hero.jpg'}
                 alt="Guest enjoying a calming candlelit head and face massage at Vimoksha Yogshala"
                 className="h-[320px] w-full object-cover sm:h-[380px] md:h-[420px]"
               />
@@ -632,7 +655,7 @@ export default function TherapiesPage() {
 
           {/* 4 Main Therapies */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {mainTherapies.map((therapy) => (
+            {activeMainTherapies.map((therapy) => (
               <div
                 key={therapy.title}
                 className="bg-white rounded-[24px] border border-border overflow-hidden shadow-soft flex flex-col justify-between transition-all duration-300 hover:shadow-elevated hover:-translate-y-1"

@@ -16,16 +16,23 @@ import {
 } from 'react-icons/lu';
 
 const sections = [
-  { key: 'hero', label: 'Hero Section', icon: LuHouse },
-  { key: 'pathways', label: 'Pathways', icon: LuCompass },
-  { key: 'classes', label: 'Classes', icon: LuUsers },
-  { key: 'training', label: 'Training', icon: LuDumbbell },
-  { key: 'therapy', label: 'Therapy', icon: LuHeartPulse },
-  { key: 'whyUs', label: 'Why Choose Us', icon: LuSparkles },
-  { key: 'programs', label: 'Programs', icon: LuSparkles },
-  { key: 'blogs', label: 'Blogs', icon: LuNewspaper },
-  { key: 'gallery', label: 'Gallery', icon: LuImage },
-  { key: 'faq', label: 'FAQ', icon: LuCircleHelp },
+  // Homepage Sections
+  { key: 'hero', label: 'Home: Hero', icon: LuHouse },
+  { key: 'whyUs', label: 'Home: Why Choose Us', icon: LuSparkles },
+  { key: 'pathways', label: 'Home: Pathways', icon: LuCompass },
+  { key: 'classes', label: 'Home: Classes Cards', icon: LuUsers },
+  { key: 'training', label: 'Home: Training Cards', icon: LuDumbbell },
+  { key: 'therapy', label: 'Home: Therapy Cards', icon: LuHeartPulse },
+  { key: 'programs', label: 'Home: Programs', icon: LuSparkles },
+  { key: 'blogs', label: 'Home: Blogs Cards', icon: LuNewspaper },
+  { key: 'gallery', label: 'Home: Gallery Grid', icon: LuImage },
+  { key: 'faq', label: 'Home: FAQ', icon: LuCircleHelp },
+
+  // Dedicated Inner Pages
+  { key: 'about', label: 'Page: About Us', icon: LuHouse },
+  { key: 'therapiesPage', label: 'Page: Therapies (4 Main)', icon: LuHeartPulse },
+  { key: 'ttcPage', label: 'Page: Teacher Training', icon: LuDumbbell },
+  { key: 'classesPage', label: 'Page: Classes (3 Levels)', icon: LuUsers },
 ];
 
 const emptySection = {
@@ -51,7 +58,7 @@ const EMPTY_ITEM = {
   readTime: '',
 };
 
-// Sections that show a fixed-count card grid on the homepage
+// Sections that show a fixed-count card grid on the homepage or dedicated pages
 const SECTIONS_WITH_ITEMS = [
   'training',
   'therapy',
@@ -61,6 +68,9 @@ const SECTIONS_WITH_ITEMS = [
   'gallery',
   'whyUs',
   'pathways',
+  'therapiesPage',
+  'ttcPage',
+  'classesPage',
 ];
 // How many cards each of those sections has
 const ITEM_COUNTS = {
@@ -72,6 +82,9 @@ const ITEM_COUNTS = {
   gallery: 9,
   whyUs: 6,
   pathways: 3,
+  therapiesPage: 4,
+  ttcPage: 3,
+  classesPage: 3,
 };
 // Only Programs cards use duration / difficulty
 const SECTIONS_WITH_DIFFICULTY = ['programs'];
@@ -96,7 +109,15 @@ const GALLERY_CATEGORY_OPTIONS = [
   'Workshops',
 ];
 // Sections with a single admin-editable top/center image
-const SECTIONS_WITH_IMAGE = ['hero', 'faq', 'whyUs'];
+const SECTIONS_WITH_IMAGE = [
+  'hero',
+  'faq',
+  'whyUs',
+  'about',
+  'therapiesPage',
+  'ttcPage',
+  'classesPage',
+];
 // FAQ has a variable-length list of Q&A pairs instead of a fixed card count
 const DYNAMIC_ITEM_SECTIONS = ['faq'];
 
@@ -273,6 +294,12 @@ export default function AdminContentPage() {
   const cardsHelperText = () => {
     if (active === 'gallery') return 'These are the photos shown in the homepage gallery grid.';
     if (active === 'blogs') return 'These are the blog cards shown on the homepage.';
+    if (active === 'therapiesPage')
+      return 'Photos and descriptions for the 4 main therapies shown on the /therapies page.';
+    if (active === 'ttcPage')
+      return 'Photos and details for the 3 Teacher Training courses shown on /teacher-training pages.';
+    if (active === 'classesPage')
+      return 'Photos and descriptions for the 3 class levels (Beginner, Intermediate, Advance) on /classes pages.';
     return 'These are the photo cards displayed for this section on the homepage.';
   };
 
@@ -280,7 +307,7 @@ export default function AdminContentPage() {
     <AdminShell
       eyebrow="Site Content"
       title="Page Content"
-      subtitle="Edit the text and images shown across the homepage sections."
+      subtitle="Edit the text and images shown across homepage sections and dedicated inner pages (About, Therapies, Training, Classes)."
     >
       <div className="mb-6 flex flex-wrap gap-2">
         {sections.map((s) => {
@@ -358,6 +385,14 @@ export default function AdminContentPage() {
                   ? 'FAQ Photo'
                   : active === 'whyUs'
                   ? 'Center Feature Photo (Main Image)'
+                  : active === 'about'
+                  ? 'About Us Hero Main Photo'
+                  : active === 'therapiesPage'
+                  ? 'Therapies Page Top Banner Photo'
+                  : active === 'ttcPage'
+                  ? 'Teacher Training Page Top Banner Photo'
+                  : active === 'classesPage'
+                  ? 'Classes Overview Banner Photo'
                   : 'Hero Banner Image'}
               </label>
               <input
@@ -366,7 +401,7 @@ export default function AdminContentPage() {
                 onChange={handleImageUpload}
                 className="text-sm text-muted file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white file:transition-colors hover:file:bg-primary-dark"
               />
-              {uploading && <p className="mt-2 text-xs text-muted">Uploadingâ€¦</p>}
+              {uploading && <p className="mt-2 text-xs text-muted">Uploading…</p>}
               {form.image && (
                 <img
                   src={form.image}
@@ -377,7 +412,7 @@ export default function AdminContentPage() {
             </div>
           )}
 
-          {['hero', 'whyUs'].includes(active) && (
+          {['hero', 'whyUs', 'about', 'therapiesPage', 'ttcPage', 'classesPage'].includes(active) && (
             <>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
@@ -516,6 +551,25 @@ export default function AdminContentPage() {
                         ? `Photo ${index + 1}`
                         : active === 'whyUs'
                         ? `Feature Point ${index + 1}`
+                        : active === 'therapiesPage'
+                        ? [
+                            'Therapy 1: Yoga & Therapeutic Yoga',
+                            'Therapy 2: Naturopathy',
+                            'Therapy 3: Acupressure',
+                            'Therapy 4: Cupping Therapy',
+                          ][index] || `Therapy ${index + 1}`
+                        : active === 'ttcPage'
+                        ? [
+                            'Course 1: 200-Hour Yoga TTC',
+                            'Course 2: 300-Hour Yoga TTC',
+                            'Course 3: Aerial Yoga TTC',
+                          ][index] || `Course ${index + 1}`
+                        : active === 'classesPage'
+                        ? [
+                            'Level 1: Beginner Classes',
+                            'Level 2: Intermediate Classes',
+                            'Level 3: Advance Classes',
+                          ][index] || `Level ${index + 1}`
                         : `Card ${index + 1}`}
                     </p>
                     <div className="flex flex-col gap-4 sm:flex-row">
