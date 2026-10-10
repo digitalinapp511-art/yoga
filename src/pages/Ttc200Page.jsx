@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Award,
   Flower2,
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import SEO from '@/components/common/SEO';
 import { useAppContext } from '@/context/AppContext';
+import { api } from '@/lib/api';
 import CourseDetailsCard from '@/components/teacher-training/CourseDetailsCard';
 import {
   StayAndFoodSection,
@@ -33,7 +34,28 @@ import {
 
 export default function Ttc200Page() {
   const [activeModule, setActiveModule] = useState(curriculum200[0].id);
+  const [ttcData, setTtcData] = useState(null);
   const { openTrialModal } = useAppContext();
+
+  useEffect(() => {
+    Promise.all([
+      api.getSiteContent('ttcPage').catch(() => null),
+      api.getSiteContent('training').catch(() => null),
+    ]).then(([ttc, train]) => {
+      const merged = {
+        heading: ttc?.heading || train?.heading || '',
+        subheading: ttc?.subheading || train?.subheading || '',
+        description: ttc?.description || train?.description || '',
+        image: ttc?.image || train?.image || '',
+        items: [0, 1, 2].map((i) => ({
+          title: ttc?.items?.[i]?.title || train?.items?.[i]?.title || '',
+          description: ttc?.items?.[i]?.description || train?.items?.[i]?.description || '',
+          image: ttc?.items?.[i]?.image || train?.items?.[i]?.image || '',
+        })),
+      };
+      setTtcData(merged);
+    });
+  }, []);
 
   const selectedModuleObj =
     curriculum200.find((m) => m.id === activeModule) || curriculum200[0];
@@ -100,7 +122,11 @@ export default function Ttc200Page() {
           <div className="relative lg:pl-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border-[8px] border-white shadow-elevated">
               <ImageSlot
-                src="/images/teacher-training/hero.webp"
+                src={
+                  ttcData?.items?.[0]?.image ||
+                  ttcData?.image ||
+                  '/images/teacher-training/hero.webp'
+                }
                 alt="200-Hour Yoga teacher training class in session at Vimoksha Yogshala"
                 label="200-Hour TTC Class"
                 className="w-full h-full"
@@ -136,10 +162,10 @@ export default function Ttc200Page() {
         discountedFee={course200Details.discountedFee}
         currency={course200Details.currency}
         inrFee={course200Details.inrFee}
-        courseHeading={course200Details.courseHeading}
-        courseSubheading={course200Details.courseSubheading}
-        leftImage={course200Details.leftImage}
-        rightImage={course200Details.rightImage}
+        courseHeading={ttcData?.items?.[0]?.title || course200Details.courseHeading}
+        courseSubheading={ttcData?.items?.[0]?.description || course200Details.courseSubheading}
+        leftImage={ttcData?.items?.[0]?.image || course200Details.leftImage}
+        rightImage={ttcData?.items?.[0]?.image || course200Details.rightImage}
         onBookNow={openTrialModal}
       />
 

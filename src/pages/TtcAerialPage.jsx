@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Activity,
   Flower2,
@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import SEO from '@/components/common/SEO';
 import { useAppContext } from '@/context/AppContext';
+import { api } from '@/lib/api';
 import CourseDetailsCard from '@/components/teacher-training/CourseDetailsCard';
 import {
   StayAndFoodSection,
@@ -34,7 +35,28 @@ import {
 
 export default function TtcAerialPage() {
   const [activeModule, setActiveModule] = useState(0);
+  const [ttcData, setTtcData] = useState(null);
   const { openTrialModal } = useAppContext();
+
+  useEffect(() => {
+    Promise.all([
+      api.getSiteContent('ttcPage').catch(() => null),
+      api.getSiteContent('training').catch(() => null),
+    ]).then(([ttc, train]) => {
+      const merged = {
+        heading: ttc?.heading || train?.heading || '',
+        subheading: ttc?.subheading || train?.subheading || '',
+        description: ttc?.description || train?.description || '',
+        image: ttc?.image || train?.image || '',
+        items: [0, 1, 2].map((i) => ({
+          title: ttc?.items?.[i]?.title || train?.items?.[i]?.title || '',
+          description: ttc?.items?.[i]?.description || train?.items?.[i]?.description || '',
+          image: ttc?.items?.[i]?.image || train?.items?.[i]?.image || '',
+        })),
+      };
+      setTtcData(merged);
+    });
+  }, []);
 
   return (
     <div className="bg-background font-body text-dark">
@@ -98,7 +120,11 @@ export default function TtcAerialPage() {
           <div className="relative lg:pl-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border-[8px] border-white shadow-elevated">
               <ImageSlot
-                src="/images/offline-aerial-yoga.jpg"
+                src={
+                  ttcData?.items?.[2]?.image ||
+                  ttcData?.image ||
+                  '/images/offline-aerial-yoga.jpg'
+                }
                 alt="Aerial Yoga teacher training class in session at Vimoksha Yogshala"
                 label="50-Hour Aerial TTC"
                 className="w-full h-full"
@@ -134,10 +160,10 @@ export default function TtcAerialPage() {
         discountedFee={courseAerialDetails.discountedFee}
         currency={courseAerialDetails.currency}
         inrFee={courseAerialDetails.inrFee}
-        courseHeading={courseAerialDetails.courseHeading}
-        courseSubheading={courseAerialDetails.courseSubheading}
-        leftImage={courseAerialDetails.leftImage}
-        rightImage={courseAerialDetails.rightImage}
+        courseHeading={ttcData?.items?.[2]?.title || courseAerialDetails.courseHeading}
+        courseSubheading={ttcData?.items?.[2]?.description || courseAerialDetails.courseSubheading}
+        leftImage={ttcData?.items?.[2]?.image || courseAerialDetails.leftImage}
+        rightImage={ttcData?.items?.[2]?.image || courseAerialDetails.rightImage}
         onBookNow={openTrialModal}
       />
 

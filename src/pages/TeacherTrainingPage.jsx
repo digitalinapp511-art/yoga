@@ -861,14 +861,23 @@ export default function TeacherTrainingPage() {
   const { openTrialModal } = useAppContext();
 
   useEffect(() => {
-    api
-      .getSiteContent('ttcPage')
-      .then((data) => {
-        if (data && (data.heading || data.image || data.items?.length)) {
-          setTtcData(data);
-        }
-      })
-      .catch(() => {});
+    Promise.all([
+      api.getSiteContent('ttcPage').catch(() => null),
+      api.getSiteContent('training').catch(() => null),
+    ]).then(([ttc, train]) => {
+      const merged = {
+        heading: ttc?.heading || train?.heading || '',
+        subheading: ttc?.subheading || train?.subheading || '',
+        description: ttc?.description || train?.description || '',
+        image: ttc?.image || train?.image || '',
+        items: [0, 1, 2].map((i) => ({
+          title: ttc?.items?.[i]?.title || train?.items?.[i]?.title || '',
+          description: ttc?.items?.[i]?.description || train?.items?.[i]?.description || '',
+          image: ttc?.items?.[i]?.image || train?.items?.[i]?.image || '',
+        })),
+      };
+      setTtcData(merged);
+    });
   }, []);
 
   const selectedModuleObj200 =
@@ -894,14 +903,21 @@ export default function TeacherTrainingPage() {
           <div className="max-w-2xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/8 px-4 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.2em] text-secondary shadow-soft">
               <Award className="w-4 h-4 text-secondary" />
-              Yoga Alliance USA Certified (RYS 200) & Vimoksha Yogshala
+              Yoga Alliance USA Certified (RYS 200) &amp; Vimoksha Yogshala
             </div>
 
             <h1 className="font-heading text-4xl font-semibold leading-[1.08] text-dark sm:text-5xl lg:text-6xl">
-              Yoga Teacher Training <span className="text-primary">Programs</span>
+              {ttcData?.heading ? (
+                ttcData.heading
+              ) : (
+                <>
+                  Yoga Teacher Training <span className="text-primary">Programs</span>
+                </>
+              )}
             </h1>
             <p className="mt-4 font-heading text-xl italic leading-snug text-primary sm:text-2xl">
-              Deepen Your Practice. Awaken Your Inner Teacher. Teach Worldwide.
+              {ttcData?.subheading ||
+                'Deepen Your Practice. Awaken Your Inner Teacher. Teach Worldwide.'}
             </p>
             <div className="my-5 flex items-center gap-2 text-secondary">
               <span className="h-px w-10 bg-primary/20" />
@@ -909,7 +925,8 @@ export default function TeacherTrainingPage() {
               <span className="h-px w-10 bg-primary/20" />
             </div>
             <p className="text-base leading-relaxed text-muted sm:text-lg">
-              At Vimoksha Yogshala Dehradun, learning yoga is a transformative journey that goes far beyond physical postures. Choose from our internationally accredited certification courses taught by experienced gurus in a serene Himalayan foothills environment.
+              {ttcData?.description ||
+                'At Vimoksha Yogshala Dehradun, learning yoga is a transformative journey that goes far beyond physical postures. Choose from our internationally accredited certification courses taught by experienced gurus in a serene Himalayan foothills environment.'}
             </p>
 
             {/* Course Selector Buttons in Hero */}
@@ -987,6 +1004,9 @@ export default function TeacherTrainingPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border-[8px] border-white shadow-elevated">
               <ImageSlot
                 src={
+                  (selectedCourse === '200hr' && ttcData?.items?.[0]?.image) ||
+                  (selectedCourse === '300hr' && ttcData?.items?.[1]?.image) ||
+                  (selectedCourse === 'aerial50hr' && ttcData?.items?.[2]?.image) ||
                   ttcData?.image ||
                   (selectedCourse === 'aerial50hr'
                     ? '/images/offline-aerial-yoga.jpg'
@@ -1079,9 +1099,9 @@ export default function TeacherTrainingPage() {
             currency="USD"
             inrFee="₹21,000 INR"
             courseHeading={ttcData?.items?.[0]?.title || '200 HOUR YOGA TEACHER TRAINING IN DEHRADUN INDIA'}
-            courseSubheading="FOUNDATIONAL LEVEL YOGA ALLIANCE CERTIFIED COURSE (RYS 200)"
+            courseSubheading={ttcData?.items?.[0]?.description || 'FOUNDATIONAL LEVEL YOGA ALLIANCE CERTIFIED COURSE (RYS 200)'}
             leftImage={ttcData?.items?.[0]?.image || '/images/teacher-training/200-hero.jpg'}
-            rightImage="/images/teacher-training/hero.webp"
+            rightImage={ttcData?.items?.[0]?.image || '/images/teacher-training/hero.webp'}
             onBookNow={openTrialModal}
           />
 
@@ -1360,9 +1380,9 @@ export default function TeacherTrainingPage() {
             currency="USD"
             inrFee="₹25,000 INR"
             courseHeading={ttcData?.items?.[1]?.title || '300 HOUR ADVANCED YOGA TEACHER TRAINING IN DEHRADUN INDIA'}
-            courseSubheading="MASTER LEVEL YOGA ALLIANCE CERTIFIED COURSE (RYS 300)"
+            courseSubheading={ttcData?.items?.[1]?.description || 'MASTER LEVEL YOGA ALLIANCE CERTIFIED COURSE (RYS 300)'}
             leftImage={ttcData?.items?.[1]?.image || '/images/teacher-training/300-hero.jpg'}
-            rightImage="/images/classes/advance-hero.jpg"
+            rightImage={ttcData?.items?.[1]?.image || '/images/classes/advance-hero.jpg'}
             onBookNow={openTrialModal}
           />
 
@@ -1574,9 +1594,9 @@ export default function TeacherTrainingPage() {
             currency="USD"
             inrFee="₹11,999 INR"
             courseHeading={ttcData?.items?.[2]?.title || '50 HOUR AERIAL YOGA TEACHER TRAINING IN DEHRADUN INDIA'}
-            courseSubheading="SPECIALIZATION LEVEL INTERNATIONAL CERTIFIED COURSE"
+            courseSubheading={ttcData?.items?.[2]?.description || 'SPECIALIZATION LEVEL INTERNATIONAL CERTIFIED COURSE'}
             leftImage={ttcData?.items?.[2]?.image || '/images/teacher-training/aerial-hero.jpg'}
-            rightImage="/images/teacher-training/aerial-side.jpg"
+            rightImage={ttcData?.items?.[2]?.image || '/images/teacher-training/aerial-side.jpg'}
             onBookNow={openTrialModal}
           />
 

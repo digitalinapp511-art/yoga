@@ -261,6 +261,27 @@ export default function Services() {
   const { content: trainingContent } = useSiteContent('training', trainingFallback);
   const { content: therapyContent } = useSiteContent('therapy', therapyFallback);
 
+  const classLinks = ['/classes/beginner', '/classes/intermediate', '/classes/advance'];
+  const mappedClasses = (classesContent.items || []).map((it, i) => ({
+    ...it,
+    link: it.link || classLinks[i] || '/classes/beginner',
+  }));
+
+  const trainingLinks = [
+    '/teacher-training/200-hour',
+    '/teacher-training/300-hour',
+    '/teacher-training/50-hour-aerial',
+  ];
+  const mappedTraining = (trainingContent.items || []).map((it, i) => ({
+    ...it,
+    link: it.link || trainingLinks[i] || '/teacher-training/200-hour',
+  }));
+
+  const mappedTherapies = (therapyContent.items || []).map((it) => ({
+    ...it,
+    link: it.link || '/therapies',
+  }));
+
   return (
     <section id="classes" className="bg-gradient-to-b from-primary/5 to-white py-[120px]">
       <Container>
@@ -272,7 +293,7 @@ export default function Services() {
           features={classesContent.features}
         />
 
-        {/* Class level buttons â€” link to the same pages as the header's Classes dropdown */}
+        {/* Class level buttons — link to the same pages as the header's Classes dropdown */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -292,7 +313,7 @@ export default function Services() {
           ))}
         </motion.div>
 
-        <ServiceGrid items={classesContent.items} />
+        <ServiceGrid items={mappedClasses} />
 
         {/* ===== Training ===== */}
         <div id="training" className="mt-12 md:mt-16">
@@ -302,7 +323,7 @@ export default function Services() {
             description={trainingContent.description}
             features={trainingContent.features}
           />
-          <ServiceGrid items={trainingContent.items} />
+          <ServiceGrid items={mappedTraining} />
         </div>
 
         {/* ===== Therapies ===== */}
@@ -313,7 +334,7 @@ export default function Services() {
             description={therapyContent.description}
             features={therapyContent.features}
           />
-          <ServiceGrid items={therapyContent.items} />
+          <ServiceGrid items={mappedTherapies} />
         </div>
       </Container>
     </section>

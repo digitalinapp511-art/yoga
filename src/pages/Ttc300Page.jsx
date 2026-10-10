@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   GraduationCap,
   Flower2,
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import SEO from '@/components/common/SEO';
 import { useAppContext } from '@/context/AppContext';
+import { api } from '@/lib/api';
 import CourseDetailsCard from '@/components/teacher-training/CourseDetailsCard';
 import {
   StayAndFoodSection,
@@ -32,7 +33,28 @@ import {
 
 export default function Ttc300Page() {
   const [activeModule, setActiveModule] = useState(0);
+  const [ttcData, setTtcData] = useState(null);
   const { openTrialModal } = useAppContext();
+
+  useEffect(() => {
+    Promise.all([
+      api.getSiteContent('ttcPage').catch(() => null),
+      api.getSiteContent('training').catch(() => null),
+    ]).then(([ttc, train]) => {
+      const merged = {
+        heading: ttc?.heading || train?.heading || '',
+        subheading: ttc?.subheading || train?.subheading || '',
+        description: ttc?.description || train?.description || '',
+        image: ttc?.image || train?.image || '',
+        items: [0, 1, 2].map((i) => ({
+          title: ttc?.items?.[i]?.title || train?.items?.[i]?.title || '',
+          description: ttc?.items?.[i]?.description || train?.items?.[i]?.description || '',
+          image: ttc?.items?.[i]?.image || train?.items?.[i]?.image || '',
+        })),
+      };
+      setTtcData(merged);
+    });
+  }, []);
 
   return (
     <div className="bg-background font-body text-dark">
@@ -96,7 +118,11 @@ export default function Ttc300Page() {
           <div className="relative lg:pl-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border-[8px] border-white shadow-elevated">
               <ImageSlot
-                src="/images/teacher-training/hero.webp"
+                src={
+                  ttcData?.items?.[1]?.image ||
+                  ttcData?.image ||
+                  '/images/teacher-training/hero.webp'
+                }
                 alt="300-Hour Advanced Yoga teacher training class in session"
                 label="300-Hour Advanced TTC"
                 className="w-full h-full"
@@ -132,10 +158,10 @@ export default function Ttc300Page() {
         discountedFee={course300Details.discountedFee}
         currency={course300Details.currency}
         inrFee={course300Details.inrFee}
-        courseHeading={course300Details.courseHeading}
-        courseSubheading={course300Details.courseSubheading}
-        leftImage={course300Details.leftImage}
-        rightImage={course300Details.rightImage}
+        courseHeading={ttcData?.items?.[1]?.title || course300Details.courseHeading}
+        courseSubheading={ttcData?.items?.[1]?.description || course300Details.courseSubheading}
+        leftImage={ttcData?.items?.[1]?.image || course300Details.leftImage}
+        rightImage={ttcData?.items?.[1]?.image || course300Details.rightImage}
         onBookNow={openTrialModal}
       />
 
