@@ -44,7 +44,7 @@ const heroFallback = {
   subheading: "EST. 2019 · DEHRADUN'S TRUSTED YOGSHALA",
   description:
     "Nestled in the serene beauty of Dehradun, we've guided over 1000 students through authentic Hatha yoga, pranayama, and yoga therapy — taught in small batches, led by teachers who know your name by the second class.",
-  image: '/hero.png',
+  image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790358723/vimoksha-yogshala/content/idps9gaz0jykahzknsis.png',
   ctaText: 'Book Free Trial',
   ctaLink: '',
 };

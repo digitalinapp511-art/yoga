@@ -28,8 +28,8 @@ export const course200Details = {
   inrFee: '₹21,000 INR',
   courseHeading: '200 HOUR YOGA TEACHER TRAINING IN DEHRADUN INDIA',
   courseSubheading: 'FOUNDATIONAL LEVEL YOGA ALLIANCE CERTIFIED COURSE (RYS 200)',
-  leftImage: '/images/teacher-training/200-hero.jpg',
-  rightImage: '/images/teacher-training/hero.webp',
+  leftImage: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1791470264/vimoksha-yogshala/content/ywlfnylrxfbclkfswwpg.jpg',
+  rightImage: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1791470196/vimoksha-yogshala/content/nplsm1wijjp4picx1vpa.jpg',
 };
 
 export const batches200 = [
@@ -154,8 +154,8 @@ export const course300Details = {
   inrFee: '₹25,000 INR',
   courseHeading: '300 HOUR ADVANCED YOGA TEACHER TRAINING IN DEHRADUN INDIA',
   courseSubheading: 'MASTER LEVEL YOGA ALLIANCE CERTIFIED COURSE (RYS 300)',
-  leftImage: '/images/teacher-training/300-hero.jpg',
-  rightImage: '/images/classes/advance-hero.jpg',
+  leftImage: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790421501/vimoksha-yogshala/content/tympfunxysr3rchuhxzq.jpg',
+  rightImage: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1791470196/vimoksha-yogshala/content/nplsm1wijjp4picx1vpa.jpg',
 };
 
 export const whyChoose300 = [
@@ -320,8 +320,8 @@ export const courseAerialDetails = {
   inrFee: '₹18,000 INR',
   courseHeading: '50 HOUR AERIAL YOGA TEACHER TRAINING IN DEHRADUN INDIA',
   courseSubheading: 'SPECIALIZATION CERTIFICATION COURSE IN SUSPENDED YOGA',
-  leftImage: '/images/teacher-training/aerial-hero.jpg',
-  rightImage: '/images/teacher-training/aerial-side.jpg',
+  leftImage: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790422391/vimoksha-yogshala/content/jh8x2mxiscn2mpxyjgod.jpg',
+  rightImage: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1791470196/vimoksha-yogshala/content/nplsm1wijjp4picx1vpa.jpg',
 };
 
 export const curriculumAerial = [

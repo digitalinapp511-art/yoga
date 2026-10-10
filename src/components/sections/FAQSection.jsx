@@ -20,8 +20,8 @@ import useSiteContent from '@/hooks/useSiteContent';
 /* ===== FAQ image â€” uncomment when image is added ===== */
 // import faqImage from '@/assets/images/faq/faq.jpg';
 
-/* Placeholder null â€” used until real image is added */
-const faqImage = '/images/teacher-training/faq.jpg';
+/* Real FAQ image uploaded by admin */
+const faqImage = 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790491835/vimoksha-yogshala/content/uvvaa5ioikh2yuvy9kga.png';
 
 /* ===== Animation variants ===== */
 const fadeUp = {

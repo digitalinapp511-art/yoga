@@ -27,23 +27,20 @@ const staggerContainer = {
 };
 
 /* ===== Practices & styles ===== */
+import useSiteContent from '@/hooks/useSiteContent';
+
 const practices = ['Asanas', 'Pranayama', 'Shatkriya', 'Yoga Nidra', 'Meditation'];
 const styles = ['Hatha Yoga', 'Ashtanga Vinyasa Yoga', 'Iyengar Yoga', 'Chakra Yoga'];
 
+const aboutFallback = {
+  heading: '',
+  description: '',
+  image: '/images/about-hero-yoga.jpg',
+};
+
 export default function AboutPage() {
   usePageMeta('about');
-  const [aboutData, setAboutData] = useState(null);
-
-  useEffect(() => {
-    api
-      .getSiteContent('about')
-      .then((data) => {
-        if (data && (data.heading || data.image || data.description)) {
-          setAboutData(data);
-        }
-      })
-      .catch(() => {});
-  }, []);
+  const { content: aboutData } = useSiteContent('about', aboutFallback);
 
   return (
     <div data-page="about">

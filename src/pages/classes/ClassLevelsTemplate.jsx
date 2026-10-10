@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import usePageMeta from '@/hooks/usePageMeta';
+import useSiteContent from '@/hooks/useSiteContent';
 import { api } from '@/lib/api';
 import { Container, Button } from '@/components/ui';
 import { HiArrowRight } from 'react-icons/hi2';
@@ -97,18 +98,12 @@ export default function ClassLevelsTemplate({
 }) {
   usePageMeta(metaKey);
   const { openTrialModal } = useAppContext();
-  const [classesData, setClassesData] = useState(null);
-
-  useEffect(() => {
-    api
-      .getSiteContent('classesPage')
-      .then((data) => {
-        if (data && (data.heading || data.image || data.items?.length)) {
-          setClassesData(data);
-        }
-      })
-      .catch(() => {});
-  }, []);
+  const { content: classesData } = useSiteContent('classesPage', {
+    heading: '',
+    description: '',
+    image: '',
+    items: [],
+  });
 
   const levelIndexMap = {
     beginner: 0,

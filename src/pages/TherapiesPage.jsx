@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import usePageMeta from '@/hooks/usePageMeta';
+import useSiteContent from '@/hooks/useSiteContent';
 import { api } from '@/lib/api';
 import { Container, Button } from '@/components/ui';
 import { Link } from 'react-router-dom';
@@ -487,10 +488,17 @@ const therapyOptions = [
   ...subTherapies.map((s) => s.name),
 ];
 
+const therapiesFallback = {
+  heading: '',
+  description: '',
+  image: '',
+  items: [],
+};
+
 export default function TherapiesPage() {
   usePageMeta('therapies');
 
-  const [therapiesData, setTherapiesData] = useState(null);
+  const { content: therapiesData } = useSiteContent('therapiesPage', therapiesFallback);
   const [openFaq, setOpenFaq] = useState(null);
   const [selectedTherapyModal, setSelectedTherapyModal] = useState(null);
   const [form, setForm] = useState({
@@ -502,17 +510,6 @@ export default function TherapiesPage() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    api
-      .getSiteContent('therapiesPage')
-      .then((data) => {
-        if (data && (data.heading || data.image || data.items?.length)) {
-          setTherapiesData(data);
-        }
-      })
-      .catch(() => {});
-  }, []);
 
   const activeMainTherapies = mainTherapies.map((defaultItem, index) => {
     const customItem = therapiesData?.items?.[index];

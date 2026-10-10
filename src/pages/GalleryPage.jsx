@@ -15,15 +15,15 @@ import gallery8 from '@/assets/images/gallery/gallery8.jpg';
 import gallery9 from '@/assets/images/gallery/gallery9.jpg';
 
 const galleryFallbackItems = [
-  { image: gallery1, category: 'Yoga Classes', title: 'Hatha Yoga Session' },
-  { image: gallery2, category: 'Meditation', title: 'Morning Meditation' },
-  { image: gallery3, category: 'Teacher Training', title: 'Teacher Training Program' },
-  { image: gallery4, category: 'Events', title: 'Yoga Retreat Event' },
-  { image: gallery5, category: 'Workshops', title: 'Pranayama Workshop' },
-  { image: gallery6, category: 'Yoga Classes', title: 'Ashtanga Practice' },
-  { image: gallery7, category: 'Meditation', title: 'Sunset Meditation' },
-  { image: gallery8, category: 'Teacher Training', title: 'Alignment Training' },
-  { image: gallery9, category: 'Events', title: 'Community Yoga Day' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790490224/vimoksha-yogshala/content/wnailj6nh2bndefksikk.png', category: 'Yoga Classes', title: 'Hatha Yoga Session' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790490485/vimoksha-yogshala/content/a8wibgiz3zkcjymkm2yo.jpg', category: 'Meditation', title: 'Morning Meditation' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790490536/vimoksha-yogshala/content/luxpy0gehxknevslirhu.png', category: 'Teacher Training', title: 'Teacher Training Program' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790492228/vimoksha-yogshala/content/luyssnwrzgca0bnrc6ed.png', category: 'Events', title: 'Yoga Retreat Event' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790493039/vimoksha-yogshala/content/st7a4hdrsavxw0drmyoy.png', category: 'Workshops', title: 'Pranayama Workshop' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790493254/vimoksha-yogshala/content/ilxsoqpvt9orc3lbqfv0.png', category: 'Yoga Classes', title: 'Ashtanga Practice' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790500865/vimoksha-yogshala/content/siyxxnp4iid3358v9btz.png', category: 'Meditation', title: 'Sunset Meditation' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790501246/vimoksha-yogshala/content/vbnoihhcasx4ks9ztzux.png', category: 'Teacher Training', title: 'Alignment Training' },
+  { image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790501251/vimoksha-yogshala/content/p0v9nckju0z3abhvdwmw.png', category: 'Events', title: 'Community Yoga Day' },
 ];
 
 const galleryFallback = {

@@ -38,6 +38,7 @@ import {
 import SEO from '@/components/common/SEO';
 import { useAppContext } from '@/context/AppContext';
 import { api } from '@/lib/api';
+import { getCachedSection } from '@/hooks/useSiteContent';
 
 /* ===== Image Slot Component ===== */
 function ImageSlot({ src, alt = '', label, className = '', focus = 'center' }) {
@@ -851,8 +852,31 @@ const faqs = [
   },
 ];
 
+function getInitialTtcData() {
+  const ttc = getCachedSection('ttcPage');
+  const train = getCachedSection('training');
+  return {
+    heading: ttc?.heading || train?.heading || '',
+    subheading: ttc?.subheading || train?.subheading || '',
+    description: ttc?.description || train?.description || '',
+    image: ttc?.image || train?.image || 'https://res.cloudinary.com/deenyrgo9/image/upload/v1791470196/vimoksha-yogshala/content/nplsm1wijjp4picx1vpa.jpg',
+    items: [0, 1, 2].map((i) => ({
+      title: ttc?.items?.[i]?.title || train?.items?.[i]?.title || '',
+      description: ttc?.items?.[i]?.description || train?.items?.[i]?.description || '',
+      image:
+        ttc?.items?.[i]?.image ||
+        train?.items?.[i]?.image ||
+        (i === 0
+          ? 'https://res.cloudinary.com/deenyrgo9/image/upload/v1791470264/vimoksha-yogshala/content/ywlfnylrxfbclkfswwpg.jpg'
+          : i === 1
+          ? 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790421501/vimoksha-yogshala/content/tympfunxysr3rchuhxzq.jpg'
+          : 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790422391/vimoksha-yogshala/content/jh8x2mxiscn2mpxyjgod.jpg'),
+    })),
+  };
+}
+
 export default function TeacherTrainingPage() {
-  const [ttcData, setTtcData] = useState(null);
+  const [ttcData, setTtcData] = useState(getInitialTtcData);
   const [selectedCourse, setSelectedCourse] = useState('200hr'); // '200hr' | '300hr' | 'aerial50hr'
   const [activeModule200, setActiveModule200] = useState(curriculum200[0].id);
   const [activeModule300, setActiveModule300] = useState(0);
@@ -869,11 +893,18 @@ export default function TeacherTrainingPage() {
         heading: ttc?.heading || train?.heading || '',
         subheading: ttc?.subheading || train?.subheading || '',
         description: ttc?.description || train?.description || '',
-        image: ttc?.image || train?.image || '',
+        image: ttc?.image || train?.image || 'https://res.cloudinary.com/deenyrgo9/image/upload/v1791470196/vimoksha-yogshala/content/nplsm1wijjp4picx1vpa.jpg',
         items: [0, 1, 2].map((i) => ({
           title: ttc?.items?.[i]?.title || train?.items?.[i]?.title || '',
           description: ttc?.items?.[i]?.description || train?.items?.[i]?.description || '',
-          image: ttc?.items?.[i]?.image || train?.items?.[i]?.image || '',
+          image:
+            ttc?.items?.[i]?.image ||
+            train?.items?.[i]?.image ||
+            (i === 0
+              ? 'https://res.cloudinary.com/deenyrgo9/image/upload/v1791470264/vimoksha-yogshala/content/ywlfnylrxfbclkfswwpg.jpg'
+              : i === 1
+              ? 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790421501/vimoksha-yogshala/content/tympfunxysr3rchuhxzq.jpg'
+              : 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790422391/vimoksha-yogshala/content/jh8x2mxiscn2mpxyjgod.jpg'),
         })),
       };
       setTtcData(merged);

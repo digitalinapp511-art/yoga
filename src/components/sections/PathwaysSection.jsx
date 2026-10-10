@@ -17,19 +17,19 @@ const defaultTargets = ['classes', 'training', 'therapies'];
 
 const pathwaysFallbackItems = [
   {
-    title: 'Classes',
+    title: 'Yoga classes',
     description: 'From beginners to advanced practitioners — find the right class for your body & mind.',
-    image: classesImg,
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790420191/vimoksha-yogshala/content/nsc2vtfcm7tba6ilcwv6.jpg',
   },
   {
-    title: 'Training',
+    title: 'Teacher Training',
     description: 'Become a certified yoga teacher with world-class training and guidance.',
-    image: trainingImg,
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790421101/vimoksha-yogshala/content/dn0dttnnqxjxf0ofodqw.jpg',
   },
   {
     title: 'Therapy',
     description: 'Healing therapies to release stress, restore energy and bring inner peace.',
-    image: therapyImg,
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790420260/vimoksha-yogshala/content/wnt9slwx6q8jvu1cy3il.jpg',
   },
 ];
 

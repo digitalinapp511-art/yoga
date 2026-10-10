@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
+import { updateSiteContentCache } from '@/hooks/useSiteContent';
 import AdminShell from './AdminShell';
 import {
   LuHouse,
@@ -279,7 +280,8 @@ export default function AdminContentPage() {
       } else {
         delete payload.items;
       }
-      await api.updateSiteContent(active, payload);
+      const updated = await api.updateSiteContent(active, payload);
+      updateSiteContentCache(active, updated || { ...payload, section: active });
       setSaved(true);
     } catch (err) {
       setError(err.message || 'Save failed.');

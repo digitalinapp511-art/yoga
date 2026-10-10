@@ -36,25 +36,25 @@ const staggerContainer = {
 
 const classItems = [
   {
-    title: 'Yoga Classes',
+    title: 'Beginner Yoga Classes',
     description:
       'Traditional Hatha, Ashtanga, and Vinyasa yoga sessions for all levels to enhance flexibility, strength, and mindfulness.',
-    image: yogaClassesImg,
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790429760/vimoksha-yogshala/content/qs7aso1sv72qg9fbigai.png',
     link: '/classes/beginner',
   },
   {
-    title: 'Meditation',
+    title: 'Intermediate Yoga Classes',
     description:
       'Guided meditation practices to calm the mind, reduce stress, and achieve inner peace and clarity.',
-    image: meditationImg,
-    link: '/classes/beginner',
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790430167/vimoksha-yogshala/content/onkuxaxpd7vsuhcyhwe8.png',
+    link: '/classes/intermediate',
   },
   {
-    title: 'Pranayama',
+    title: 'Advance Yoga Classes',
     description:
       'Breathing exercises and techniques to enhance respiratory health, boost energy, and balance the nervous system.',
-    image: pranayamaImg,
-    link: '/classes/beginner',
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790489506/vimoksha-yogshala/content/u1bjllra0bimcv2ocb3r.png',
+    link: '/classes/advance',
   },
 ];
 
@@ -63,46 +63,46 @@ const therapyItems = [
     title: 'Yoga Therapy',
     description:
       'Therapeutic yoga sessions for stress relief, anxiety management, and holistic healing of mind and body.',
-    image: yogaTherapyImg,
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790421800/vimoksha-yogshala/content/zvc7htx1zhbhky8xgva7.png',
     link: '/therapies',
   },
   {
-    title: 'Acupressure',
+    title: 'Naturopathy',
     description:
       'Ancient healing technique applying pressure to specific points to relieve pain, reduce tension, and improve circulation.',
-    image: acupressureImg,
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790421880/vimoksha-yogshala/content/k8bii3qndxaibpwwohtx.jpg',
     link: '/therapies',
   },
   {
-    title: 'Cupping Therapy',
+    title: 'Acupressure/Cupping Therapy',
     description:
       'Traditional therapy using suction cups to stimulate healing, reduce pain, and improve overall wellness.',
-    image: cuppingImg,
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790422064/vimoksha-yogshala/content/tjerlim0vdt0aanbjqxw.jpg',
     link: '/therapies',
   },
 ];
 
 const trainingItems = [
   {
-    title: 'Personalized Alignment',
+    title: '200 Hour Yoga Teacher Training',
     description:
       'One-on-one posture correction and hands-on adjustment so every trainee develops safe, precise alignment before teaching others.',
-    image: trainingPersonalizedImg,
-    link: '/courses',
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790421414/vimoksha-yogshala/content/cmdv1hmwcpdysarap8lb.jpg',
+    link: '/teacher-training/200-hour',
   },
   {
-    title: 'Group Practice Sessions',
+    title: '300 Hour Yoga Teacher Training',
     description:
       'Train alongside a supportive cohort in guided group sessions that build the confidence to lead a full class.',
-    image: trainingGroupImg,
-    link: '/courses',
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790421501/vimoksha-yogshala/content/tympfunxysr3rchuhxzq.jpg',
+    link: '/teacher-training/300-hour',
   },
   {
-    title: 'Hands-on Teaching Practicum',
+    title: 'Special Aerial Yoga',
     description:
       'Practice real adjustments and cueing under supervision, turning classroom theory into confident, hands-on teaching skill.',
-    image: trainingPracticumImg,
-    link: '/courses',
+    image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790422391/vimoksha-yogshala/content/jh8x2mxiscn2mpxyjgod.jpg',
+    link: '/teacher-training/50-hour-aerial',
   },
 ];
 

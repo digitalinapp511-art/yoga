@@ -68,7 +68,7 @@ const whyUsFallback = {
   heading: 'Why Choose *Vimoksha Yogshala*?',
   subheading: 'WHY CHOOSE VIMOKSHA YOGSHALA',
   description: 'Discover Balance, Strength, and Serenity',
-  image: '/images/why-choose-man.jpg',
+  image: 'https://res.cloudinary.com/deenyrgo9/image/upload/v1790417676/vimoksha-yogshala/content/h1o7ibvkaxptrzbtasqg.png',
   items: whyUsFallbackItems,
 };
 
