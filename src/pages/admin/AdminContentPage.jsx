@@ -14,11 +14,13 @@ import {
   LuPlus,
   LuTrash2,
   LuCompass,
+  LuBookOpen,
 } from 'react-icons/lu';
 
 const sections = [
   // Homepage Sections
   { key: 'hero', label: 'Home: Hero', icon: LuHouse },
+  { key: 'philosophy', label: 'Home: Our Philosophy', icon: LuBookOpen },
   { key: 'whyUs', label: 'Home: Why Choose Us', icon: LuSparkles },
   { key: 'pathways', label: 'Home: Pathways', icon: LuCompass },
   { key: 'classes', label: 'Home: Classes Cards', icon: LuUsers },
@@ -112,6 +114,7 @@ const GALLERY_CATEGORY_OPTIONS = [
 // Sections with a single admin-editable top/center image
 const SECTIONS_WITH_IMAGE = [
   'hero',
+  'philosophy',
   'faq',
   'whyUs',
   'about',
@@ -385,6 +388,8 @@ export default function AdminContentPage() {
               <label className={labelClass}>
                 {active === 'faq'
                   ? 'FAQ Photo'
+                  : active === 'philosophy'
+                  ? 'Our Philosophy Left Photo (Yogacharya / Studio)'
                   : active === 'whyUs'
                   ? 'Center Feature Photo (Main Image)'
                   : active === 'about'
@@ -414,7 +419,7 @@ export default function AdminContentPage() {
             </div>
           )}
 
-          {['hero', 'whyUs', 'about', 'therapiesPage', 'ttcPage', 'classesPage'].includes(active) && (
+          {['hero', 'philosophy', 'whyUs', 'about', 'therapiesPage', 'ttcPage', 'classesPage'].includes(active) && (
             <>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>

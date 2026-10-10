@@ -3,6 +3,7 @@ import SiteContent from '../models/SiteContent.js';
 
 const SECTIONS = [
   'hero',
+  'philosophy',
   'training',
   'therapy',
   'classes',
